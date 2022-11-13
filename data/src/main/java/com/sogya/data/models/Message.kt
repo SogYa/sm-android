@@ -1,4 +1,4 @@
-package ru.sogya.projects.smartrevolutionapp.data.network.entity
+package com.sogya.data.models
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,12 +1,10 @@
-package ru.sogya.projects.smartrevolutionapp.data.network
+package com.sogya.data.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
-import ru.sogya.projects.smartrevolutionapp.BuildConfig
-import ru.sogya.projects.smartrevolutionapp.data.network.api.HomeAssistantApi
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
@@ -59,11 +57,11 @@ object NetworkService {
                 .readTimeout(readTimeoutInSec.toLong(), TimeUnit.SECONDS)
                 .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
                 .hostnameVerifier { hostname, session -> true }
-            if (BuildConfig.BUILD_TYPE != "release") {
-                val interceptor = HttpLoggingInterceptor()
-                interceptor.level = HttpLoggingInterceptor.Level.BODY
-                builder.addInterceptor(interceptor)
-            }
+
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            builder.addInterceptor(interceptor)
+
             return builder.build()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -72,12 +70,13 @@ object NetworkService {
     }
 
 
-    fun getretrofitService(baseUri: String): HomeAssistantApi {
+    fun getRetrofitService(baseUri: String): HomeAssistantApi {
 
 
         return Retrofit.Builder()
             .baseUrl(baseUri)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(getOkHttpClientInstance(30))
             .build()
             .create(HomeAssistantApi::class.java)
