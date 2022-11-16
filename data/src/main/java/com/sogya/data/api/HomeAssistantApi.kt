@@ -3,9 +3,10 @@ package com.sogya.data.api
 
 import com.sogya.domain.models.Message
 import com.sogya.data.models.State
+import com.sogya.domain.models.TokenInfo
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Header
+import okhttp3.HttpUrl
+import retrofit2.http.*
 
 interface HomeAssistantApi {
 
@@ -15,4 +16,11 @@ interface HomeAssistantApi {
     @GET("/api/states")
     fun getApiStates(@Header("Authorization") token: String): Single<List<State>>
 
+    @FormUrlEncoded
+    @POST("/auth/token")
+     fun getApiToken(
+        @Field("grant_type") grandType: String,
+        @Field("code") code: String,
+        @Field("client_id") clientId: String
+    ): Single<TokenInfo>
 }
