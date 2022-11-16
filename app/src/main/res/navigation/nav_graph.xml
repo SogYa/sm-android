@@ -2,16 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/authorizationFragment">
+    app:startDestination="@id/homeFragment">
 
-    <fragment
-        android:id="@+id/authorizationFragment"
-        android:name="ru.sogya.projects.smartrevolutionapp.screens.authorization.AuthorizationFragment"
-        android:label="AuthorizationFragment" >
-        <action
-            android:id="@+id/action_authorizationFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.home.HomeFragment"
