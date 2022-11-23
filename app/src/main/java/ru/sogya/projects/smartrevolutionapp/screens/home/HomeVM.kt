@@ -17,7 +17,7 @@ class HomeVM : ViewModel() {
     private val repository = NetworkRepositoryImpl()
     private val getMessageUseCase = GetMessageUseCase(repository)
 
-    fun getMessage() {
+    init {
         getMessageUseCase.invoke(
             SPControl.getIstance().getStringPrefs(Constants.URI),
             "Bearer ${SPControl.getIstance().getStringPrefs(Constants.AUTH_TOKEN)}"
@@ -36,6 +36,6 @@ class HomeVM : ViewModel() {
     }
 
     fun logOut() {
-        SPControl.getIstance().updatePrefs(Constants.AUTH_TOKEN, " ")
+        SPControl.getIstance().updatePrefs(Constants.AUTH_TOKEN, "")
     }
 }

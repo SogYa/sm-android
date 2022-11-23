@@ -34,7 +34,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onStart() {
         super.onStart()
-        vm.getMessage()
         vm.messageLiveData.observe(viewLifecycleOwner) {
             binding.textView.text = it
         }
