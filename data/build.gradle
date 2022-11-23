@@ -5,11 +5,12 @@ plugins {
 
 android {
     namespace 'com.sogya.data'
-    compileSdk 32
+    compileSdk 33
+
 
     defaultConfig {
         minSdk 28
-        targetSdk 32
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -31,8 +32,10 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':domain')
 
     implementation 'androidx.core:core-ktx:1.9.0'
+    // implementation 'net.openid:appauth:0.11.1'
     //Retrofit 2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
@@ -40,13 +43,9 @@ dependencies {
     //OkHttp
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
-    implementation project(path: ':domain')
-
     //RxJava2
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
-
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
