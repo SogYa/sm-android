@@ -1,4 +1,4 @@
-package com.sogya.data.api
+package com.sogya.data.network.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

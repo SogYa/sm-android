@@ -1,4 +1,4 @@
-package com.sogya.data.api
+package com.sogya.data.network.api
 
 
 import com.sogya.domain.models.Message
