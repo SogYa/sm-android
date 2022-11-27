@@ -27,6 +27,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         setupNavigation()
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.authFragment -> supportActionBar?.hide()
+                else -> supportActionBar?.show()
+            }
+        }
     }
 
 
@@ -42,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         baseUrl.text =
             SPControl.getIstance().getStringPrefs(Constants.URI)
         baseUrl.isSelected = true
-
     }
+
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
