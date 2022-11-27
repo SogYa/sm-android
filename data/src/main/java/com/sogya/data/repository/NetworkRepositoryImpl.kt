@@ -1,6 +1,6 @@
 package com.sogya.data.repository
 
-import com.sogya.data.api.NetworkService
+import com.sogya.data.network.api.NetworkService
 import com.sogya.domain.models.Message
 import com.sogya.domain.models.TokenInfo
 import com.sogya.domain.repository.NetworkRepository
