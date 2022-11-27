@@ -3,7 +3,8 @@
     <item android:drawable="@color/design_default_color_on_primary" />
     <item
         android:width="200dp"
-        android:height="200dp"
-        android:drawable="@mipmap/ic_launcher"
-        android:gravity="center" />
+        android:height="250dp"
+        android:drawable="@drawable/ic_logo"
+        android:gravity="center">
+    </item>
 </layer-list>
