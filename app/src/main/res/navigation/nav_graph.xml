@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
     <fragment
         android:id="@+id/authFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.authariztion.AuthFragment"
