@@ -46,7 +46,7 @@ class SPControl {
 
     //Получение объектов из префов
     fun getStringPrefs(strName: String): String {
-        return appPrefs.getString(strName, " ").toString()
+        return appPrefs.getString(strName, "").toString()
     }
 
     fun getBoolPrefs(strName: String): Boolean {
