@@ -27,7 +27,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
             vm.logOut()
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_homeFragment_to_authFragment)
         }
 
     }
@@ -38,5 +38,4 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.textView.text = it
         }
     }
-
 }
