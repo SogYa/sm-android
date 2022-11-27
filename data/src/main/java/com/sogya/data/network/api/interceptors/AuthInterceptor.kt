@@ -1,4 +1,4 @@
-package com.sogya.data.api.interceptors
+package com.sogya.data.network.api.interceptors
 
 import okhttp3.Interceptor
 import okhttp3.Response
