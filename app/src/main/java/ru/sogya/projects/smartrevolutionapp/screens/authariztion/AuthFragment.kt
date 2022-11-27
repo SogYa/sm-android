@@ -1,5 +1,6 @@
 package ru.sogya.projects.smartrevolutionapp.screens.authariztion
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,7 +29,7 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentWebViewBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -46,7 +47,7 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
             }
             val redirectUri = "${uri.replace(" https ://", Constants.REDIRECT_URI)}/auth_callback"
 
-            binding.logInWebView.visibility = VISIBLE
+
             binding.loginConstraint.visibility = GONE
 
             binding.logInWebView.settings.javaScriptEnabled = true
@@ -55,7 +56,22 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                         "client_id=$uri" +
                         "&redirect_uri=${redirectUri}"
             )
+
             binding.logInWebView.webViewClient = object : WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
+                    binding.loadingConstraint.visibility = VISIBLE
+                }
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    binding.loadingConstraint.visibility = GONE
+                    binding.webViewConstarint.visibility = VISIBLE
+                    binding.logInWebView.loadUrl(
+                        "javascript:(function() { " + "document.getElementsByTagName('div')[1].style.visibility = 'hidden';  " +
+                                "})()"
+                    )
+                }
+
                 override fun shouldOverrideUrlLoading(
                     view: WebView?,
                     request: WebResourceRequest?
@@ -63,7 +79,6 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                     request?.let {
                         if (request.url.toString().startsWith("${uri}/auth_callback")) {
                             request.url.getQueryParameter("code")?.let {
-                                binding.loadingConstraint.visibility = VISIBLE
                                 vm.getToken(uri, it, object : myCallBack<Boolean> {
                                     override fun data(t: Boolean) {
                                         Toast.makeText(
