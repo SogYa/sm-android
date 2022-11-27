@@ -20,4 +20,13 @@
         </item>
         <item name="colorPrimaryDark">@android:color/white</item>
     </style>
+
+    <style name="Theme.SmartRevolutionApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SmartRevolutionApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SmartRevolutionApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
