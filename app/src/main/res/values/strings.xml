@@ -2,7 +2,6 @@
     <string name="app_name">SmartRevolutionApp</string>
     <string name="auth_succes">Authorization success</string>
     <string name="auth_failed">Authorization failed</string>
-    <string name="title_activity_main1">MainActivity1</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -16,4 +15,6 @@
     <string name="menu_item_dashboard">Dashboard</string>
     <string name="header">Smart Revolution</string>
     <string name="header_url" />
+    <string name="menu_log_out">Log out</string>
+    <string name="desc_logo">Logo</string>
 </resources>
