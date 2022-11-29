@@ -1,23 +1,28 @@
 package ru.sogya.projects.smartrevolutionapp.screens
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View.*
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.sogya.data.utils.Constants
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.ActivityMainBinding
+import ru.sogya.projects.smartrevolutionapp.dialogs.LogOutDialogFragment
 import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentListener {
     private lateinit var appBarConfig: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
     private lateinit var baseUrl: TextView
+    private val vm: MainVM by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +34,21 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.authFragment -> supportActionBar?.hide()
+                R.id.authFragment -> {
+                    supportActionBar?.hide()
+                    binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                }
                 else -> supportActionBar?.show()
             }
+        }
+        binding.navView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menu_logout -> {
+                    LogOutDialogFragment().show(supportFragmentManager, "LogOutDialog")
+
+                }
+            }
+            true
         }
     }
 
@@ -62,4 +79,11 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
     }
+
+    override fun positiveButtonClicked() {
+        vm.logOut()
+        binding.drawerLayout.close()
+        navController.navigate(R.id.action_homeFragment_to_authFragment)
+    }
+
 }

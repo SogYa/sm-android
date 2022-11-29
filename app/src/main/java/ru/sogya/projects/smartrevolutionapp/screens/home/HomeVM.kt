@@ -34,8 +34,4 @@ class HomeVM : ViewModel() {
 
             })
     }
-
-    fun logOut() {
-        SPControl.getIstance().updatePrefs(Constants.AUTH_TOKEN, "")
-    }
 }
