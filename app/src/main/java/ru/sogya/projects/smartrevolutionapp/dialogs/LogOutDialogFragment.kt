@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import ru.sogya.projects.smartrevolutionapp.R
 
 class LogOutDialogFragment : DialogFragment() {
     interface DialogFragmentListener {
@@ -24,7 +25,9 @@ class LogOutDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(requireContext())
-            .setMessage("Вo you really want to log out")
+            .setTitle("Log out")
+            .setIcon(R.drawable.ic_baseline_logout_24)
+            .setMessage("Do you really want to log out")
             .setPositiveButton("Yes") { _, _ ->
                 listenner.positiveButtonClicked()
             }
