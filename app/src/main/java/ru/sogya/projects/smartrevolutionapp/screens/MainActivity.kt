@@ -1,7 +1,7 @@
 package ru.sogya.projects.smartrevolutionapp.screens
 
 import android.os.Bundle
-import android.view.Gravity
+import android.view.MenuItem
 import android.view.View.*
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_SplashScreen)
+        setTheme(R.style.Theme_SmartRevolutionApp)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         binding.navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_logout -> {
+                    binding.drawerLayout.close()
                     LogOutDialogFragment().show(supportFragmentManager, "LogOutDialog")
 
                 }
@@ -57,13 +58,16 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
-        appBarConfig = AppBarConfiguration(setOf(R.id.homeFragment), binding.drawerLayout)
+        appBarConfig = AppBarConfiguration(
+            setOf(R.id.homeFragment, R.id.settingsFragment),
+            binding.drawerLayout
+        )
         setupActionBarWithNavController(navController, appBarConfig)
         binding.navView.setupWithNavController(navController)
         //Передача URL в текст заголовка меню
         baseUrl = binding.navView.getHeaderView(0).findViewById(R.id.baseUrl)
         baseUrl.text =
-            SPControl.getIstance().getStringPrefs(Constants.URI)
+            SPControl.getInstance().getStringPrefs(Constants.URI)
         baseUrl.isSelected = true
     }
 
@@ -82,8 +86,10 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
 
     override fun positiveButtonClicked() {
         vm.logOut()
-        binding.drawerLayout.close()
         navController.navigate(R.id.action_homeFragment_to_authFragment)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
 }
