@@ -41,18 +41,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
                 else -> supportActionBar?.show()
             }
         }
-        binding.navView.setNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.menu_logout -> {
-                    binding.drawerLayout.close()
-                    LogOutDialogFragment().show(supportFragmentManager, "LogOutDialog")
-
-                }
-            }
-            true
-        }
     }
-
 
     private fun setupNavigation() {
         navHostFragment =
