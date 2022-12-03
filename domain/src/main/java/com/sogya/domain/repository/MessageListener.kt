@@ -1,4 +1,4 @@
-package com.sogya.data.network.websocket
+package com.sogya.domain.repository
 
 interface MessageListener {
     fun  onConnectSuccess () // successfully connected
