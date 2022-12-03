@@ -18,20 +18,22 @@ class HomeVM : ViewModel() {
     private val getMessageUseCase = GetMessageUseCase(repository)
 
     init {
-        getMessageUseCase.invoke(
-            SPControl.getIstance().getStringPrefs(Constants.URI),
-            "Bearer ${SPControl.getIstance().getStringPrefs(Constants.AUTH_TOKEN)}"
-        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<Message>() {
-                override fun onSuccess(t: Message) {
-                    messageLiveData.value = t.message
+        if (!SPControl.getInstance().getBoolPrefs(Constants.TEST_MODE)){
+            getMessageUseCase.invoke(
+                SPControl.getInstance().getStringPrefs(Constants.URI),
+                "Bearer ${SPControl.getInstance().getStringPrefs(Constants.AUTH_TOKEN)}"
+            ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : DisposableSingleObserver<Message>() {
+                    override fun onSuccess(t: Message) {
+                        messageLiveData.value = t.message
 
-                }
+                    }
 
-                override fun onError(e: Throwable) {
-                    Log.d("HOME_ERROR", e.message.toString())
-                }
+                    override fun onError(e: Throwable) {
+                        Log.d("HOME_ERROR", e.message.toString())
+                    }
 
-            })
+                })
     }
+}
 }
