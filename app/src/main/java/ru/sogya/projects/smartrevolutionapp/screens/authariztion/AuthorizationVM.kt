@@ -1,7 +1,11 @@
 package ru.sogya.projects.smartrevolutionapp.screens.authariztion
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sogya.data.models.requests.AuthMessage
+import com.sogya.data.network.websocket.HasWebSocket
+import com.sogya.data.network.websocket.MessageListener
 import com.sogya.data.repository.NetworkRepositoryImpl
 import com.sogya.data.utils.Constants
 import com.sogya.data.utils.myCallBack
@@ -10,12 +14,23 @@ import com.sogya.domain.usecases.GetTokenUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import org.json.JSONObject
 import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
+import kotlin.concurrent.thread
 
 
-class AuthorizationVM : ViewModel() {
+class AuthorizationVM : ViewModel(), MessageListener {
     private val repository = NetworkRepositoryImpl()
     private val getTokenUseCase = GetTokenUseCase(repository)
+    private lateinit var token: String
+
+    companion object {
+        const val VISIBLE = 0
+        const val GONE = 8
+    }
+
+    val loadScreenLiveData = MutableLiveData<Int>()
+    val navigationLiveData = MutableLiveData<Boolean>()
 
 
     fun getToken(baseUri: String, authCode: String, myCallBack: myCallBack<Boolean>) {
@@ -24,8 +39,14 @@ class AuthorizationVM : ViewModel() {
             .subscribe(object : DisposableSingleObserver<TokenInfo>() {
                 override fun onSuccess(t: TokenInfo) {
                     Log.d("TOKEN", t.access_token)
-                    SPControl.getIstance().updatePrefs(Constants.URI, baseUri)
-                    SPControl.getIstance().updatePrefs(Constants.AUTH_TOKEN, t.access_token)
+                    SPControl.getInstance().updatePrefs(Constants.URI, baseUri)
+                    token = t.access_token
+                    thread {
+                        kotlin.run {
+                            HasWebSocket.init("${baseUri}/api/websocket", this@AuthorizationVM)
+                        }
+                    }
+                    loadScreenLiveData.postValue(VISIBLE)
                     myCallBack.data(true)
                 }
 
@@ -35,4 +56,44 @@ class AuthorizationVM : ViewModel() {
                 }
             })
     }
+
+    fun startTestMode() {
+        SPControl.getInstance().updatePrefs(Constants.TEST_MODE, true)
+    }
+
+    fun getPermanentToken() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onConnectSuccess() {
+        Log.d("WEBSUCCES", "Connected")
+        loadScreenLiveData.postValue(VISIBLE)
+        HasWebSocket.sendAuthMessage(
+            AuthMessage(
+                token = token
+            )
+        )
+    }
+
+    override fun onConnectFailed() {
+        Log.d("", "Connection Failed")
+    }
+
+    override fun onClose() {
+        Log.d("WEBSOCKETCLOSE", "Closed")
+    }
+
+    override fun onMessage(text: String?) {
+        Log.d("WEBM", text.toString())
+        val result = JSONObject(text.toString())
+        if (result.get("type") == "auth_ok") {
+            HasWebSocket.sendCreateTokenMessage()
+        } else if (result.get("type") == "result") {
+            SPControl.getInstance()
+                .updatePrefs(Constants.AUTH_TOKEN, result.get("result").toString())
+            loadScreenLiveData.postValue(GONE)
+        }
+    }
+
+
 }

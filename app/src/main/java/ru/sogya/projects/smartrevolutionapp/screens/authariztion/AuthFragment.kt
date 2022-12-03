@@ -45,8 +45,19 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                 binding.editTextUri.setText(uri)
 
             }
+            //ПЕРЕХОД В ТЕСТВОЫЙ РЕЖИМ
+            if (uri == "test") {
+                vm.startTestMode()
+                findNavController().navigate(R.id.action_authFragment_to_homeFragment)
+            }
             val redirectUri = "${uri.replace(" https ://", Constants.REDIRECT_URI)}/auth_callback"
 
+            vm.loadScreenLiveData.observe(viewLifecycleOwner) {
+                binding.loadingConstraint.visibility = it
+            }
+            vm.navigationLiveData.observe(viewLifecycleOwner) {
+                if (it) findNavController().navigate(R.id.action_authFragment_to_homeFragment)
+            }
 
             binding.loginConstraint.visibility = GONE
 
@@ -62,6 +73,7 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                     super.onPageStarted(view, url, favicon)
                     binding.loadingConstraint.visibility = VISIBLE
                 }
+
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
                     binding.loadingConstraint.visibility = GONE
@@ -86,7 +98,6 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                                             getString(R.string.auth_succes),
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                        findNavController().navigate(R.id.action_authFragment_to_homeFragment)
                                     }
 
                                     override fun error() {
