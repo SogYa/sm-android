@@ -1,31 +1,37 @@
-package com.sogya.data.network.websocket
+package com.sogya.data.repository
 
 import android.util.Log
 import com.google.gson.Gson
-import com.sogya.data.models.requests.AuthMessage
-import com.sogya.data.models.requests.LongLivedRequest
+import com.sogya.domain.repository.MessageListener
+import com.sogya.domain.repository.WebSocketRepository
 import okhttp3.*
 import okio.ByteString
 import java.util.concurrent.TimeUnit
 
 
-object HasWebSocket {
-    private val TAG = HasWebSocket::class.java.simpleName
-    private const val MAX_NUM = 5  // Maximum number of reconnections
-    private const val MILLIS = 5000  // Reconnection interval, milliseconds
+class WebSocketRepositoryImpl : WebSocketRepository {
+
+
+    companion object {
+        private const val MAX_NUM = 5  // Maximum number of reconnections
+        private const val MILLIS = 5000  // Reconnection interval, milliseconds
+        private val TAG = WebSocketRepositoryImpl::class.java.simpleName
+    }
+
     private lateinit var client: OkHttpClient
     private lateinit var request: Request
     private lateinit var messageListener: MessageListener
     private lateinit var mWebSocket: WebSocket
     private var isConnect = false
     private var connectNum = 0
-    fun init(url: String, _messageListener: MessageListener) {
+
+    override fun init(baseUrl: String, _messageListener: MessageListener) {
         client = OkHttpClient.Builder()
             .writeTimeout(5, TimeUnit.SECONDS)
             .readTimeout(5, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
             .build()
-        request = Request.Builder().url(url).build()
+        request = Request.Builder().url(baseUrl).build()
         messageListener = _messageListener
         connect()
     }
@@ -33,7 +39,7 @@ object HasWebSocket {
     /**
      * connect
      */
-    private fun connect() {
+     private fun connect() {
         if (isConnect()) {
             Log.i(TAG, "web socket connected")
             return
@@ -41,7 +47,7 @@ object HasWebSocket {
         client.newWebSocket(request, createListener())
     }
 
-    private fun disconnect(): Boolean {
+     private fun disconnect(): Boolean {
 
         Log.d(TAG, "disconnect: called")
         isConnect = false
@@ -56,7 +62,7 @@ object HasWebSocket {
     /**
      * Reconnection
      */
-    fun reconnect() {
+     private fun reconnect() {
         if (connectNum <= MAX_NUM) {
             try {
                 Thread.sleep(MILLIS.toLong())
@@ -83,38 +89,17 @@ object HasWebSocket {
     /**
      * send messages
      *
-     * @param text string
+     * @param
      * @return boolean
      */
-    fun sendMessage(text: String): Boolean {
-        return if (!isConnect()) false else mWebSocket.send(text)
-    }
-
-    fun sendAuthMessage(authMessage: AuthMessage): Boolean {
-        Log.d(TAG, "Message send")
-        return if (!isConnect) false else mWebSocket.send(
-            Gson().toJson(authMessage)
-        )
-    }
-
-    fun sendCreateTokenMessage(): Boolean {
-        return if (!isConnect) false else mWebSocket.send(Gson().toJson(LongLivedRequest()))
-    }
-
-    /**
-     * send messages
-     *
-     * @param byteString character set
-     * @return boolean
-     */
-    fun sendMessage(byteString: ByteString): Boolean {
-        return if (!isConnect()) false else mWebSocket.send(byteString)
+    override fun sendMessage(message: Any): Boolean {
+        return if (!isConnect()) false else mWebSocket.send(Gson().toJson(message))
     }
 
     /**
      * Close connection
      */
-    fun close() {
+    override fun close() {
         if (isConnect()) {
             mWebSocket.cancel()
             mWebSocket.close(1001, "The client actively closes the connection ")

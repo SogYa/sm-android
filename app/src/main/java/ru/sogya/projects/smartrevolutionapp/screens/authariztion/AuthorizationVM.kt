@@ -4,13 +4,16 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.data.models.requests.AuthMessage
-import com.sogya.data.network.websocket.HasWebSocket
-import com.sogya.data.network.websocket.MessageListener
+import com.sogya.data.models.requests.LongLivedRequest
 import com.sogya.data.repository.NetworkRepositoryImpl
+import com.sogya.data.repository.WebSocketRepositoryImpl
 import com.sogya.data.utils.Constants
 import com.sogya.data.utils.myCallBack
 import com.sogya.domain.models.TokenInfo
+import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.usecases.GetTokenUseCase
+import com.sogya.domain.usecases.websocketus.InitUseCase
+import com.sogya.domain.usecases.websocketus.SendMessageUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
@@ -20,8 +23,11 @@ import kotlin.concurrent.thread
 
 
 class AuthorizationVM : ViewModel(), MessageListener {
-    private val repository = NetworkRepositoryImpl()
-    private val getTokenUseCase = GetTokenUseCase(repository)
+    private val networkRepository = NetworkRepositoryImpl()
+    private val webSocketRepository = WebSocketRepositoryImpl()
+    private val getTokenUseCase = GetTokenUseCase(networkRepository)
+    private val initUseCase = InitUseCase(webSocketRepository)
+    private val sendMessageUseCase = SendMessageUseCase(webSocketRepository)
     private lateinit var token: String
 
     companion object {
@@ -43,7 +49,10 @@ class AuthorizationVM : ViewModel(), MessageListener {
                     token = t.access_token
                     thread {
                         kotlin.run {
-                            HasWebSocket.init("${baseUri}/api/websocket", this@AuthorizationVM)
+                            initUseCase.invoke(
+                                "${baseUri}/api/websocket",
+                                this@AuthorizationVM
+                            )
                         }
                     }
                     loadScreenLiveData.postValue(VISIBLE)
@@ -61,14 +70,10 @@ class AuthorizationVM : ViewModel(), MessageListener {
         SPControl.getInstance().updatePrefs(Constants.TEST_MODE, true)
     }
 
-    fun getPermanentToken() {
-        TODO("Not yet implemented")
-    }
-
     override fun onConnectSuccess() {
         Log.d("WEBSUCCES", "Connected")
         loadScreenLiveData.postValue(VISIBLE)
-        HasWebSocket.sendAuthMessage(
+        sendMessageUseCase.invoke(
             AuthMessage(
                 token = token
             )
@@ -87,7 +92,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
         Log.d("WEBM", text.toString())
         val result = JSONObject(text.toString())
         if (result.get("type") == "auth_ok") {
-            HasWebSocket.sendCreateTokenMessage()
+            sendMessageUseCase.invoke(LongLivedRequest())
         } else if (result.get("type") == "result") {
             SPControl.getInstance()
                 .updatePrefs(Constants.AUTH_TOKEN, result.get("result").toString())
