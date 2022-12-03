@@ -80,7 +80,7 @@ class SPControl {
         private const val APP_PREFS_NAME = "appPrefsName"
 
         //Класс который описывает управление префами - получить префы, обновить префы
-        fun getIstance(): SPControl {
+        fun getInstance(): SPControl {
             return SPControl()
         }
     }
