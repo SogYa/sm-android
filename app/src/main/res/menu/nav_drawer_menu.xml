@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/homeFragment"
-            android:icon="@drawable/ic_baseline_dashboard_24"
-            android:title="@string/menu_item_dashboard" />
-        <item
-
-            android:icon="@drawable/ic_baseline_settings_24"
-            android:title="@string/menu_item_settings" />
-        <item
-
-            android:icon="@drawable/ic_baseline_info_24"
-            android:title="@string/menu_item_about" />
-        <item
-
-            android:icon="@drawable/ic_baseline_contact_support_24"
-            android:title="@string/menu_item_contacts" />
-    </group>
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_baseline_dashboard_24"
+        android:title="@string/menu_item_dashboard" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/menu_item_settings" />
+    <item
+        android:icon="@drawable/ic_baseline_info_24"
+        android:title="@string/menu_item_about" />
+    <item
+        android:icon="@drawable/ic_baseline_contact_support_24"
+        android:title="@string/menu_item_contacts" />
     <item android:title="@string/menu_item_exit">
         <menu>
             <item
@@ -26,5 +22,4 @@
                 android:title="@string/menu_log_out" />
         </menu>
     </item>
-
 </menu>
