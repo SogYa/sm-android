@@ -21,6 +21,6 @@ class StartVM : ViewModel() {
     fun getNavLiveData() = navigationLiveData
 
     private fun isAuth(): Boolean {
-        return SPControl.getIstance().getStringPrefs(Constants.AUTH_TOKEN).isNotEmpty()
+        return SPControl.getInstance().getStringPrefs(Constants.AUTH_TOKEN).isNotEmpty()
     }
 }
