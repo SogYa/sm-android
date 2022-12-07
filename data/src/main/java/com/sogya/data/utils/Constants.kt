@@ -5,4 +5,6 @@ object Constants {
     const val REDIRECT_URI = "ru.sogya.projects.smartrevolutionapp://"
     const val URI = "uri"
     const val TEST_MODE = "test"
+    const val PREFS_IS_LOCKED = "isLocked"
+    const val PREFS_APPLOCK_PINCODE = "pincode"
 }
