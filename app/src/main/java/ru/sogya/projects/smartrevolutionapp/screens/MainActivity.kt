@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
 
     override fun positiveButtonClicked() {
         vm.logOut()
-        navController.navigate(R.id.action_homeFragment_to_authFragment)
+        navController.navigate(R.id.action_settingsFragment_to_authFragment)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
