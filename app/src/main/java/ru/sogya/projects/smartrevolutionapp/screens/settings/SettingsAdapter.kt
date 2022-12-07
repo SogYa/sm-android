@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.models.Settings
 
-class SettingsAdapter : RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
+class SettingsAdapter(
+    private val onSettingsClickListenner: OnSettingsClickListenner
+) : RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
     private var settings = ArrayList<Settings>()
 
 
@@ -29,9 +31,23 @@ class SettingsAdapter : RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
         val settings: Settings = settings[position]
         holder.labelTextView.text = settings.label
         holder.imageViewSettings.setImageResource(settings.icon)
+        holder.itemView.setOnClickListener {
+            onSettingsClickListenner.onClick(settings)
+        }
+    }
+
+    fun updateSettingsList(buildingArrayList: List<Settings>) {
+        this.settings.clear()
+        notifyItemChanged(1)
+        this.settings.addAll(buildingArrayList)
+        notifyItemRangeChanged(0, settings.size)
     }
 
     override fun getItemCount(): Int {
         return settings.size
+    }
+
+    interface OnSettingsClickListenner {
+        fun onClick(settings: Settings)
     }
 }
