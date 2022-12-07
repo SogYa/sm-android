@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         setupNavigation()
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.authFragment -> {
+                R.id.authFragment, R.id.lockFragment -> {
                     supportActionBar?.hide()
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
