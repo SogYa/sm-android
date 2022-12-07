@@ -10,12 +10,15 @@ class StartVM : ViewModel() {
     private val navigationLiveData = MutableLiveData<Int>()
 
     init {
-
         if (isAuth()) {
-            navigationLiveData.value = R.id.action_startFragment_to_homeFragment
-        } else
+            if (SPControl.getInstance().getBoolPrefs(Constants.PREFS_IS_LOCKED)) {
+                navigationLiveData.value = R.id.action_startFragment_to_lockFragment
+            } else {
+                navigationLiveData.value = R.id.action_startFragment_to_homeFragment
+            }
+        } else {
             navigationLiveData.value = R.id.action_startFragment_to_authFragment
-
+        }
     }
 
     fun getNavLiveData() = navigationLiveData
