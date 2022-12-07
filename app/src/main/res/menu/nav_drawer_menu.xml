@@ -16,12 +16,4 @@
         android:icon="@drawable/ic_baseline_contact_support_24"
         android:title="@string/menu_item_contacts" />
     </group>
-    <item android:title="@string/menu_item_exit">
-        <menu>
-            <item
-                android:id="@+id/menu_logout"
-                android:icon="@drawable/ic_baseline_logout_24"
-                android:title="@string/menu_log_out" />
-        </menu>
-    </item>
 </menu>
