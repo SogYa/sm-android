@@ -97,6 +97,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
             SPControl.getInstance()
                 .updatePrefs(Constants.AUTH_TOKEN, result.get("result").toString())
             loadScreenLiveData.postValue(GONE)
+            navigationLiveData.postValue(true)
         }
     }
 
