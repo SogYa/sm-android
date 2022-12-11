@@ -6,8 +6,8 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="ru.sogya.projects.smartrevolutionapp.screens.home.HomeFragment"
-        android:label="HomeFragment" >
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.home.DashboardFragment"
+        android:label="Dashboard" >
         <action
             android:id="@+id/action_homeFragment_to_authFragment"
             app:destination="@id/authFragment" />
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.settings.SettingsFragment"
-        android:label="SettingsFragment" >
+        android:label="Settings" >
         <action
             android:id="@+id/action_settingsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/appLockFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.settings.applock.AppLockFragment"
-        android:label="AppLockFragment" >
+        android:label="Pin-code locker">
         <action
             android:id="@+id/action_appLockFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
