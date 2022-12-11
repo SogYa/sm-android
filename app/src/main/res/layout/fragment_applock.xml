@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:ems="10"
-            android:inputType="number|textPassword"
+            android:inputType="numberPassword"
             android:maxLength="4"
             android:textSize="18sp" />
 
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:ems="10"
-            android:inputType="number|textPassword"
+            android:inputType="numberPassword"
             android:maxLength="4"
             android:textSize="18sp" />
     </LinearLayout>
