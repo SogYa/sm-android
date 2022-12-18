@@ -1,9 +1,14 @@
 package ru.sogya.projects.smartrevolutionapp.dialogs
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import androidx.fragment.app.DialogFragment
 import ru.sogya.projects.smartrevolutionapp.R
 
@@ -23,17 +28,27 @@ class LogOutDialogFragment : DialogFragment() {
         }
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(requireContext())
-            .setTitle("Log out")
-            .setIcon(R.drawable.ic_baseline_logout_24)
-            .setMessage("Do you really want to log out")
-            .setPositiveButton("Yes") { _, _ ->
-                listenner.positiveButtonClicked()
-            }
-            .setNegativeButton("No") { _, _ ->
-                dismiss()
-            }
-            .create()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        if (dialog != null && dialog?.window !=null)
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+
+        return inflater.inflate(R.layout.dialog_log_out, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val positiveButton: Button = view.findViewById(R.id.positive)
+        val negativeButton: Button = view.findViewById(R.id.negative)
+        positiveButton.setOnClickListener {
+            listenner.positiveButtonClicked()
+        }
+        negativeButton.setOnClickListener {
+            dismiss()
+        }
     }
 }
