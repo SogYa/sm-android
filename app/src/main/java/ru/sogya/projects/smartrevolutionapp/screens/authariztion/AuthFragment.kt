@@ -12,9 +12,11 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.sogya.data.utils.Constants
 import com.sogya.data.utils.myCallBack
 import ru.sogya.projects.smartrevolutionapp.R
@@ -26,9 +28,7 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
     private val vm: AuthorizationVM by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentWebViewBinding.inflate(inflater, container, false)
         return binding.root
@@ -56,16 +56,22 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                 binding.loadingConstraint.visibility = it
             }
             vm.navigationLiveData.observe(viewLifecycleOwner) {
-                if (it) findNavController().navigate(R.id.action_authFragment_to_homeFragment)
+                if (it) findNavController().navigate(
+                    R.id.action_authFragment_to_homeFragment,
+                    bundleOf(),
+                    navOptions {
+                        launchSingleTop = true
+                        popUpTo(R.id.nav_graph) {
+                            inclusive = true
+                        }
+                    })
             }
 
             binding.loginConstraint.visibility = GONE
 
             binding.logInWebView.settings.javaScriptEnabled = true
             binding.logInWebView.loadUrl(
-                "$uri/auth/authorize?" +
-                        "client_id=$uri" +
-                        "&redirect_uri=${redirectUri}"
+                "$uri/auth/authorize?" + "client_id=$uri" + "&redirect_uri=${redirectUri}"
             )
 
             binding.logInWebView.webViewClient = object : WebViewClient() {
@@ -79,14 +85,12 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                     binding.loadingConstraint.visibility = GONE
                     binding.webViewConstarint.visibility = VISIBLE
                     binding.logInWebView.loadUrl(
-                        "javascript:(function() { " + "document.getElementsByTagName('div')[1].style.visibility = 'hidden';  " +
-                                "})()"
+                        "javascript:(function() { " + "document.getElementsByTagName('div')[1].style.visibility = 'hidden';  " + "})()"
                     )
                 }
 
                 override fun shouldOverrideUrlLoading(
-                    view: WebView?,
-                    request: WebResourceRequest?
+                    view: WebView?, request: WebResourceRequest?
                 ): Boolean {
                     request?.let {
                         if (request.url.toString().startsWith("${uri}/auth_callback")) {

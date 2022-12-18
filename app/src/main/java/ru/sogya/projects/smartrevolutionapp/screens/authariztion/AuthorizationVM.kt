@@ -19,6 +19,7 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
+import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 import kotlin.concurrent.thread
 
 
@@ -29,11 +30,6 @@ class AuthorizationVM : ViewModel(), MessageListener {
     private val initUseCase = InitUseCase(webSocketRepository)
     private val sendMessageUseCase = SendMessageUseCase(webSocketRepository)
     private lateinit var token: String
-
-    companion object {
-        const val VISIBLE = 0
-        const val GONE = 8
-    }
 
     val loadScreenLiveData = MutableLiveData<Int>()
     val navigationLiveData = MutableLiveData<Boolean>()
@@ -55,7 +51,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
                             )
                         }
                     }
-                    loadScreenLiveData.postValue(VISIBLE)
+                    loadScreenLiveData.postValue(VisibilityStates.VISIBLE.visibility)
                     myCallBack.data(true)
                 }
 
@@ -72,7 +68,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
 
     override fun onConnectSuccess() {
         Log.d("WEBSUCCES", "Connected")
-        loadScreenLiveData.postValue(VISIBLE)
+        loadScreenLiveData.postValue(VisibilityStates.VISIBLE.visibility)
         sendMessageUseCase.invoke(
             AuthMessage(
                 token = token
@@ -96,8 +92,9 @@ class AuthorizationVM : ViewModel(), MessageListener {
         } else if (result.get("type") == "result") {
             SPControl.getInstance()
                 .updatePrefs(Constants.AUTH_TOKEN, result.get("result").toString())
-            loadScreenLiveData.postValue(GONE)
+            loadScreenLiveData.postValue(VisibilityStates.GONE.visibility)
             navigationLiveData.postValue(true)
+            webSocketRepository.close()
         }
     }
 
