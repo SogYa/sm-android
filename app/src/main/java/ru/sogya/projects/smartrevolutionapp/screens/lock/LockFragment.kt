@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.sogya.data.utils.myCallBack
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentLockBinding
@@ -39,8 +41,16 @@ class LockFragment : Fragment(R.layout.fragment_lock) {
                 pin = binding.lockerPincodeEditText.text.toString()
                 vm.checkPin(pin, object : myCallBack<Boolean> {
                     override fun data(t: Boolean) {
+                        binding.imageViewLocker.setImageResource(R.drawable.ic_baseline_lock_open_24)
                         Toast.makeText(context, "Access granted", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_lockFragment_to_homeFragment)
+                        findNavController().navigate(
+                            R.id.action_lockFragment_to_homeFragment, bundleOf(),
+                            navOptions {
+                                launchSingleTop = true
+                                popUpTo(R.id.nav_graph) {
+                                    inclusive = true
+                                }
+                            })
                         handled = true
                     }
 
