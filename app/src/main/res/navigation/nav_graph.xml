@@ -7,13 +7,16 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.home.DashboardFragment"
-        android:label="Dashboard" >
+        android:label="Dashboard">
         <action
             android:id="@+id/action_homeFragment_to_authFragment"
             app:destination="@id/authFragment" />
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment2"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_dashboardBottomSheet"
+            app:destination="@id/dashboardBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
@@ -40,7 +43,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.settings.SettingsFragment"
-        android:label="Settings" >
+        android:label="Settings">
         <action
             android:id="@+id/action_settingsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -62,9 +65,17 @@
     <fragment
         android:id="@+id/lockFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.lock.LockFragment"
-        android:label="LockFragment" >
+        android:label="LockFragment">
         <action
             android:id="@+id/action_lockFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/dashboardBottomSheet"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.DashboardBottomSheet"
+        android:label="DashboardBottomSheet" >
+        <action
+            android:id="@+id/action_dashboardBottomSheet_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </dialog>
 </navigation>
