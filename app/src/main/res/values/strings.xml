@@ -23,4 +23,6 @@
     <string name="menu_item_contacts">Contacts</string>
     <string name="applock_about">Заблокировать приложение пинкодом</string>
     <string name="locker_textview">Enter your pin:</string>
+    <string name="tab_layout_groups">Groups</string>
+    <string name="tab_layout_states">States</string>
 </resources>
