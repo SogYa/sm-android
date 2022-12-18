@@ -1,6 +1,7 @@
 package com.sogya.data.models
 
 import com.google.gson.annotations.SerializedName
+import java.util.Calendar
 
 data class State(
     @SerializedName("entity_id")
@@ -15,9 +16,6 @@ data class State(
     @SerializedName("last_changed")
     val lastChanged: String,
 
-    @SerializedName("checksum")
-    val checksum: String,
-
-    @SerializedName("displayOrder")
-    val displayOrder: Int
+    @SerializedName("attributes")
+    val attributes: Attribute
 )
