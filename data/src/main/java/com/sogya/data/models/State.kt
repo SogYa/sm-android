@@ -1,7 +1,6 @@
 package com.sogya.data.models
 
 import com.google.gson.annotations.SerializedName
-import java.util.Calendar
 
 data class State(
     @SerializedName("entity_id")
