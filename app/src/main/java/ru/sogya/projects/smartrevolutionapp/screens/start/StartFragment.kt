@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentStartBinding
 
@@ -26,7 +28,12 @@ class StartFragment : Fragment(R.layout.fragment_start) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm.getNavLiveData().observe(viewLifecycleOwner) {
-            findNavController().navigate(it)
+            findNavController().navigate(it, bundleOf(), navOptions {
+                launchSingleTop = true
+                popUpTo(R.id.nav_graph) {
+                    inclusive = true
+                }
+            })
         }
     }
 }
