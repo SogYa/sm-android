@@ -38,7 +38,7 @@ class StateAdapter(
         }
     }
 
-    fun updateSettingsList(statesArrayList: List<StateDomain>) {
+    fun updateStatesList(statesArrayList: List<StateDomain>) {
         this.states.clear()
         notifyItemChanged(1)
         this.states.addAll(statesArrayList)
