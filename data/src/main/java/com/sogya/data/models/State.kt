@@ -1,20 +1,20 @@
 package com.sogya.data.models
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class State(
-    @SerializedName("entity_id")
-    val entityId: String,
+@Entity(tableName = "states")
+data class State (
 
-    @SerializedName("state")
-    val state: String,
+    @SerializedName("entity_id") @PrimaryKey var entityId: String = "",
 
-    @SerializedName("last_updated")
-    val lastUpdated: String,
+    @SerializedName("state") var state: String = "",
 
-    @SerializedName("last_changed")
-    val lastChanged: String,
+    @SerializedName("last_updated") var lastUpdated: String = "",
 
-    @SerializedName("attributes")
-    val attributes: Attribute
+    @SerializedName("last_changed") var lastChanged: String = "",
+
+    @Ignore @SerializedName("attributes") var attributes: Attributes = Attributes()
 )
