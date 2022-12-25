@@ -4,10 +4,10 @@ import android.net.Uri
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
-class Attribute(
+data class Attributes(
 
     @SerializedName("entity_id")
-    var entityIds: ArrayList<String>? = null,
+    var entityId: ArrayList<String>? = null,
 
     //    public String entityId;
     @SerializedName("next_dawn")
@@ -152,8 +152,9 @@ class Attribute(
     var provider: String? = null,
 
     @SerializedName(
-        "source_type")
-        var sourceType: String? = null,
+        "source_type"
+    )
+    var sourceType: String? = null,
 
     //Can be "High"(String) or Number
     @SerializedName("battery")
