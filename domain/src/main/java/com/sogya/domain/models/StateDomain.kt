@@ -5,7 +5,7 @@ data class StateDomain(
     val state: String,
     val lastUpdated: String,
     val lastChanged: String,
-    val attributes: Attributes
+    val attributesDomain: AttributesDomain
 ) {
 //    fun isPersone(): Boolean {
 //        return (state.contains("person."))
