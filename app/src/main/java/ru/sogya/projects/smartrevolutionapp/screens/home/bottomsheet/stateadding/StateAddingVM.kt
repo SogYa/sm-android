@@ -3,13 +3,19 @@ package ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateaddin
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sogya.data.repository.LocalDataBaseRepositoryImpl
 import com.sogya.data.repository.NetworkRepositoryImpl
 import com.sogya.data.utils.Constants
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.usecases.GetStatesUseCase
+import com.sogya.domain.usecases.databaseusecase.InsertStateUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import ru.sogya.projects.smartrevolutionapp.app.App
 import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 
@@ -17,6 +23,9 @@ class StateAddingVM : ViewModel() {
 
     private val repository = NetworkRepositoryImpl()
     private val getStatesUseCase = GetStatesUseCase(repository)
+    private val repositoryLocalDataBase =
+        LocalDataBaseRepositoryImpl(App.getApplicationContext())
+    private val insertStateUseCase = InsertStateUseCase(repositoryLocalDataBase)
     val statesLiveData = MutableLiveData<List<StateDomain>>()
     val loadingViewLiveData = MutableLiveData<Int>()
 
@@ -37,5 +46,12 @@ class StateAddingVM : ViewModel() {
                 }
 
             })
+    }
+
+    fun addStatesToDataBase(state: StateDomain) {
+        viewModelScope.launch(Dispatchers.IO) {
+            insertStateUseCase.invoke(state)
+        }
+
     }
 }

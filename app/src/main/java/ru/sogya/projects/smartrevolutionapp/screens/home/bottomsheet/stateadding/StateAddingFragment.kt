@@ -18,6 +18,7 @@ class StateAddingFragment : Fragment(R.layout.fragment_add_states),
     private val vm: StateAddingVM by viewModels()
     private lateinit var adapter: StateAdapter
     private lateinit var binding: FragmentAddStatesBinding
+    private lateinit var state: StateDomain
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,14 +39,19 @@ class StateAddingFragment : Fragment(R.layout.fragment_add_states),
 
         vm.loadingViewLiveData.observe(viewLifecycleOwner) {
             binding.loadingView.visibility = it
+
+        }
+        binding.addFub.setOnClickListener {
+            vm.addStatesToDataBase(state)
         }
     }
 
     override fun onStart() {
         super.onStart()
         vm.statesLiveData.observe(viewLifecycleOwner) {
-            adapter.updateSettingsList(it)
+            adapter.updateStatesList(it)
             Log.d("List", it.toString())
+            state = it[0]
         }
     }
 
