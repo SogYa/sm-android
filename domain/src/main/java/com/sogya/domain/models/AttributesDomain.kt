@@ -1,9 +1,7 @@
 package com.sogya.domain.models
 
 import java.math.BigDecimal
-
-data class Attributes(
-
+data class AttributesDomain(
 
 var entityIds: ArrayList<String>? = null,
 
