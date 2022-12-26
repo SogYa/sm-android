@@ -1,6 +1,8 @@
 plugins {
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
+
+    id 'org.jetbrains.kotlin.android'
+    id 'com.android.library'
+
 }
 
 java {
@@ -9,4 +11,6 @@ java {
 }
 dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
+    implementation 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
 }
