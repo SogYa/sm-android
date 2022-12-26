@@ -1,10 +1,12 @@
 package com.sogya.data.repository
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.sogya.data.database.LocalDataBase
 import com.sogya.data.mappers.ListOfStatesMapper
 import com.sogya.data.mappers.StateDomainMapper
+import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.repository.LocalDataBaseRepository
 import io.reactivex.Single
@@ -32,5 +34,21 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
 
     override fun deleteState(state: StateDomain) {
         // return db.stateDao().delete()
+    }
+
+    override fun getAll(): LiveData<ServerStateDomain> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getById(serverId: Int): LiveData<ServerStateDomain> {
+        TODO("Not yet implemented")
+    }
+
+    override fun insert(serverState: ServerStateDomain): LiveData<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override fun delete(serverState: ServerStateDomain): LiveData<Boolean> {
+        TODO("Not yet implemented")
     }
 }
