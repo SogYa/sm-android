@@ -9,12 +9,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sogya.data.utils.MyCallBack
 import com.sogya.domain.models.StateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentAddStatesBinding
 
-class StateAddingFragment : Fragment(R.layout.fragment_add_states),
-    StateAdapter.OnStateClickListener {
+class StateAddingFragment : Fragment(R.layout.fragment_add_states) {
     private val vm: StateAddingVM by viewModels()
     private lateinit var adapter: StateAdapter
     private lateinit var binding: FragmentAddStatesBinding
@@ -34,7 +34,7 @@ class StateAddingFragment : Fragment(R.layout.fragment_add_states),
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(context)
         binding.statesRecyclerView.layoutManager = layoutManager
-        adapter = StateAdapter(this)
+        adapter = StateAdapter(null)
         binding.statesRecyclerView.adapter = adapter
 
         vm.loadingViewLiveData.observe(viewLifecycleOwner) {
@@ -42,7 +42,21 @@ class StateAddingFragment : Fragment(R.layout.fragment_add_states),
 
         }
         binding.addFub.setOnClickListener {
-            vm.addStatesToDataBase(state)
+            val checkedSet = adapter.sendCheckedSet()
+            if (checkedSet.isEmpty()) {
+                Toast.makeText(context, "Nothing to add(", Toast.LENGTH_SHORT).show()
+            } else {
+                vm.addStatesToDataBase(checkedSet, object : MyCallBack<Boolean> {
+                    override fun data(t: Boolean) {
+                        Toast.makeText(context, "State added", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun error() {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+            }
         }
     }
 
@@ -53,10 +67,5 @@ class StateAddingFragment : Fragment(R.layout.fragment_add_states),
             Log.d("List", it.toString())
             state = it[0]
         }
-    }
-
-
-    override fun onClick(stateDomain: StateDomain) {
-        Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
     }
 }
