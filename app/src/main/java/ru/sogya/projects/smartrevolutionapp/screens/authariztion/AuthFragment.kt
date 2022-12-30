@@ -18,7 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.sogya.data.utils.Constants
-import com.sogya.data.utils.myCallBack
+import com.sogya.data.utils.MyCallBack
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentWebViewBinding
 
@@ -95,7 +95,7 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                     request?.let {
                         if (request.url.toString().startsWith("${uri}/auth_callback")) {
                             request.url.getQueryParameter("code")?.let {
-                                vm.getToken(uri, it, object : myCallBack<Boolean> {
+                                vm.getToken(uri, it, object : MyCallBack<Boolean> {
                                     override fun data(t: Boolean) {
                                         Toast.makeText(
                                             context,

@@ -2,7 +2,7 @@ package ru.sogya.projects.smartrevolutionapp.screens.settings.applock
 
 import androidx.lifecycle.ViewModel
 import com.sogya.data.utils.Constants
-import com.sogya.data.utils.myCallBack
+import com.sogya.data.utils.MyCallBack
 import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 
 class AppLockVM : ViewModel() {
@@ -17,7 +17,7 @@ class AppLockVM : ViewModel() {
         return isLocked
     }
 
-    fun setPinCode(pinCode: String, pinVerify: String, myCallBack: myCallBack<Boolean>) {
+    fun setPinCode(pinCode: String, pinVerify: String, myCallBack: MyCallBack<Boolean>) {
         if (pinCode == pinVerify) {
             SPControl.getInstance().updatePrefs(Constants.PREFS_IS_LOCKED, true)
             SPControl.getInstance().updatePrefs(Constants.PREFS_APPLOCK_PINCODE, pinVerify)

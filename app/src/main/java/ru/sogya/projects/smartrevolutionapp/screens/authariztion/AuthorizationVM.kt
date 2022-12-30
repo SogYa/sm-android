@@ -8,7 +8,7 @@ import com.sogya.data.models.requests.LongLivedRequest
 import com.sogya.data.repository.NetworkRepositoryImpl
 import com.sogya.data.repository.WebSocketRepositoryImpl
 import com.sogya.data.utils.Constants
-import com.sogya.data.utils.myCallBack
+import com.sogya.data.utils.MyCallBack
 import com.sogya.domain.models.TokenInfo
 import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.usecases.GetTokenUseCase
@@ -35,7 +35,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
     val navigationLiveData = MutableLiveData<Boolean>()
 
 
-    fun getToken(baseUri: String, authCode: String, myCallBack: myCallBack<Boolean>) {
+    fun getToken(baseUri: String, authCode: String, myCallBack: MyCallBack<Boolean>) {
         getTokenUseCase.invoke(baseUri, authCode).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<TokenInfo>() {
