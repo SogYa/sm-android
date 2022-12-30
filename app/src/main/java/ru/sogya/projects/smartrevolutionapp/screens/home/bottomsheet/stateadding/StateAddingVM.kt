@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.sogya.data.repository.LocalDataBaseRepositoryImpl
 import com.sogya.data.repository.NetworkRepositoryImpl
 import com.sogya.data.utils.Constants
+import com.sogya.data.utils.MyCallBack
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.usecases.GetStatesUseCase
 import com.sogya.domain.usecases.databaseusecase.InsertStateUseCase
@@ -48,10 +49,11 @@ class StateAddingVM : ViewModel() {
             })
     }
 
-    fun addStatesToDataBase(state: StateDomain) {
+    fun addStatesToDataBase(states: HashSet<StateDomain>, myCallBack: MyCallBack<Boolean>) {
+        val listOfStates = states.toList()
         viewModelScope.launch(Dispatchers.IO) {
-            insertStateUseCase.invoke(state)
+            insertStateUseCase.invoke(listOfStates)
         }
-
+        myCallBack.data(true)
     }
 }

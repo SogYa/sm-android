@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.sogya.data.database.LocalDataBase
+import com.sogya.data.mappers.ListOfStatesDomainMapper
 import com.sogya.data.mappers.ListOfStatesMapper
-import com.sogya.data.mappers.StateDomainMapper
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.repository.LocalDataBaseRepository
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
@@ -16,7 +17,7 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         context, LocalDataBase::class.java, "local-data-base"
     ).build()
 
-    override fun getAllStates(): Single<List<StateDomain>> {
+    override fun getAllStates(): Flowable<List<StateDomain>> {
         return db.stateDao().getAll().map {
             return@map ListOfStatesMapper(it).toDomainList()
         }
@@ -28,12 +29,13 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         }
     }
 
-    override fun insertState(state: StateDomain) {
-        return db.stateDao().insert(StateDomainMapper(state).toStateData())
+    override fun insertState(states: List<StateDomain>) {
+        return db.stateDao().insert(ListOfStatesDomainMapper(states).toDataList())
     }
 
-    override fun deleteState(state: StateDomain) {
-        // return db.stateDao().delete()
+
+    override fun deleteState(stateId: String) {
+        return db.stateDao().delete(stateId)
     }
 
     override fun getAll(): LiveData<ServerStateDomain> {

@@ -6,5 +6,5 @@ import com.sogya.domain.repository.LocalDataBaseRepository
 class InsertStateUseCase(
     private val localDataBaseRepository: LocalDataBaseRepository
 ) {
-    fun invoke(state: StateDomain) = localDataBaseRepository.insertState(state)
+    fun invoke(states: List<StateDomain>) = localDataBaseRepository.insertState(states)
 }
