@@ -1,6 +1,6 @@
 package com.sogya.data.utils
 
-interface myCallBack<T> {
+interface MyCallBack<T> {
     fun data(t:T)
     fun error()
 }
