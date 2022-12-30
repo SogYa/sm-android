@@ -1,25 +1,22 @@
 package com.sogya.data.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.sogya.data.models.State
-import com.sogya.domain.models.StateDomain
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 @Dao
 interface StateDao {
 
     @Query("SELECT * FROM states")
-    fun getAll(): Single<List<State>>
+    fun getAll(): Flowable<List<State>>
 
     @Query("SELECT * FROM states WHERE entityId IN(:entityId)")
     fun getState(entityId: String): Single<List<State>>
 
-    @Insert
-    fun insert(vararg state: State)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(states: List<State>)
 
-    @Delete
-    fun delete(state: State)
+    @Query("DELETE FROM states WHERE entityId IN(:stateId)")
+    fun delete(stateId: String)
 }
