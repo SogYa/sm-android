@@ -52,10 +52,10 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
             }
             val redirectUri = "${uri.replace(" https ://", Constants.REDIRECT_URI)}/auth_callback"
 
-            vm.loadScreenLiveData.observe(viewLifecycleOwner) {
+            vm.getLoadingLiveData().observe(viewLifecycleOwner) {
                 binding.loadingConstraint.visibility = it
             }
-            vm.navigationLiveData.observe(viewLifecycleOwner) {
+            vm.getNavigationLiveData().observe(viewLifecycleOwner) {
                 if (it) findNavController().navigate(
                     R.id.action_authFragment_to_homeFragment,
                     bundleOf(),

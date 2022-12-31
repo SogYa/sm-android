@@ -9,7 +9,7 @@ import com.sogya.data.utils.Constants
 import com.sogya.data.utils.MyCallBack
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.usecases.GetStatesUseCase
-import com.sogya.domain.usecases.databaseusecase.InsertStateUseCase
+import com.sogya.domain.usecases.databaseusecase.states.InsertStateUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
@@ -24,8 +24,8 @@ class StateAddingVM : ViewModel() {
     private val repository = NetworkRepositoryImpl()
     private val getStatesUseCase = GetStatesUseCase(repository)
     private val insertStateUseCase = InsertStateUseCase(App.getRoom())
-    val statesLiveData = MutableLiveData<List<StateDomain>>()
-    val loadingViewLiveData = MutableLiveData<Int>()
+    private val statesLiveData = MutableLiveData<List<StateDomain>>()
+    private val loadingViewLiveData = MutableLiveData<Int>()
 
 
     init {
@@ -53,4 +53,7 @@ class StateAddingVM : ViewModel() {
         }
         myCallBack.data(true)
     }
+
+    fun getStatesLiveData() = statesLiveData
+    fun getLoadingLiveData() = loadingViewLiveData
 }

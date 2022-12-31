@@ -37,7 +37,7 @@ class StateAddingFragment : Fragment(R.layout.fragment_add_states) {
         adapter = StateAdapter(null)
         binding.statesRecyclerView.adapter = adapter
 
-        vm.loadingViewLiveData.observe(viewLifecycleOwner) {
+        vm.getLoadingLiveData().observe(viewLifecycleOwner) {
             binding.loadingView.visibility = it
 
         }
@@ -61,7 +61,7 @@ class StateAddingFragment : Fragment(R.layout.fragment_add_states) {
 
     override fun onStart() {
         super.onStart()
-        vm.statesLiveData.observe(viewLifecycleOwner) {
+        vm.getStatesLiveData().observe(viewLifecycleOwner) {
             adapter.updateStatesList(it)
             Log.d("List", it.toString())
             state = it[0]

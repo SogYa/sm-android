@@ -31,8 +31,8 @@ class AuthorizationVM : ViewModel(), MessageListener {
     private val sendMessageUseCase = SendMessageUseCase(webSocketRepository)
     private lateinit var token: String
 
-    val loadScreenLiveData = MutableLiveData<Int>()
-    val navigationLiveData = MutableLiveData<Boolean>()
+    private val loadScreenLiveData = MutableLiveData<Int>()
+    private val navigationLiveData = MutableLiveData<Boolean>()
 
 
     fun getToken(baseUri: String, authCode: String, myCallBack: MyCallBack<Boolean>) {
@@ -98,5 +98,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
         }
     }
 
+    fun getLoadingLiveData() = loadScreenLiveData
+    fun getNavigationLiveData() = navigationLiveData
 
 }
