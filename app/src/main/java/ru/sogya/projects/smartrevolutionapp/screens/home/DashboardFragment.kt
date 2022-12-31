@@ -1,6 +1,7 @@
 package ru.sogya.projects.smartrevolutionapp.screens.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.DashboardBottomSheet
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.StateAdapter
+import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.OnStateClickListener,
     DeleteItemDialogFragment.DialogFragmentListener {
@@ -36,19 +38,22 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
         adapter = StateAdapter(this)
         binding.statesRecyclerView.adapter = adapter
         binding.statesRecyclerView.itemAnimator = null
+        binding.loadingView.visibility = VisibilityStates.GONE.visibility
         binding.swipeRefresh.setOnRefreshListener {
-            vm.getItemsFromLocalDB()
             binding.swipeRefresh.isRefreshing = false
+
         }
     }
 
     override fun onResume() {
         super.onResume()
+        println("RESUME")
         vm.loadingViewLiveData.observe(viewLifecycleOwner) {
-            binding.loadingView.visibility = it
+
         }
-        vm.itemsLiveData.observe(viewLifecycleOwner) {
+        vm.getItemsLiveDat().observe(viewLifecycleOwner) {
             adapter.updateStatesList(it)
+            Log.d("LiveDataState", it.toString())
         }
     }
 
@@ -68,4 +73,13 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
         private const val STATE_ID = "id"
     }
 
+    override fun onStop() {
+        super.onStop()
+        println("STOP")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        println("PAUSE")
+    }
 }

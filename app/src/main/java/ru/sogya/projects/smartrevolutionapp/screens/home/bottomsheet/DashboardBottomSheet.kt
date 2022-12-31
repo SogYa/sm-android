@@ -41,6 +41,4 @@ class DashboardBottomSheet : BottomSheetDialogFragment() {
         val pagerAdapter = ViewPagerAdapter(this, fragmentList)
         binding.dashboardViewPager.adapter = pagerAdapter
     }
-
-
 }

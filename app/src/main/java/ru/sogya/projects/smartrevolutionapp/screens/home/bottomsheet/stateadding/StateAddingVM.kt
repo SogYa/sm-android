@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sogya.data.repository.LocalDataBaseRepositoryImpl
 import com.sogya.data.repository.NetworkRepositoryImpl
 import com.sogya.data.utils.Constants
 import com.sogya.data.utils.MyCallBack
@@ -24,9 +23,7 @@ class StateAddingVM : ViewModel() {
 
     private val repository = NetworkRepositoryImpl()
     private val getStatesUseCase = GetStatesUseCase(repository)
-    private val repositoryLocalDataBase =
-        LocalDataBaseRepositoryImpl(App.getApplicationContext())
-    private val insertStateUseCase = InsertStateUseCase(repositoryLocalDataBase)
+    private val insertStateUseCase = InsertStateUseCase(App.getRoom())
     val statesLiveData = MutableLiveData<List<StateDomain>>()
     val loadingViewLiveData = MutableLiveData<Int>()
 
