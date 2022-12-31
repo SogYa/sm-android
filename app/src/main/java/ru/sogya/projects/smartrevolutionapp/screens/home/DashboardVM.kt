@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sogya.domain.models.StateDomain
-import com.sogya.domain.usecases.databaseusecase.DeleteStateUseCase
-import com.sogya.domain.usecases.databaseusecase.GetAllStatesUseCase
+import com.sogya.domain.usecases.databaseusecase.states.DeleteStateUseCase
+import com.sogya.domain.usecases.databaseusecase.states.GetAllStatesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.sogya.projects.smartrevolutionapp.app.App
