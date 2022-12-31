@@ -52,4 +52,8 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
     override fun deleteServer(serverState: ServerStateDomain): LiveData<Boolean> {
         TODO("Not yet implemented")
     }
+
+    override fun updateServer(serverState: ServerStateDomain) {
+        TODO("Not yet implemented")
+    }
 }
