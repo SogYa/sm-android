@@ -1,12 +1,10 @@
 package com.sogya.data.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
 import com.sogya.data.models.ServerState
+
 @Dao
 interface ServersDao {
 
@@ -21,4 +19,7 @@ interface ServersDao {
 
     @Delete
     fun delete(serverState: ServerState)
+
+    @Update
+    fun update(serverState: ServerState)
 }
