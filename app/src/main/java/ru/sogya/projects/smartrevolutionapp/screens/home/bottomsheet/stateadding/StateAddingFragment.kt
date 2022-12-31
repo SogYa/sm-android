@@ -54,7 +54,6 @@ class StateAddingFragment : Fragment(R.layout.fragment_add_states) {
                     override fun error() {
                         TODO("Not yet implemented")
                     }
-
                 })
             }
         }
