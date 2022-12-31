@@ -2,6 +2,7 @@ package com.sogya.data.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.room.Room
 import com.sogya.data.database.LocalDataBase
 import com.sogya.data.mappers.ListOfStatesDomainMapper
@@ -9,23 +10,22 @@ import com.sogya.data.mappers.ListOfStatesMapper
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.repository.LocalDataBaseRepository
-import io.reactivex.Flowable
-import io.reactivex.Single
 
 class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
     private val db = Room.databaseBuilder(
         context, LocalDataBase::class.java, "local-data-base"
-    ).build()
+    ).allowMainThreadQueries()
+        .build()
 
-    override fun getAllStates(): Flowable<List<StateDomain>> {
-        return db.stateDao().getAll().map {
-            return@map ListOfStatesMapper(it).toDomainList()
+    override fun getAllStates(): LiveData<List<StateDomain>> {
+        return Transformations.map(db.stateDao().getAll()) {
+            ListOfStatesMapper(it).toDomainList()
         }
     }
 
-    override fun getStateById(entityId: String): Single<List<StateDomain>> {
-        return db.stateDao().getState(entityId).map {
-            return@map ListOfStatesMapper(it).toDomainList()
+    override fun getStateById(entityId: String): LiveData<List<StateDomain>> {
+        return Transformations.map(db.stateDao().getState(entityId)) {
+            ListOfStatesMapper(it).toDomainList()
         }
     }
 
@@ -33,24 +33,23 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         return db.stateDao().insert(ListOfStatesDomainMapper(states).toDataList())
     }
 
-
     override fun deleteState(stateId: String) {
         return db.stateDao().delete(stateId)
     }
 
-    override fun getAll(): LiveData<ServerStateDomain> {
+    override fun getAllServers(): LiveData<ServerStateDomain> {
         TODO("Not yet implemented")
     }
 
-    override fun getById(serverId: Int): LiveData<ServerStateDomain> {
+    override fun getServersById(serverId: Int): LiveData<ServerStateDomain> {
         TODO("Not yet implemented")
     }
 
-    override fun insert(serverState: ServerStateDomain): LiveData<Boolean> {
+    override fun insertServer(serverState: ServerStateDomain): LiveData<Boolean> {
         TODO("Not yet implemented")
     }
 
-    override fun delete(serverState: ServerStateDomain): LiveData<Boolean> {
+    override fun deleteServer(serverState: ServerStateDomain): LiveData<Boolean> {
         TODO("Not yet implemented")
     }
 }
