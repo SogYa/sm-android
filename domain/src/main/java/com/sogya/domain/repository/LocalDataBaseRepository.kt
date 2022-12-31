@@ -22,4 +22,6 @@ interface LocalDataBaseRepository {
     fun insertServer(serverState: ServerStateDomain): LiveData<Boolean>
 
     fun deleteServer(serverState: ServerStateDomain): LiveData<Boolean>
+
+    fun updateServer(serverState: ServerStateDomain)
 }
