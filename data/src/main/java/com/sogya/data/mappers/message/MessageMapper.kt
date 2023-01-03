@@ -1,4 +1,4 @@
-package com.sogya.data.mappers
+package com.sogya.data.mappers.message
 
 import com.sogya.data.models.MessageData
 import com.sogya.domain.models.Message

@@ -1,4 +1,4 @@
-package com.sogya.data.mappers
+package com.sogya.data.mappers.state
 
 import com.sogya.data.models.State
 import com.sogya.domain.models.StateDomain
