@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View.*
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
     private lateinit var navController: NavController
     private lateinit var serverUri: TextView
     private lateinit var serverName: TextView
-    private val vm: MainVM by viewModels()
+    private lateinit var vm: MainVM
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,9 +33,10 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         setupNavigation()
+        vm = ViewModelProvider(this).get(MainVM::class.java)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.authFragment, R.id.lockFragment,R.id.serversFragment -> {
+                R.id.authFragment, R.id.lockFragment, R.id.serversFragment -> {
                     supportActionBar?.hide()
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
