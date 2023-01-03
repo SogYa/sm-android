@@ -29,7 +29,7 @@ class StateAddingVM : ViewModel() {
 
 
     init {
-        val url = SPControl.getInstance().getStringPrefs(Constants.URI)
+        val url = SPControl.getInstance().getStringPrefs(Constants.SERVER_URI)
         val token = SPControl.getInstance().getStringPrefs(Constants.AUTH_TOKEN)
         getStatesUseCase.invoke(url, token).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
