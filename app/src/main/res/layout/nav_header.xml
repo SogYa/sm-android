@@ -16,12 +16,12 @@
         android:contentDescription="@string/desc_logo" />
 
     <TextView
+        android:id="@+id/serverName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/alata"
-        android:text="@string/header"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
