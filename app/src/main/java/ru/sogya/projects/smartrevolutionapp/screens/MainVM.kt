@@ -8,8 +8,9 @@ class MainVM : ViewModel() {
 
     fun logOut() {
         SPControl.getInstance().updatePrefs(Constants.AUTH_TOKEN, "")
-        SPControl.getInstance().updatePrefs(Constants.URI, "")
+        SPControl.getInstance().updatePrefs(Constants.SERVER_URI, "")
         SPControl.getInstance().updatePrefs(Constants.TEST_MODE, false)
+        SPControl.getInstance().updatePrefs(Constants.SERVER_NAME, "")
         SPControl.getInstance().updatePrefs(Constants.PREFS_APPLOCK_PINCODE, "")
     }
 }
