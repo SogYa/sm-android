@@ -105,6 +105,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
             sendMessageUseCase.invoke(LongLivedRequest())
         } else if (result.get("type") == "result") {
             serverToken = result.get("result").toString()
+            SPControl.getInstance().updatePrefs(Constants.AUTH_TOKEN, serverToken)
             insertServerUseCase.invoke(
                 serverStateDomain = ServerStateDomain(
                     serverTag, serverUri, serverToken
