@@ -5,8 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.room.Room
 import com.sogya.data.database.LocalDataBase
-import com.sogya.data.mappers.ListOfStatesDomainMapper
-import com.sogya.data.mappers.ListOfStatesMapper
+import com.sogya.data.mappers.server.ListOfServersDataMapper
+import com.sogya.data.mappers.server.ServerDataMapper
+import com.sogya.data.mappers.server.ServerDomainMapper
+import com.sogya.data.mappers.state.ListOfStatesDomainMapper
+import com.sogya.data.mappers.state.ListOfStatesMapper
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.repository.LocalDataBaseRepository
@@ -37,23 +40,25 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         return db.stateDao().delete(stateId)
     }
 
-    override fun getAllServers(): LiveData<ServerStateDomain> {
-        TODO("Not yet implemented")
+    override fun getAllServers(): LiveData<List<ServerStateDomain>> {
+        return Transformations.map(db.serverDao().getAll()) {
+            ListOfServersDataMapper(it).toServerDomainList()
+        }
     }
 
-    override fun getServersById(serverId: Int): LiveData<ServerStateDomain> {
-        TODO("Not yet implemented")
+    override fun getServerById(serverUri: String): ServerStateDomain {
+        return ServerDataMapper(db.serverDao().getById(serverUri)).toServerDomain()
     }
 
-    override fun insertServer(serverState: ServerStateDomain): LiveData<Boolean> {
-        TODO("Not yet implemented")
+    override fun insertServer(serverState: ServerStateDomain) {
+        db.serverDao().insert(ServerDomainMapper(serverState).toServerData())
     }
 
-    override fun deleteServer(serverState: ServerStateDomain): LiveData<Boolean> {
-        TODO("Not yet implemented")
+    override fun deleteServer(serverState: ServerStateDomain) {
+        db.serverDao().delete(ServerDomainMapper(serverState).toServerData())
     }
 
     override fun updateServer(serverState: ServerStateDomain) {
-        TODO("Not yet implemented")
+        db.serverDao().update(ServerDomainMapper(serverState).toServerData())
     }
 }
