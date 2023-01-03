@@ -17,7 +17,7 @@ class StartVM : ViewModel() {
                 navigationLiveData.value = R.id.action_startFragment_to_homeFragment
             }
         } else {
-            navigationLiveData.value = R.id.action_startFragment_to_authFragment
+            navigationLiveData.value = R.id.action_startFragment_to_serversFragment
         }
     }
 
