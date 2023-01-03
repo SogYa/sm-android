@@ -9,10 +9,10 @@ import com.sogya.data.models.ServerState
 interface ServersDao {
 
     @Query("SELECT * FROM servers")
-    fun getAll(): LiveData<ServerState>
+    fun getAll(): LiveData<List<ServerState>>
 
-    @Query("SELECT * FROM servers WHERE serverId IN(:serverId)")
-    fun getById(serverId: Int): LiveData<ServerState>
+    @Query("SELECT * FROM servers WHERE serverUri IN(:serverUri)")
+    fun getById(serverUri: String): ServerState
 
     @Insert(onConflict = REPLACE)
     fun insert(serverState: ServerState)
