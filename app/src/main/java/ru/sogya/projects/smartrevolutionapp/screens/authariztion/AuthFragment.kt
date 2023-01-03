@@ -41,7 +41,7 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
 
         binding.buttonConnect.setOnClickListener {
             serverUri = binding.editTextUri.text.toString()
-            serverName = binding.editTextUri.text.toString()
+            serverName = binding.editTextServerName.text.toString()
             if (serverUri.endsWith("/")) {
                 serverUri = serverUri.substring(0, serverUri.length - 1)
                 binding.editTextUri.setText(serverUri)
