@@ -9,15 +9,18 @@ import com.sogya.data.repository.NetworkRepositoryImpl
 import com.sogya.data.repository.WebSocketRepositoryImpl
 import com.sogya.data.utils.Constants
 import com.sogya.data.utils.MyCallBack
+import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.TokenInfo
 import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.usecases.GetTokenUseCase
+import com.sogya.domain.usecases.databaseusecase.servers.InsertServerUseCase
 import com.sogya.domain.usecases.websocketus.InitUseCase
 import com.sogya.domain.usecases.websocketus.SendMessageUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
+import ru.sogya.projects.smartrevolutionapp.app.App
 import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 import kotlin.concurrent.thread
@@ -29,20 +32,31 @@ class AuthorizationVM : ViewModel(), MessageListener {
     private val getTokenUseCase = GetTokenUseCase(networkRepository)
     private val initUseCase = InitUseCase(webSocketRepository)
     private val sendMessageUseCase = SendMessageUseCase(webSocketRepository)
-    private lateinit var token: String
+    private val insertServerUseCase = InsertServerUseCase(App.getRoom())
+    private lateinit var serverToken: String
+    private lateinit var serverUri: String
+    private lateinit var serverTag: String
 
     private val loadScreenLiveData = MutableLiveData<Int>()
     private val navigationLiveData = MutableLiveData<Boolean>()
 
 
-    fun getToken(baseUri: String, authCode: String, myCallBack: MyCallBack<Boolean>) {
+    fun getToken(
+        serverName: String,
+        baseUri: String,
+        authCode: String,
+        myCallBack: MyCallBack<Boolean>
+    ) {
         getTokenUseCase.invoke(baseUri, authCode).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<TokenInfo>() {
                 override fun onSuccess(t: TokenInfo) {
                     Log.d("TOKEN", t.access_token)
-                    SPControl.getInstance().updatePrefs(Constants.URI, baseUri)
-                    token = t.access_token
+                    SPControl.getInstance().updatePrefs(Constants.SERVER_URI, baseUri)
+                    SPControl.getInstance().updatePrefs(Constants.SERVER_NAME, serverName)
+                    serverToken = t.access_token
+                    serverTag = serverName
+                    serverUri = baseUri
                     thread {
                         kotlin.run {
                             initUseCase.invoke(
@@ -71,7 +85,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
         loadScreenLiveData.postValue(VisibilityStates.VISIBLE.visibility)
         sendMessageUseCase.invoke(
             AuthMessage(
-                token = token
+                token = serverToken
             )
         )
     }
@@ -90,8 +104,12 @@ class AuthorizationVM : ViewModel(), MessageListener {
         if (result.get("type") == "auth_ok") {
             sendMessageUseCase.invoke(LongLivedRequest())
         } else if (result.get("type") == "result") {
-            SPControl.getInstance()
-                .updatePrefs(Constants.AUTH_TOKEN, result.get("result").toString())
+            serverToken = result.get("result").toString()
+            insertServerUseCase.invoke(
+                serverStateDomain = ServerStateDomain(
+                    serverTag, serverUri, serverToken
+                )
+            )
             loadScreenLiveData.postValue(VisibilityStates.GONE.visibility)
             navigationLiveData.postValue(true)
             webSocketRepository.close()

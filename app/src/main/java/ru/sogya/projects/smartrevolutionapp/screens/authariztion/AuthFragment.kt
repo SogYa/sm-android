@@ -24,7 +24,8 @@ import ru.sogya.projects.smartrevolutionapp.databinding.FragmentWebViewBinding
 
 class AuthFragment : Fragment(R.layout.fragment_web_view) {
     private lateinit var binding: FragmentWebViewBinding
-    lateinit var uri: String
+    private lateinit var serverUri: String
+    private lateinit var serverName: String
     private val vm: AuthorizationVM by viewModels()
 
     override fun onCreateView(
@@ -39,18 +40,19 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
 
 
         binding.buttonConnect.setOnClickListener {
-            uri = binding.editTextUri.text.toString()
-            if (uri.endsWith("/")) {
-                uri = uri.substring(0, uri.length - 1)
-                binding.editTextUri.setText(uri)
-
+            serverUri = binding.editTextUri.text.toString()
+            serverName = binding.editTextUri.text.toString()
+            if (serverUri.endsWith("/")) {
+                serverUri = serverUri.substring(0, serverUri.length - 1)
+                binding.editTextUri.setText(serverUri)
             }
             //ПЕРЕХОД В ТЕСТВОЫЙ РЕЖИМ
-            if (uri == "test") {
+            if (serverUri == "test") {
                 vm.startTestMode()
                 findNavController().navigate(R.id.action_authFragment_to_homeFragment)
             }
-            val redirectUri = "${uri.replace(" https ://", Constants.REDIRECT_URI)}/auth_callback"
+            val redirectUri =
+                "${serverUri.replace(" https ://", Constants.REDIRECT_URI)}/auth_callback"
 
             vm.getLoadingLiveData().observe(viewLifecycleOwner) {
                 binding.loadingConstraint.visibility = it
@@ -67,13 +69,17 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                     })
             }
 
-            binding.loginConstraint.visibility = GONE
 
             binding.logInWebView.settings.javaScriptEnabled = true
-            binding.logInWebView.loadUrl(
-                "$uri/auth/authorize?" + "client_id=$uri" + "&redirect_uri=${redirectUri}"
-            )
+            if (serverUri != "" && serverName != ""){
+                binding.loginConstraint.visibility = GONE
 
+                binding.logInWebView.loadUrl(
+                    "$serverUri/auth/authorize?" + "client_id=$serverUri" + "&redirect_uri=${redirectUri}"
+                )
+            }else{
+                Toast.makeText(context, "Fields are empty", Toast.LENGTH_SHORT).show()
+            }
             binding.logInWebView.webViewClient = object : WebViewClient() {
                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                     super.onPageStarted(view, url, favicon)
@@ -93,9 +99,9 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                     view: WebView?, request: WebResourceRequest?
                 ): Boolean {
                     request?.let {
-                        if (request.url.toString().startsWith("${uri}/auth_callback")) {
+                        if (request.url.toString().startsWith("${serverUri}/auth_callback")) {
                             request.url.getQueryParameter("code")?.let {
-                                vm.getToken(uri, it, object : MyCallBack<Boolean> {
+                                vm.getToken(serverName,serverUri, it, object : MyCallBack<Boolean> {
                                     override fun data(t: Boolean) {
                                         Toast.makeText(
                                             context,
