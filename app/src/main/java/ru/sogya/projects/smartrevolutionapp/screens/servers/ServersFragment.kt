@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sogya.domain.models.ServerStateDomain
 import ru.sogya.projects.smartrevolutionapp.R
@@ -29,7 +30,9 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
         val layoutManager = LinearLayoutManager(context)
         binding.serverList.layoutManager = layoutManager
         binding.serverList.adapter = adapter
-
+        binding.addServer.setOnClickListener{
+            findNavController().navigate(R.id.action_serversFragment_to_authFragment)
+        }
     }
 
     override fun onResume() {
@@ -40,6 +43,6 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
     }
 
     override fun onClick(server: ServerStateDomain) {
-        TODO("Not yet implemented")
+        vm.getServer(server)
     }
 }
