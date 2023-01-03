@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
-    private lateinit var baseUrl: TextView
+    private lateinit var serverUri: TextView
+    private lateinit var serverName: TextView
     private val vm: MainVM by viewModels()
 
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         setupNavigation()
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.authFragment, R.id.lockFragment -> {
+                R.id.authFragment, R.id.lockFragment,R.id.serversFragment -> {
                     supportActionBar?.hide()
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
@@ -54,10 +55,13 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         setupActionBarWithNavController(navController, appBarConfig)
         binding.navView.setupWithNavController(navController)
         //Передача URL в текст заголовка меню
-        baseUrl = binding.navView.getHeaderView(0).findViewById(R.id.baseUrl)
-        baseUrl.text =
-            SPControl.getInstance().getStringPrefs(Constants.URI)
-        baseUrl.isSelected = true
+        serverUri = binding.navView.getHeaderView(0).findViewById(R.id.baseUrl)
+        serverName = binding.navView.getHeaderView(0).findViewById(R.id.serverName)
+        serverUri.text =
+            SPControl.getInstance().getStringPrefs(Constants.SERVER_URI)
+        serverName.text =
+            SPControl.getInstance().getStringPrefs(Constants.SERVER_NAME)
+        serverUri.isSelected = true
     }
 
 
@@ -75,7 +79,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
 
     override fun positiveButtonClicked() {
         vm.logOut()
-        navController.navigate(R.id.action_settingsFragment_to_authFragment)
+        navController.navigate(R.id.action_settingsFragment_to_serversFragment)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
