@@ -1,7 +1,7 @@
 package com.sogya.data.repository
 
-import com.sogya.data.mappers.ListOfStatesMapper
-import com.sogya.data.mappers.MessageMapper
+import com.sogya.data.mappers.state.ListOfStatesMapper
+import com.sogya.data.mappers.message.MessageMapper
 import com.sogya.data.network.api.NetworkService
 import com.sogya.domain.models.Message
 import com.sogya.domain.models.StateDomain
