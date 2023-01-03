@@ -6,10 +6,9 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "servers")
 data class ServerState(
-    @PrimaryKey(autoGenerate = true)
-    @SerializedName("serverId")
-    val serverId: Int,
-    val serverName: String,
-    val serverUri: String,
-    val serverToken: String
+    @PrimaryKey
+    @SerializedName("serverUri")
+    val serverUri: String = "",
+    val serverName: String = "",
+    val serverToken: String = ""
 )
