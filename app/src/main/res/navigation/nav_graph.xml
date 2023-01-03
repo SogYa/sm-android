@@ -31,8 +31,8 @@
         android:name="ru.sogya.projects.smartrevolutionapp.screens.start.StartFragment"
         android:label="StartFragment">
         <action
-            android:id="@+id/action_startFragment_to_authFragment"
-            app:destination="@id/authFragment" />
+            android:id="@+id/action_startFragment_to_serversFragment"
+            app:destination="@id/serversFragment" />
         <action
             android:id="@+id/action_startFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -51,8 +51,8 @@
             android:id="@+id/action_settingsFragment_to_appLockFragment"
             app:destination="@id/appLockFragment" />
         <action
-            android:id="@+id/action_settingsFragment_to_authFragment"
-            app:destination="@id/authFragment" />
+            android:id="@+id/action_settingsFragment_to_serversFragment"
+            app:destination="@id/serversFragment" />
     </fragment>
     <fragment
         android:id="@+id/appLockFragment"
@@ -78,4 +78,18 @@
             android:id="@+id/action_dashboardBottomSheet_to_homeFragment"
             app:destination="@id/homeFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/serversFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.servers.ServersFragment"
+        android:label="ServersFragment" >
+        <action
+            android:id="@+id/action_serversFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_serversFragment_to_lockFragment"
+            app:destination="@id/lockFragment" />
+        <action
+            android:id="@+id/action_serversFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
