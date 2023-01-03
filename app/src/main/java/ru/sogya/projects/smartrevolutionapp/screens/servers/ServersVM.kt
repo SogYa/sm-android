@@ -18,9 +18,13 @@ class ServersVM : ViewModel() {
         return serverLiveData
     }
 
-    fun getServer(server: ServerStateDomain) {
+    init {
         serverLiveData = getAllServersUseCase.invoke()
+    }
+
+    fun getServer(server: ServerStateDomain) {
         SPControl.getInstance().updatePrefs(Constants.SERVER_URI, server.serverUri)
         SPControl.getInstance().updatePrefs(Constants.AUTH_TOKEN, server.serverToken)
+        SPControl.getInstance().updatePrefs(Constants.SERVER_NAME, server.serverName)
     }
 }
