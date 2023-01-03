@@ -15,13 +15,13 @@ interface LocalDataBaseRepository {
 
     fun deleteState(stateId: String)
 
-    fun getAllServers(): LiveData<ServerStateDomain>
+    fun getAllServers(): LiveData<List<ServerStateDomain>>
 
-    fun getServersById(serverId: Int): LiveData<ServerStateDomain>
+    fun getServerById(serverUri: String): ServerStateDomain
 
-    fun insertServer(serverState: ServerStateDomain): LiveData<Boolean>
+    fun insertServer(serverState: ServerStateDomain)
 
-    fun deleteServer(serverState: ServerStateDomain): LiveData<Boolean>
+    fun deleteServer(serverState: ServerStateDomain)
 
     fun updateServer(serverState: ServerStateDomain)
 }
