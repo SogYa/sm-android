@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
     private lateinit var serverName: TextView
     private lateinit var vm: MainVM
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_SmartRevolutionApp)
         super.onCreate(savedInstanceState)
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         setupNavigation()
-        vm = ViewModelProvider(this).get(MainVM::class.java)
+        vm = ViewModelProvider(this)[MainVM::class.java]
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.authFragment, R.id.lockFragment, R.id.serversFragment -> {
@@ -58,11 +57,14 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         //Передача URL в текст заголовка меню
         serverUri = binding.navView.getHeaderView(0).findViewById(R.id.baseUrl)
         serverName = binding.navView.getHeaderView(0).findViewById(R.id.serverName)
+        serverUri.isSelected = true
+    }
+
+    fun getServerState() {
         serverUri.text =
             SPControl.getInstance().getStringPrefs(Constants.SERVER_URI)
         serverName.text =
             SPControl.getInstance().getStringPrefs(Constants.SERVER_NAME)
-        serverUri.isSelected = true
     }
 
 
