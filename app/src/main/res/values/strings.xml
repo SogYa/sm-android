@@ -25,4 +25,7 @@
     <string name="locker_textview">Enter your pin:</string>
     <string name="tab_layout_groups">Groups</string>
     <string name="tab_layout_states">States</string>
+    <string name="dialog_tittle_open_server">Connect to server</string>
+    <string name="dialog_server_open_text">Application will connect to the selected server</string>
+    <string name="dialog_connect">Connect</string>
 </resources>
