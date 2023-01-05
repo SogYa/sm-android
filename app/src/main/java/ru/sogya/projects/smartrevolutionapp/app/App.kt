@@ -12,7 +12,6 @@ class App : Application() {
         private lateinit var repositoryImpl: LocalDataBaseRepositoryImpl
 
         fun getApplicationContext(): Context {
-            repositoryImpl = LocalDataBaseRepositoryImpl(app.applicationContext)
             return app.applicationContext
         }
 
@@ -24,5 +23,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         app = this
+        repositoryImpl = LocalDataBaseRepositoryImpl(app.applicationContext)
     }
 }
