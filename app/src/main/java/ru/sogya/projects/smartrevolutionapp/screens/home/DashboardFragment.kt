@@ -12,6 +12,7 @@ import com.sogya.domain.models.StateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
+import ru.sogya.projects.smartrevolutionapp.screens.MainActivity
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.DashboardBottomSheet
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.StateAdapter
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
@@ -34,6 +35,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
         binding.addButton.setOnClickListener {
             DashboardBottomSheet().show(childFragmentManager, DashboardBottomSheet().tag)
         }
+        (activity as MainActivity).getServerState()
         binding.statesRecyclerView.layoutManager = LinearLayoutManager(context)
         adapter = StateAdapter(this)
         binding.statesRecyclerView.adapter = adapter
