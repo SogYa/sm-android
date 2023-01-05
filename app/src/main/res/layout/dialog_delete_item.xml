@@ -25,7 +25,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/dialogTittle"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
@@ -40,7 +40,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/dialogText"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
