@@ -13,8 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sogya.domain.models.ServerStateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentServersBinding
+import ru.sogya.projects.smartrevolutionapp.dialogs.SelectServerDialogFragment
 
-class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnServerClickListenner {
+class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnServerClickListenner,
+    SelectServerDialogFragment.SelectDialogFragmentListener {
+    companion object {
+        const val SERVER_ID = "sid"
+    }
+
     private lateinit var binding: FragmentServersBinding
     private val vm: ServersVM by viewModels()
     private val adapter = ServersAdapter(this)
@@ -45,7 +51,15 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
     }
 
     override fun onClick(server: ServerStateDomain) {
-        vm.getServer(server)
+        val dialog = SelectServerDialogFragment(this)
+        val arguments = Bundle()
+        arguments.putString(SERVER_ID, server.serverUri)
+        dialog.arguments = arguments
+        dialog.show(childFragmentManager, dialog.tag)
+    }
+
+    override fun onClick(serverID: String?) {
+        vm.getServer(serverID.toString())
         findNavController().navigate(
             R.id.action_serversFragment_to_homeFragment,
             bundleOf(),
@@ -54,7 +68,6 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
                     inclusive = true
                 }
                 launchSingleTop = true
-
             })
     }
 }
