@@ -47,8 +47,15 @@ class StateAddingVM : ViewModel() {
     }
 
     fun addStatesToDataBase(states: HashSet<StateDomain>, myCallBack: MyCallBack<Boolean>) {
+        val ownerId = SPControl.getInstance().getStringPrefs(Constants.SERVER_URI)
         val listOfStates = states.toList()
         viewModelScope.launch(Dispatchers.IO) {
+            val job = launch {
+                listOfStates.forEach {
+                    it.ownerId = ownerId
+                }
+            }
+            job.join()
             insertStateUseCase.invoke(listOfStates)
         }
         myCallBack.data(true)
