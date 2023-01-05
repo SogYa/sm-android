@@ -12,6 +12,7 @@ class StatesMapper(
         state.state,
         state.lastUpdated,
         state.lastChanged,
-        AttributeMapper(state.attributes).toAttributeDomain()
+        AttributeMapper(state.attributes).toAttributeDomain(),
+        state.ownerId
     )
 }

@@ -6,5 +6,5 @@ class GetAllStatesUseCase(
     private val localDataBaseRepository: LocalDataBaseRepository
 ) {
 
-    fun invoke() = localDataBaseRepository.getAllStates()
+    fun invoke(serverUri: String) = localDataBaseRepository.getAllStates(serverUri)
 }

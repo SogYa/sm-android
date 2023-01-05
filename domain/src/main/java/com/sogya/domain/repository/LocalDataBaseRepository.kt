@@ -7,7 +7,7 @@ import com.sogya.domain.models.StateDomain
 
 interface LocalDataBaseRepository {
 
-    fun getAllStates(): LiveData<List<StateDomain>>
+    fun getAllStates(serverUri: String): LiveData<List<StateDomain>>
 
     fun getStateById(entityId: String): LiveData<List<StateDomain>>
 

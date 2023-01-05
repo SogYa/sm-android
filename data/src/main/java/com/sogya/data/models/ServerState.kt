@@ -9,6 +9,6 @@ data class ServerState(
     @PrimaryKey
     @SerializedName("serverUri")
     val serverUri: String = "",
-    val serverName: String = "",
-    val serverToken: String = ""
+    var serverName: String = "",
+    val serverToken: String = "",
 )

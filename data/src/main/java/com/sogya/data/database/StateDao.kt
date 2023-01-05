@@ -7,8 +7,8 @@ import com.sogya.data.models.State
 @Dao
 interface StateDao {
 
-    @Query("SELECT * FROM states")
-    fun getAll(): LiveData<List<State>>
+    @Query("SELECT * FROM states WHERE ownerId IN(:serverUri)")
+    fun getAllByServerId(serverUri: String): LiveData<List<State>>
 
     @Query("SELECT * FROM states WHERE entityId IN(:entityId)")
     fun getState(entityId: String): LiveData<List<State>>

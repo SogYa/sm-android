@@ -20,8 +20,8 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
     ).allowMainThreadQueries()
         .build()
 
-    override fun getAllStates(): LiveData<List<StateDomain>> {
-        return Transformations.map(db.stateDao().getAll()) {
+    override fun getAllStates(serverUri: String): LiveData<List<StateDomain>> {
+        return Transformations.map(db.stateDao().getAllByServerId(serverUri)) {
             ListOfStatesMapper(it).toDomainList()
         }
     }

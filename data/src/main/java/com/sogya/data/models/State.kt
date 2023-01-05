@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "states")
-data class State (
+data class State(
 
     @SerializedName("entity_id") @PrimaryKey var entityId: String = "",
 
@@ -16,5 +16,6 @@ data class State (
 
     @SerializedName("last_changed") var lastChanged: String = "",
 
-    @Ignore @SerializedName("attributes") var attributes: Attributes = Attributes()
+    @Ignore @SerializedName("attributes") var attributes: Attributes = Attributes(),
+    var ownerId: String = ""
 )
