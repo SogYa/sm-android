@@ -6,7 +6,7 @@ import ru.sogya.projects.smartrevolutionapp.R
 data class Settings(
     val id: Int,
     val label: String,
-    val icon: Int,
+    val desc: String,
     val navigationId: Int?
 ) {
     companion object {
@@ -16,12 +16,12 @@ data class Settings(
             Settings(
                 APP_LOCKER,
                 "Pin-code",
-                R.drawable.ic_baseline_lock_24,
+                "Application lock management using pin-code",
                 R.id.action_settingsFragment_to_appLockFragment
             ), Settings(
                 LOG_OUT,
                 "Log out",
-                R.drawable.ic_baseline_exit_to_app_24,
+                "Disconnecting from this server",
                 null
             )
         )
