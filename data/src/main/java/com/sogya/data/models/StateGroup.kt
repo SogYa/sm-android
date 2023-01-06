@@ -6,9 +6,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class StateGroup(
     @PrimaryKey(autoGenerate = true)
-    val groupId: Int,
+    val groupId: Int =0,
     val ownerId: String,
     var groupTag: String = "",
-    var groupDesc: String = "",
-    val stateList: List<State> = listOf()
+    var groupDesc: String = ""
 )
