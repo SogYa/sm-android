@@ -4,9 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sogya.data.utils.Constants
 import com.sogya.data.utils.MyCallBack
-import com.sogya.domain.models.StateDomain
 import com.sogya.domain.models.StateGroupDomain
-import com.sogya.domain.usecases.InsertOneStateUseCase
 import com.sogya.domain.usecases.databaseusecase.groups.InsertGroupUseCase
 import kotlinx.coroutines.launch
 import ru.sogya.projects.smartrevolutionapp.app.App
