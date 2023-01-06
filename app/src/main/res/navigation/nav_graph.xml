@@ -92,4 +92,8 @@
             android:id="@+id/action_serversFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/groupFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.group.GroupFragment"
+        android:label="GroupFragment" />
 </navigation>
