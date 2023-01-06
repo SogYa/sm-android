@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.room.Room
 import com.sogya.data.database.LocalDataBase
+import com.sogya.data.mappers.group.GroupDomainMapper
+import com.sogya.data.mappers.group.ListOfGroupDataMapper
 import com.sogya.data.mappers.server.ListOfServersDataMapper
 import com.sogya.data.mappers.server.ServerDataMapper
 import com.sogya.data.mappers.server.ServerDomainMapper
@@ -13,6 +15,7 @@ import com.sogya.data.mappers.state.ListOfStatesMapper
 import com.sogya.data.mappers.state.StateDomainMapper
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.StateDomain
+import com.sogya.domain.models.StateGroupDomain
 import com.sogya.domain.repository.LocalDataBaseRepository
 
 class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
@@ -43,6 +46,20 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
 
     override fun deleteState(stateId: String) {
         return db.stateDao().delete(stateId)
+    }
+
+    override fun getAllGroupsByOwner(ownerId: String): LiveData<List<StateGroupDomain>> {
+        return Transformations.map(db.groupDao().getAllByOwner(ownerId)) {
+            ListOfGroupDataMapper(it).toDomainList()
+        }
+    }
+
+    override fun insertGroup(stateGroupDomain: StateGroupDomain) {
+        return db.groupDao().insertGroup(GroupDomainMapper(stateGroupDomain).toGroupData())
+    }
+
+    override fun deleteGroup(stateGroupDomain: StateGroupDomain) {
+        return db.groupDao().deleteGroup(GroupDomainMapper(stateGroupDomain).toGroupData())
     }
 
     override fun getAllServers(): LiveData<List<ServerStateDomain>> {

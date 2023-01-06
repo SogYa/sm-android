@@ -4,6 +4,7 @@ package com.sogya.domain.repository
 import androidx.lifecycle.LiveData
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.StateDomain
+import com.sogya.domain.models.StateGroupDomain
 
 interface LocalDataBaseRepository {
 
@@ -16,6 +17,12 @@ interface LocalDataBaseRepository {
     fun insertOneState(states: StateDomain)
 
     fun deleteState(stateId: String)
+
+    fun getAllGroupsByOwner(ownerId: String):LiveData<List<StateGroupDomain>>
+
+    fun insertGroup(stateGroupDomain: StateGroupDomain)
+
+    fun deleteGroup(stateGroupDomain: StateGroupDomain)
 
     fun getAllServers(): LiveData<List<ServerStateDomain>>
 
