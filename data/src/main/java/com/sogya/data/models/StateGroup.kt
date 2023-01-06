@@ -5,6 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class StateGroup(
-    @PrimaryKey(autoGenerate = true) val groupId: Int,
-    val stateList: List<State>
+    @PrimaryKey(autoGenerate = true)
+    val groupId: Int,
+    val ownerId: String,
+    var groupTag: String = "",
+    var groupDesc: String = "",
+    val stateList: List<State> = listOf()
 )
