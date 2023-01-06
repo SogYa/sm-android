@@ -17,7 +17,6 @@ import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
 import ru.sogya.projects.smartrevolutionapp.screens.MainActivity
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.DashboardBottomSheet
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.StateAdapter
-import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.OnStateClickListener,
     DeleteItemDialogFragment.DialogFragmentListener {
@@ -43,7 +42,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
         adapter = StateAdapter(this)
         binding.statesRecyclerView.adapter = adapter
         binding.statesRecyclerView.itemAnimator = null
-        binding.loadingView.visibility = VisibilityStates.GONE.visibility
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
 
@@ -55,9 +53,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
         vm.getItemsLiveDat().observe(viewLifecycleOwner) {
             adapter.updateStatesList(it)
             binding.loadingView.visibility = GONE
-            if (it.isEmpty()){
+            if (it.isEmpty()) {
                 binding.dashboardHint.visibility = VISIBLE
-            }else{
+            } else {
                 binding.dashboardHint.visibility = GONE
             }
             Log.d("LiveDataState", it.toString())
