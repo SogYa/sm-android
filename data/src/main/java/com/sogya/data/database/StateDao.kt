@@ -16,6 +16,9 @@ interface StateDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(states: List<State>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOne(state: State)
+
     @Query("DELETE FROM states WHERE entityId IN(:stateId)")
     fun delete(stateId: String)
 }

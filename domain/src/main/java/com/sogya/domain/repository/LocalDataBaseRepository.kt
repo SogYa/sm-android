@@ -13,6 +13,8 @@ interface LocalDataBaseRepository {
 
     fun insertState(states: List<StateDomain>)
 
+    fun insertOneState(states: StateDomain)
+
     fun deleteState(stateId: String)
 
     fun getAllServers(): LiveData<List<ServerStateDomain>>

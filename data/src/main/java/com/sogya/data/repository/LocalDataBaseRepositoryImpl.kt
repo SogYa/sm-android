@@ -10,6 +10,7 @@ import com.sogya.data.mappers.server.ServerDataMapper
 import com.sogya.data.mappers.server.ServerDomainMapper
 import com.sogya.data.mappers.state.ListOfStatesDomainMapper
 import com.sogya.data.mappers.state.ListOfStatesMapper
+import com.sogya.data.mappers.state.StateDomainMapper
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.repository.LocalDataBaseRepository
@@ -34,6 +35,10 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
 
     override fun insertState(states: List<StateDomain>) {
         return db.stateDao().insert(ListOfStatesDomainMapper(states).toDataList())
+    }
+
+    override fun insertOneState(states: StateDomain) {
+        db.stateDao().insertOne(StateDomainMapper(states).toStateData())
     }
 
     override fun deleteState(stateId: String) {
