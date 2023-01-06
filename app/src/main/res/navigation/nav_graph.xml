@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/authFragment"
-        android:name="ru.sogya.projects.smartrevolutionapp.screens.authariztion.AuthFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.autharization.AuthFragment"
         android:label="AuthFragment">
         <action
             android:id="@+id/action_authFragment_to_homeFragment"

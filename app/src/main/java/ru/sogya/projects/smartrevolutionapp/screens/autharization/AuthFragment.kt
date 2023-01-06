@@ -1,4 +1,4 @@
-package ru.sogya.projects.smartrevolutionapp.screens.authariztion
+package ru.sogya.projects.smartrevolutionapp.screens.autharization
 
 import android.graphics.Bitmap
 import android.os.Bundle
