@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.sogya.data.utils.MyCallBack
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentAddGroupBinding
 
@@ -28,7 +30,14 @@ class GroupAddingFragment : Fragment(R.layout.fragment_add_group) {
             val groupTag = binding.groupTag.text.toString()
             val groupDesc = binding.groupDesc.text.toString()
             if (groupTag.isNotEmpty()) {
-                vm.createNewGroup(groupTag, groupDesc)
+                vm.createNewGroup(groupTag, groupDesc,object : MyCallBack<Boolean>{
+                    override fun data(t: Boolean) {
+                        Toast.makeText(context,"Group added", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun error() {}
+
+                })
             }
         }
     }
