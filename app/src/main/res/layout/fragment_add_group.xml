@@ -55,6 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
+        android:backgroundTint="@color/light_pink"
         android:text="add"
+        android:textColor="@color/black"
         app:cornerRadius="10dp" />
+
 </LinearLayout>
