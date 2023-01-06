@@ -14,7 +14,6 @@ import ru.sogya.projects.smartrevolutionapp.app.App
 import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 
 class DashboardVM : ViewModel() {
-    val loadingViewLiveData = MutableLiveData<Int>()
     private var itemsLiveData: LiveData<List<StateDomain>> = MutableLiveData()
     private val repository = App.getRoom()
     private val getStatesUseCase = GetAllStatesUseCase(repository)

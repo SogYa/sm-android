@@ -3,6 +3,8 @@ package ru.sogya.projects.smartrevolutionapp.screens.servers
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -47,6 +49,10 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
         super.onResume()
         vm.getServerLiveData().observe(viewLifecycleOwner) {
             adapter.updateList(it)
+            if (it.isEmpty())
+                binding.serverHint.visibility = VISIBLE
+            else
+                binding.serverHint.visibility = GONE
         }
     }
 

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -79,12 +81,14 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
 
     override fun onResume() {
         super.onResume()
-        println("RESUME")
-        vm.loadingViewLiveData.observe(viewLifecycleOwner) {
-
-        }
         vm.getItemsLiveDat().observe(viewLifecycleOwner) {
             adapter.updateStatesList(it)
+            binding.loadingView.visibility = GONE
+            if (it.isEmpty()){
+                binding.dashboardHint.visibility = VISIBLE
+            }else{
+                binding.dashboardHint.visibility = GONE
+            }
             Log.d("LiveDataState", it.toString())
         }
     }
@@ -104,15 +108,5 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
 
     companion object {
         private const val STATE_ID = "id"
-    }
-
-    override fun onStop() {
-        super.onStop()
-        println("STOP")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        println("PAUSE")
     }
 }
