@@ -29,4 +29,5 @@
     <string name="dialog_server_open_text">Application will connect to the selected server</string>
     <string name="dialog_connect">Connect</string>
     <string name="desc_server_icon">Server icon</string>
+    <string name="dashboard_hint">So far, it\'s empty here :(</string>
 </resources>
