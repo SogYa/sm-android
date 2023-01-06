@@ -8,13 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.sogya.domain.models.StateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
 import ru.sogya.projects.smartrevolutionapp.screens.MainActivity
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.DashboardBottomSheet
+import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.GroupAddingFragment
+import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.ViewPagerAdapter
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.StateAdapter
+import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.StateAddingFragment
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.OnStateClickListener,
@@ -33,7 +40,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.addButton.setOnClickListener {
-            DashboardBottomSheet().show(childFragmentManager, DashboardBottomSheet().tag)
+            DashboardBottomSheet()
+                .show(childFragmentManager, DashboardBottomSheet().tag)
+            //setUpDialog()
         }
         (activity as MainActivity).getServerState()
         binding.statesRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -46,6 +55,27 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
 
         }
     }
+
+    private fun setUpDialog() {
+        val dialog = BottomSheetDialog(requireContext())
+        val bottomSheet = layoutInflater.inflate(R.layout.fragment_bottomsheet_dashboards, null)
+        val tabLayout = bottomSheet.findViewById<TabLayout>(R.id.tabLayout)
+        val viewPager2 = bottomSheet.findViewById<ViewPager2>(R.id.dashboardViewPager)
+        val pagerAdapter = ViewPagerAdapter(
+            this, arrayListOf(
+                GroupAddingFragment(), StateAddingFragment()
+            )
+        )
+        viewPager2.adapter = pagerAdapter
+        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
+            val tabNames =
+                listOf(getString(R.string.tab_layout_groups), getString(R.string.tab_layout_states))
+            tab.text = tabNames[position]
+        }.attach()
+        dialog.setContentView(R.layout.fragment_bottomsheet_dashboards)
+        dialog.show()
+    }
+
 
     override fun onResume() {
         super.onResume()
@@ -60,6 +90,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
     }
 
     override fun onClick(stateDomain: StateDomain) {
+
         val dialog = DeleteItemDialogFragment(this)
         val arguments = Bundle()
         arguments.putString(STATE_ID, stateDomain.entityId)

@@ -58,6 +58,10 @@ class StateAddingFragment : Fragment(R.layout.fragment_add_states) {
             }
         }
     }
+    override fun onResume() {
+        super.onResume()
+        binding.root.requestLayout()
+    }
 
     override fun onStart() {
         super.onStart()

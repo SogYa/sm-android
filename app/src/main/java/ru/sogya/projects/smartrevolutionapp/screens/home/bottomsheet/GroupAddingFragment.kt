@@ -32,4 +32,10 @@ class GroupAddingFragment : Fragment(R.layout.fragment_add_group) {
             }
         }
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        binding.root.requestLayout()
+    }
 }
