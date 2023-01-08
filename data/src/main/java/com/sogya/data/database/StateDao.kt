@@ -21,4 +21,10 @@ interface StateDao {
 
     @Query("DELETE FROM states WHERE entityId IN(:stateId)")
     fun delete(stateId: String)
+
+    @Query("UPDATE states SET groupId = -1  WHERE groupId IN(:stateGroupId)")
+    fun deleteGroupIdFromStets(stateGroupId: Int)
+
+    @Query("SELECT * FROM states WHERE groupId IN(:groupId) ")
+    fun getAllByGroup(groupId: Int) : LiveData<List<State>>
 }
