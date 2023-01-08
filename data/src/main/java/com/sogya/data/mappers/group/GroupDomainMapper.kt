@@ -7,7 +7,7 @@ class GroupDomainMapper(
     private val groupDomain: StateGroupDomain
 ) {
    fun toGroupData() = StateGroup(
-       0,
+       groupDomain.groupId,
        groupDomain.ownerId,
        groupDomain.groupTag,
        groupDomain.groupDesc
