@@ -17,5 +17,7 @@ data class State(
     @SerializedName("last_changed") var lastChanged: String = "",
 
     @Ignore @SerializedName("attributes") var attributes: Attributes = Attributes(),
-    var ownerId: String = ""
+    var ownerId: String = "",
+
+    var groupId: Int = -1
 )

@@ -58,8 +58,9 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         return db.groupDao().insertGroup(GroupDomainMapper(stateGroupDomain).toGroupData())
     }
 
-    override fun deleteGroup(stateGroupDomain: StateGroupDomain) {
-        return db.groupDao().deleteGroup(GroupDomainMapper(stateGroupDomain).toGroupData())
+    override fun deleteGroup(stateGroupId: Int) {
+        db.stateDao().deleteGroupIdFromStets(stateGroupId)
+        return db.groupDao().deleteGroup(stateGroupId)
     }
 
     override fun getAllServers(): LiveData<List<ServerStateDomain>> {
@@ -82,5 +83,11 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
 
     override fun updateServer(serverState: ServerStateDomain) {
         db.serverDao().update(ServerDomainMapper(serverState).toServerData())
+    }
+
+    override fun getAllByGroup(groupId: Int): LiveData<List<StateDomain>> {
+        return Transformations.map(db.stateDao().getAllByGroup(groupId)) {
+            ListOfStatesMapper(it).toDomainList()
+        }
     }
 }

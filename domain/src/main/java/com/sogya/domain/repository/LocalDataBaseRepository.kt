@@ -18,11 +18,11 @@ interface LocalDataBaseRepository {
 
     fun deleteState(stateId: String)
 
-    fun getAllGroupsByOwner(ownerId: String):LiveData<List<StateGroupDomain>>
+    fun getAllGroupsByOwner(ownerId: String): LiveData<List<StateGroupDomain>>
 
     fun insertGroup(stateGroupDomain: StateGroupDomain)
 
-    fun deleteGroup(stateGroupDomain: StateGroupDomain)
+    fun deleteGroup(stateGroupId: Int)
 
     fun getAllServers(): LiveData<List<ServerStateDomain>>
 
@@ -33,4 +33,6 @@ interface LocalDataBaseRepository {
     fun deleteServer(serverState: ServerStateDomain)
 
     fun updateServer(serverState: ServerStateDomain)
+
+    fun getAllByGroup(groupId: Int): LiveData<List<StateDomain>>
 }

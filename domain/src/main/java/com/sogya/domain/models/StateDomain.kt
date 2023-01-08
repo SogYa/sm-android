@@ -6,11 +6,12 @@ data class StateDomain(
     val lastUpdated: String,
     val lastChanged: String,
     val attributesDomain: AttributesDomain,
-    var ownerId: String
+    var ownerId: String,
+    var groupId: Int
 ) {
     constructor(entityId: String, state: String, ownerId: String) : this(
         entityId, state, "", "",
-        AttributesDomain(), ownerId
+        AttributesDomain(), ownerId, -1
     )
 //    fun isPersone(): Boolean {
 //        return (state.contains("person."))
