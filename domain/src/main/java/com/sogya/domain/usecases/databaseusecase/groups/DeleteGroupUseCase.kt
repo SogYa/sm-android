@@ -6,5 +6,5 @@ import com.sogya.domain.repository.LocalDataBaseRepository
 class DeleteGroupUseCase(
     private val repository: LocalDataBaseRepository
 ) {
-    fun invoke(stateGroupDomain: StateGroupDomain) = repository.deleteGroup(stateGroupDomain)
+    fun invoke(stateGroupId: Int) = repository.deleteGroup(stateGroupId)
 }
