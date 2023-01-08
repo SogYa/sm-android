@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/groupFragment"
+            android:id="@+id/homeFragment"
             android:icon="@drawable/ic_baseline_dashboard_24"
             android:title="@string/menu_item_dashboard" />
         <item
