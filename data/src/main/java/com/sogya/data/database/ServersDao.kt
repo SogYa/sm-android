@@ -17,8 +17,8 @@ interface ServersDao {
     @Insert(onConflict = REPLACE)
     fun insert(serverState: ServerState)
 
-    @Delete
-    fun delete(serverState: ServerState)
+    @Query("DELETE FROM servers WHERE serverUri IN (:serverId)")
+    fun delete(serverId: String)
 
     @Update
     fun update(serverState: ServerState)

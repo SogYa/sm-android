@@ -12,20 +12,20 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sogya.data.utils.Constants
 import com.sogya.domain.models.ServerStateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentServersBinding
+import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteServerDialogFragment
 import ru.sogya.projects.smartrevolutionapp.dialogs.SelectServerDialogFragment
 
-class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnServerClickListenner,
-    SelectServerDialogFragment.SelectDialogFragmentListener {
-    companion object {
-        const val SERVER_ID = "sid"
-    }
+class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnServerClickListener,
+    SelectServerDialogFragment.SelectDialogFragmentListener,DeleteServerDialogFragment.DeleteDialogFragmentListener {
 
     private lateinit var binding: FragmentServersBinding
     private val vm: ServersVM by viewModels()
     private val adapter = ServersAdapter(this)
+    private val serverId = Bundle()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,13 +58,19 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
 
     override fun onClick(server: ServerStateDomain) {
         val dialog = SelectServerDialogFragment(this)
-        val arguments = Bundle()
-        arguments.putString(SERVER_ID, server.serverUri)
-        dialog.arguments = arguments
+        serverId.putString(Constants.SERVER_URI, server.serverUri)
+        dialog.arguments = serverId
         dialog.show(childFragmentManager, dialog.tag)
     }
 
-    override fun onClick(serverID: String?) {
+    override fun onLongClick(server: ServerStateDomain) {
+        serverId.putString(Constants.SERVER_URI, server.serverUri)
+        val dialog = DeleteServerDialogFragment(this)
+        dialog.arguments = serverId
+        dialog.show(childFragmentManager,dialog.tag)
+    }
+
+    override fun onClickSelect(serverID: String?) {
         vm.getServer(serverID.toString())
         findNavController().navigate(
             R.id.action_serversFragment_to_homeFragment,
@@ -75,5 +81,9 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
                 }
                 launchSingleTop = true
             })
+    }
+
+    override fun onClickDelete(serverID: String?) {
+        vm.removeServer(serverID.toString())
     }
 }

@@ -9,12 +9,13 @@ import com.sogya.domain.models.ServerStateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 
 class ServersAdapter(
-    private val onServerClickListenner: OnServerClickListenner
+    private val onServerClickListener: OnServerClickListener
 ) : RecyclerView.Adapter<ServersAdapter.ViewHolder>() {
     private var serverList = ArrayList<ServerStateDomain>()
 
-    interface OnServerClickListenner {
+    interface OnServerClickListener {
         fun onClick(server: ServerStateDomain)
+        fun onLongClick(server: ServerStateDomain)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -34,7 +35,11 @@ class ServersAdapter(
         holder.nameTextView.text = server.serverName
         holder.uriTextView.text = server.serverUri
         holder.itemView.setOnClickListener {
-            onServerClickListenner.onClick(server)
+            onServerClickListener.onClick(server)
+        }
+        holder.itemView.setOnLongClickListener{
+            onServerClickListener.onLongClick(server)
+            return@setOnLongClickListener true
         }
     }
 
