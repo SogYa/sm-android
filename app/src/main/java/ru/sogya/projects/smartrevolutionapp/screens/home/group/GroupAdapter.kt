@@ -21,17 +21,12 @@ class GroupAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.state_default_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.group_item, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val group = groups[position]
-        groups[0] = StateGroupDomain(
-            Constants.DEFAULT_GROUP_ID,
-            "All states",
-            "A shared dashboard with all the states added to the app"
-        )
         holder.groupLabel.text = group.groupTag
         val groupDesc = group.groupDesc
         if (groupDesc != "") {
@@ -52,7 +47,15 @@ class GroupAdapter(
     fun updateGroupsList(groupsList: List<StateGroupDomain>) {
         groups.clear()
         notifyItemChanged(1)
+        groups.add(
+            StateGroupDomain(
+                Constants.DEFAULT_GROUP_ID,
+                "All states","All states",
+                "A shared dashboard with all the states added to the app"
+            )
+        )
         groups.addAll(groupsList)
+
         notifyItemRangeChanged(0, groups.size)
     }
 

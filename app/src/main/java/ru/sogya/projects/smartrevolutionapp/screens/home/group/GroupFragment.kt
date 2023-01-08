@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -47,25 +46,19 @@ class GroupFragment : Fragment(R.layout.fragment_dashboard), GroupAdapter.OnGrou
         vm.getGroupsLiveData().observe(viewLifecycleOwner) {
             adapter.updateGroupsList(it)
             binding.loadingView.visibility = View.GONE
-            if (it.isEmpty()) {
-                binding.dashboardHint.visibility = View.VISIBLE
-            } else {
-                binding.dashboardHint.visibility = View.GONE
-            }
+            binding.dashboardHint.visibility = View.GONE
+
             Log.d("LiveDataGroup", it.toString())
         }
     }
 
-
-    companion object {
-        private const val STATE_ID = "id"
-    }
-
     override fun onClick(stateGroupDomain: StateGroupDomain) {
         val bundle = Bundle()
-        bundle.putInt(Constants.GROUP_ID,stateGroupDomain.groupId)
-        findNavController().navigate(R.id.action_homeFragment_to_dashboardFragment,
-        bundleOf()
+        bundle.putInt(Constants.GROUP_ID, stateGroupDomain.groupId)
+        Log.d("GroupId", stateGroupDomain.groupId.toString())
+        findNavController().navigate(
+            R.id.action_homeFragment_to_dashboardFragment,
+            bundle
         )
     }
 
