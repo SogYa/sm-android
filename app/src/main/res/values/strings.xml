@@ -32,4 +32,7 @@
     <string name="dashboard_hint">So far, it\'s empty here :(</string>
     <string name="menu_item_groups">Groups</string>
     <string name="group_empty_desc">There is no description for this group</string>
+    <string name="dialog_tittle_remove_server">Server removing</string>
+    <string name="dialog_server_remove_text">Are you sure you want to delete the selected server</string>
+    <string name="dialog_positive_remove">Remove</string>
 </resources>
