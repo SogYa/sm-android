@@ -30,7 +30,7 @@ interface LocalDataBaseRepository {
 
     fun insertServer(serverState: ServerStateDomain)
 
-    fun deleteServer(serverState: ServerStateDomain)
+    fun deleteServer(serverId: String)
 
     fun updateServer(serverState: ServerStateDomain)
 

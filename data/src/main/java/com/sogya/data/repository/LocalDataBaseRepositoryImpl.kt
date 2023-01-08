@@ -77,8 +77,8 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         db.serverDao().insert(ServerDomainMapper(serverState).toServerData())
     }
 
-    override fun deleteServer(serverState: ServerStateDomain) {
-        db.serverDao().delete(ServerDomainMapper(serverState).toServerData())
+    override fun deleteServer(serverId: String) {
+        db.serverDao().delete(serverId)
     }
 
     override fun updateServer(serverState: ServerStateDomain) {
