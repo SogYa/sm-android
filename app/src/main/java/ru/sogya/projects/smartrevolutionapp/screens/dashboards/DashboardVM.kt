@@ -1,4 +1,4 @@
-package ru.sogya.projects.smartrevolutionapp.screens.home
+package ru.sogya.projects.smartrevolutionapp.screens.dashboards
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

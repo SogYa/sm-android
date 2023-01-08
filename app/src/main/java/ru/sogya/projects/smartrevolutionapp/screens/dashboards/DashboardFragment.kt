@@ -1,4 +1,4 @@
-package ru.sogya.projects.smartrevolutionapp.screens.home
+package ru.sogya.projects.smartrevolutionapp.screens.dashboards
 
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +15,7 @@ import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
 import ru.sogya.projects.smartrevolutionapp.screens.MainActivity
-import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.DashboardBottomSheet
+import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.DashboardBottomSheet
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.StateAdapter
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.OnStateClickListener,
@@ -63,7 +63,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
     }
 
     override fun onClick(stateDomain: StateDomain) {
-
         val dialog = DeleteItemDialogFragment(this)
         val arguments = Bundle()
         arguments.putString(STATE_ID, stateDomain.entityId)
