@@ -13,6 +13,7 @@ class StateDomainMapper (
         state.lastUpdated,
         state.lastChanged,
         AttributeDomainMapper(state.attributesDomain).toAttributeData(),
-        state.ownerId
+        state.ownerId,
+        state.groupId
     )
 }

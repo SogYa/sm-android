@@ -9,10 +9,6 @@ data class StateDomain(
     var ownerId: String,
     var groupId: Int
 ) {
-    constructor(entityId: String, state: String, ownerId: String) : this(
-        entityId, state, "", "",
-        AttributesDomain(), ownerId, -1
-    )
 //    fun isPersone(): Boolean {
 //        return (state.contains("person."))
 //    }
