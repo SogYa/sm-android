@@ -10,11 +10,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sogya.data.utils.Constants
 import com.sogya.domain.models.StateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
-import ru.sogya.projects.smartrevolutionapp.screens.MainActivity
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.DashboardBottomSheet
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.StateAdapter
 
@@ -33,19 +33,21 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bottomSheet = DashboardBottomSheet()
+        val bundle = Bundle()
+        val groupId = arguments?.getInt(Constants.GROUP_ID)
+        bundle.putInt(Constants.GROUP_ID, groupId!!)
         binding.addButton.setOnClickListener {
-            DashboardBottomSheet()
+            bottomSheet.arguments = bundle
+            bottomSheet
                 .show(childFragmentManager, DashboardBottomSheet().tag)
         }
-        (activity as MainActivity).getServerState()
+        vm.getGroupStates(groupId)
+
         binding.statesRecyclerView.layoutManager = LinearLayoutManager(context)
         adapter = StateAdapter(this)
         binding.statesRecyclerView.adapter = adapter
         binding.statesRecyclerView.itemAnimator = null
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = false
-
-        }
     }
 
     override fun onResume() {
