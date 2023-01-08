@@ -16,7 +16,7 @@ class SelectServerDialogFragment(
     private val selectDialogFragmentListener: SelectDialogFragmentListener
 ) : DialogFragment() {
     interface SelectDialogFragmentListener {
-        fun onClick(serverID: String?)
+        fun onClickSelect(serverID: String?)
     }
 
     override fun onCreateView(
@@ -42,7 +42,7 @@ class SelectServerDialogFragment(
         positiveButton.text = getString(R.string.dialog_connect)
         positiveButton.setOnClickListener {
             val entityId = arguments?.getString("sid")
-            selectDialogFragmentListener.onClick(entityId)
+            selectDialogFragmentListener.onClickSelect(entityId)
             dismiss()
         }
         negativeButton.setOnClickListener {
