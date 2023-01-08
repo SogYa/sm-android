@@ -8,4 +8,6 @@ object Constants {
     const val PREFS_IS_LOCKED = "isLocked"
     const val PREFS_APPLOCK_PINCODE = "pincode"
     const val SERVER_NAME = "name"
+    const val DEFAULT_GROUP_ID = -1
+    const val GROUP_ID = "groupId"
 }
