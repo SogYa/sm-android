@@ -86,6 +86,9 @@
         <action
             android:id="@+id/action_serversFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_serversFragment_to_firebaseAuthFragment"
+            app:destination="@id/firebaseAuthFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
