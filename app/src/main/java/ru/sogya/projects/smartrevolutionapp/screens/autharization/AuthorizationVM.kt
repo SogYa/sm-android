@@ -111,7 +111,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
                     serverTag, serverUri, serverToken
                 )
             )
-            loadScreenLiveData.postValue(VisibilityStates.GONE.visibility)
+            loadScreenLiveData.postValue(VisibilityStates.VISIBLE.visibility)
             navigationLiveData.postValue(true)
             webSocketRepository.close()
         }
