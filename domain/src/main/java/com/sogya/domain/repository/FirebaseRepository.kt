@@ -8,4 +8,6 @@ interface FirebaseRepository {
     fun logInUser(email: String,password: String, myCallBack: MyCallBack<String>)
 
     fun logOut()
+
+    fun sendEmailVerification(myCallBack: MyCallBack<Boolean>)
 }
