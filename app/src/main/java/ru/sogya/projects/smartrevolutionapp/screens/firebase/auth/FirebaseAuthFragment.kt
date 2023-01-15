@@ -33,6 +33,7 @@ class FirebaseAuthFragment : Fragment(R.layout.fragment_firebase_auth) {
                 val password = editTextPassword.text.toString()
                 vm.logIn(email, password, object : MyCallBack<Boolean> {
                     override fun data(t: Boolean) {
+                        findNavController().navigate(R.id.action_firebaseAuthFragment_to_serversFragment)
                         Toast.makeText(context, "Welcome", Toast.LENGTH_SHORT).show()
                     }
 
