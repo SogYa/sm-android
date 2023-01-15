@@ -1,6 +1,7 @@
 package ru.sogya.projects.smartrevolutionapp.screens.servers
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sogya.data.utils.Constants
+import com.sogya.data.utils.MyCallBack
 import com.sogya.domain.models.ServerStateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentServersBinding
@@ -40,6 +42,7 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
         val layoutManager = LinearLayoutManager(context)
         binding.serverList.layoutManager = layoutManager
         binding.serverList.adapter = adapter
+        binding.serverList.itemAnimator = null
         binding.addServer.setOnClickListener {
             findNavController().navigate(R.id.action_serversFragment_to_authFragment)
         }
@@ -58,6 +61,7 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
 
     override fun onClick(server: ServerStateDomain) {
         val dialog = SelectServerDialogFragment(this)
+        Log.d("ServerId",server.serverUri)
         serverId.putString(Constants.SERVER_URI, server.serverUri)
         dialog.arguments = serverId
         dialog.show(childFragmentManager, dialog.tag)
@@ -70,17 +74,26 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
         dialog.show(childFragmentManager,dialog.tag)
     }
 
-    override fun onClickSelect(serverID: String?) {
-        vm.getServer(serverID.toString())
-        findNavController().navigate(
-            R.id.action_serversFragment_to_homeFragment,
-            bundleOf(),
-            navOptions {
-                popUpTo(R.id.nav_graph) {
-                    inclusive = true
-                }
-                launchSingleTop = true
-            })
+    override fun onClickSelect(serverId: String?) {
+        Log.d("ServerId",serverId.toString())
+        vm.getServer(serverId.toString(),object :MyCallBack<Boolean>{
+            override fun data(t: Boolean) {
+                findNavController().navigate(
+                    R.id.action_serversFragment_to_homeFragment,
+                    bundleOf(),
+                    navOptions {
+                        popUpTo(R.id.nav_graph) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    })
+            }
+
+            override fun error() {
+                TODO("Not yet implemented")
+            }
+        })
+
     }
 
     override fun onClickDelete(serverID: String?) {
