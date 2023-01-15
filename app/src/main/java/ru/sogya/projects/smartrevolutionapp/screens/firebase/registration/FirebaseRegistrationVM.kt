@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.sogya.data.repository.FirebaseRepositoryImpl
 import com.sogya.domain.usecases.firebase.CreateUserUseCase
 import com.sogya.domain.usecases.firebase.SendEmailVerivicationUseCase
+import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 
 class FirebaseRegistrationVM : ViewModel() {
@@ -19,6 +21,7 @@ class FirebaseRegistrationVM : ViewModel() {
             override fun data(t: String) {
                 sendEmailVerivicationUseCase.invoke(object : MyCallBack<Boolean>{
                     override fun data(t: Boolean) {
+                        SPControl.getInstance().updatePrefs(Constants.IS_FIREBASE_AUTH,true)
                         myCallBack.data(true)
                     }
 

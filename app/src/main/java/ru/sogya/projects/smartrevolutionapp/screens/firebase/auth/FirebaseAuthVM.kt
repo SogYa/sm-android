@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.data.repository.FirebaseRepositoryImpl
 import com.sogya.domain.usecases.firebase.LogInUserUseCase
+import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 
 class FirebaseAuthVM : ViewModel() {
@@ -16,6 +18,7 @@ class FirebaseAuthVM : ViewModel() {
         logInUserUseCase.invoke(email, password, object : MyCallBack<String> {
             override fun data(t: String) {
                 myCallBack.data(true)
+                SPControl.getInstance().updatePrefs(Constants.IS_FIREBASE_AUTH,true)
                 loadingLiveData.value = VisibilityStates.GONE.visibility
             }
 
