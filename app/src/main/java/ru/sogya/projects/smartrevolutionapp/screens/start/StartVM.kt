@@ -10,18 +10,27 @@ class StartVM : ViewModel() {
     private val navigationLiveData = MutableLiveData<Int>()
 
     init {
-        if (isAuth()) {
-            if (SPControl.getInstance().getBoolPrefs(Constants.PREFS_IS_LOCKED)) {
-                navigationLiveData.value = R.id.action_startFragment_to_lockFragment
+        if (isFirebaseAuth()) {
+            if (isAuth()) {
+                if (SPControl.getInstance().getBoolPrefs(Constants.PREFS_IS_LOCKED)) {
+                    navigationLiveData.value = R.id.action_startFragment_to_lockFragment
+                } else {
+                    navigationLiveData.value = R.id.action_startFragment_to_homeFragment
+                }
             } else {
-                navigationLiveData.value = R.id.action_startFragment_to_homeFragment
+                navigationLiveData.value = R.id.action_startFragment_to_serversFragment
             }
         } else {
-            navigationLiveData.value = R.id.action_startFragment_to_serversFragment
+            navigationLiveData.value = R.id.action_startFragment_to_firebaseAuthFragment
         }
+
     }
 
     fun getNavLiveData() = navigationLiveData
+
+    private fun isFirebaseAuth(): Boolean {
+        return SPControl.getInstance().getBoolPrefs(Constants.IS_FIREBASE_AUTH)
+    }
 
     private fun isAuth(): Boolean {
         return SPControl.getInstance().getStringPrefs(Constants.AUTH_TOKEN).isNotEmpty()
