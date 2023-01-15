@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_startFragment_to_lockFragment"
             app:destination="@id/lockFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_firebaseAuthFragment"
+            app:destination="@id/firebaseAuthFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -91,5 +94,24 @@
         <action
             android:id="@+id/action_dashboardFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/firebaseAuthFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.firebase.auth.FirebaseAuthFragment"
+        android:label="FirebaseAuthFragment" >
+        <action
+            android:id="@+id/action_firebaseAuthFragment_to_firebaseRegistrationFragment"
+            app:destination="@id/firebaseRegistrationFragment" />
+        <action
+            android:id="@+id/action_firebaseAuthFragment_to_serversFragment"
+            app:destination="@id/serversFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/firebaseRegistrationFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.firebase.registration.FirebaseRegistrationFragment"
+        android:label="FirebaseRegistrationFragment" >
+        <action
+            android:id="@+id/action_firebaseRegistrationFragment_to_firebaseAuthFragment"
+            app:destination="@id/firebaseAuthFragment" />
     </fragment>
 </navigation>
