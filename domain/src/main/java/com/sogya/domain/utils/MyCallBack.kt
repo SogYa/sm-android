@@ -1,4 +1,4 @@
-package com.sogya.data.utils
+package com.sogya.domain.utils
 
 interface MyCallBack<T> {
     fun data(t:T)

@@ -2,7 +2,7 @@ package ru.sogya.projects.smartrevolutionapp.screens.start
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sogya.data.utils.Constants
+import com.sogya.domain.utils.Constants
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 

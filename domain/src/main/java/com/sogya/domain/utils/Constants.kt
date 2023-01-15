@@ -1,4 +1,4 @@
-package com.sogya.data.utils
+package com.sogya.domain.utils
 
 object Constants {
     const val AUTH_TOKEN = "auth_token"

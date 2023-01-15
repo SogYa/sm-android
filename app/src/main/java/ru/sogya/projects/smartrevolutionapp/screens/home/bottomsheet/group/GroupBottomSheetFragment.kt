@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.sogya.data.utils.MyCallBack
+import com.sogya.domain.utils.MyCallBack
 import ru.sogya.projects.smartrevolutionapp.databinding.GroupBottomSheetBinding
 
 class GroupBottomSheetFragment : BottomSheetDialogFragment() {

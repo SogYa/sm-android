@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sogya.data.utils.Constants
+import com.sogya.domain.utils.Constants
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.usecases.databaseusecase.states.DeleteStateUseCase
 import com.sogya.domain.usecases.databaseusecase.states.GetAllByGroupIdUseCase

@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
-import com.sogya.data.utils.Constants
-import com.sogya.data.utils.MyCallBack
+import com.sogya.domain.utils.Constants
+import com.sogya.domain.utils.MyCallBack
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentWebViewBinding
 

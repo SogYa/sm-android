@@ -13,8 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sogya.data.utils.Constants
-import com.sogya.data.utils.MyCallBack
+import com.sogya.domain.utils.Constants
+import com.sogya.domain.utils.MyCallBack
 import com.sogya.domain.models.ServerStateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentServersBinding
@@ -76,7 +76,7 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
 
     override fun onClickSelect(serverId: String?) {
         Log.d("ServerId",serverId.toString())
-        vm.getServer(serverId.toString(),object :MyCallBack<Boolean>{
+        vm.getServer(serverId.toString(),object : MyCallBack<Boolean> {
             override fun data(t: Boolean) {
                 findNavController().navigate(
                     R.id.action_serversFragment_to_homeFragment,

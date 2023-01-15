@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.sogya.data.utils.Constants
-import com.sogya.data.utils.MyCallBack
+import com.sogya.domain.utils.Constants
+import com.sogya.domain.utils.MyCallBack
 import com.sogya.domain.models.StateDomain
 import ru.sogya.projects.smartrevolutionapp.databinding.StateBottomSheetBinding
 

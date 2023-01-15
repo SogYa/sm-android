@@ -1,8 +1,8 @@
 package ru.sogya.projects.smartrevolutionapp.screens.lock
 
 import androidx.lifecycle.ViewModel
-import com.sogya.data.utils.Constants
-import com.sogya.data.utils.MyCallBack
+import com.sogya.domain.utils.Constants
+import com.sogya.domain.utils.MyCallBack
 import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 
 class LockVM : ViewModel() {

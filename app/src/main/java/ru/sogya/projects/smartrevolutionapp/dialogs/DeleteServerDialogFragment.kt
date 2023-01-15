@@ -10,7 +10,7 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import com.sogya.data.utils.Constants
+import com.sogya.domain.utils.Constants
 import ru.sogya.projects.smartrevolutionapp.R
 
 class DeleteServerDialogFragment(

@@ -2,8 +2,8 @@ package ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.group
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sogya.data.utils.Constants
-import com.sogya.data.utils.MyCallBack
+import com.sogya.domain.utils.Constants
+import com.sogya.domain.utils.MyCallBack
 import com.sogya.domain.models.StateGroupDomain
 import com.sogya.domain.usecases.databaseusecase.groups.InsertGroupUseCase
 import kotlinx.coroutines.launch

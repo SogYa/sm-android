@@ -7,8 +7,8 @@ import com.sogya.data.models.requests.AuthMessage
 import com.sogya.data.models.requests.LongLivedRequest
 import com.sogya.data.repository.NetworkRepositoryImpl
 import com.sogya.data.repository.WebSocketRepositoryImpl
-import com.sogya.data.utils.Constants
-import com.sogya.data.utils.MyCallBack
+import com.sogya.domain.utils.Constants
+import com.sogya.domain.utils.MyCallBack
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.TokenInfo
 import com.sogya.domain.repository.MessageListener

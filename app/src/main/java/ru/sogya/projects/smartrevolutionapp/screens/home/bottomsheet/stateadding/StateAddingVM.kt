@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sogya.data.repository.NetworkRepositoryImpl
-import com.sogya.data.utils.Constants
-import com.sogya.data.utils.MyCallBack
+import com.sogya.domain.utils.Constants
+import com.sogya.domain.utils.MyCallBack
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.usecases.GetStatesUseCase
 import com.sogya.domain.usecases.databaseusecase.states.InsertStateUseCase
