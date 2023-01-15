@@ -10,13 +10,14 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import com.sogya.data.utils.Constants
 import ru.sogya.projects.smartrevolutionapp.R
 
 class SelectServerDialogFragment(
     private val selectDialogFragmentListener: SelectDialogFragmentListener
 ) : DialogFragment() {
     interface SelectDialogFragmentListener {
-        fun onClickSelect(serverID: String?)
+        fun onClickSelect(serverId: String?)
     }
 
     override fun onCreateView(
@@ -41,7 +42,7 @@ class SelectServerDialogFragment(
         textTV.text = getString(R.string.dialog_server_open_text)
         positiveButton.text = getString(R.string.dialog_connect)
         positiveButton.setOnClickListener {
-            val entityId = arguments?.getString("sid")
+            val entityId = arguments?.getString(Constants.SERVER_URI)
             selectDialogFragmentListener.onClickSelect(entityId)
             dismiss()
         }
