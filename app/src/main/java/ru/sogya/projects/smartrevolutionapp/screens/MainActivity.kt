@@ -35,11 +35,19 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         vm = ViewModelProvider(this)[MainVM::class.java]
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.authFragment, R.id.lockFragment, R.id.serversFragment -> {
+                R.id.authFragment, R.id.lockFragment-> {
                     supportActionBar?.hide()
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
-                else -> supportActionBar?.show()
+                R.id.firebaseAccountFragment, R.id.serversFragment ->{
+                    supportActionBar?.hide()
+                    binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    binding.bottomNav.visibility = VISIBLE
+                }
+                else -> {
+                    supportActionBar?.show()
+                    binding.bottomNav.visibility = GONE
+                }
             }
         }
     }
