@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -52,6 +53,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.core:core-ktx:+'
     implementation 'androidx.core:core-ktx:+'
+    implementation 'com.google.firebase:firebase-common-ktx:20.2.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.3'
 
     testImplementation 'junit:junit:4.13.2'
     implementation project(path: ':data')
@@ -59,3 +62,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
+apply plugin: 'com.google.gms.google-services'
