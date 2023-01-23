@@ -33,7 +33,7 @@ class FirebaseRegistrationFragment : Fragment(R.layout.fragment_firebase_registr
                 val password = editTextPassword.text.toString()
                 val confirmationPassword = editTextConfirmPassword.text.toString()
 
-                if (password == confirmationPassword && password.length > 6)
+                if (password == confirmationPassword && password.length >= 6)
                     vm.signUpUser(email, password, object : MyCallBack<Boolean> {
                         override fun data(t: Boolean) {
                             if (t) {
