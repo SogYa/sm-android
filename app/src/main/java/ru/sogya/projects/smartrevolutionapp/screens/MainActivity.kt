@@ -35,11 +35,12 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         vm = ViewModelProvider(this)[MainVM::class.java]
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.authFragment, R.id.lockFragment-> {
+                R.id.authFragment, R.id.lockFragment, R.id.firebaseAuthFragment, R.id.firebaseRegistrationFragment -> {
                     supportActionBar?.hide()
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    binding.bottomNav.visibility = GONE
                 }
-                R.id.firebaseAccountFragment, R.id.serversFragment ->{
+                R.id.firebaseAccountFragment, R.id.serversFragment -> {
                     supportActionBar?.hide()
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     binding.bottomNav.visibility = VISIBLE
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
             setOf(R.id.homeFragment, R.id.settingsFragment),
             binding.drawerLayout
         )
+        binding.bottomNav.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfig)
         binding.navView.setupWithNavController(navController)
         //Передача URL в текст заголовка меню
