@@ -2,16 +2,15 @@ package ru.sogya.projects.smartrevolutionapp.screens.firebase.auth
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sogya.data.repository.FirebaseRepositoryImpl
 import com.sogya.domain.usecases.firebase.LogInUserUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import ru.sogya.projects.smartrevolutionapp.app.App
 import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 
 class FirebaseAuthVM : ViewModel() {
-    private val repository = FirebaseRepositoryImpl()
-    private val logInUserUseCase = LogInUserUseCase(repository)
+    private val logInUserUseCase = LogInUserUseCase(App.getFirebase())
     private var loadingLiveData = MutableLiveData<Int>()
 
     fun logIn(email: String, password: String, myCallBack: MyCallBack<Boolean>) {
