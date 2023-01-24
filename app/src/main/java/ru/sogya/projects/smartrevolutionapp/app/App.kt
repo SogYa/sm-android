@@ -5,8 +5,10 @@ import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.sogya.data.repository.FirebaseRepositoryImpl
 import com.sogya.data.repository.LocalDataBaseRepositoryImpl
+import com.sogya.data.repository.WebSocketRepositoryImpl
 import com.sogya.domain.repository.FirebaseRepository
 import com.sogya.domain.repository.LocalDataBaseRepository
+import com.sogya.domain.repository.WebSocketRepository
 
 class App : Application() {
 
@@ -15,6 +17,7 @@ class App : Application() {
         private lateinit var app: App
         private lateinit var repository: LocalDataBaseRepository
         private lateinit var firebaseRepository: FirebaseRepository
+        private lateinit var webSocketRepository: WebSocketRepository
 
         fun getApplicationContext(): Context {
             return app.applicationContext
@@ -27,6 +30,10 @@ class App : Application() {
         fun getFirebase(): FirebaseRepository {
             return firebaseRepository
         }
+
+        fun getWebSocketRepository(): WebSocketRepository {
+            return webSocketRepository
+        }
     }
 
     override fun onCreate() {
@@ -35,6 +42,7 @@ class App : Application() {
         FirebaseApp.initializeApp(app.applicationContext)
         repository = LocalDataBaseRepositoryImpl(app.applicationContext)
         firebaseRepository = FirebaseRepositoryImpl()
+        webSocketRepository = WebSocketRepositoryImpl()
 
     }
 }
