@@ -10,8 +10,6 @@ import java.util.concurrent.TimeUnit
 
 
 class WebSocketRepositoryImpl : WebSocketRepository {
-
-
     companion object {
         private const val MAX_NUM = 5  // Maximum number of reconnections
         private const val MILLIS = 5000  // Reconnection interval, milliseconds
@@ -35,10 +33,6 @@ class WebSocketRepositoryImpl : WebSocketRepository {
         messageListener = _messageListener
         connect()
     }
-
-    /**
-     * connect
-     */
      private fun connect() {
         if (isConnect()) {
             Log.i(TAG, "web socket connected")
@@ -58,10 +52,6 @@ class WebSocketRepositoryImpl : WebSocketRepository {
         return true
     }
 
-
-    /**
-     * Reconnection
-     */
      private fun reconnect() {
         if (connectNum <= MAX_NUM) {
             try {
@@ -79,26 +69,14 @@ class WebSocketRepositoryImpl : WebSocketRepository {
         }
     }
 
-    /**
-     * Whether to connect
-     */
     private fun isConnect(): Boolean {
         return isConnect
     }
 
-    /**
-     * send messages
-     *
-     * @param
-     * @return boolean
-     */
     override fun sendMessage(message: Any): Boolean {
         return if (!isConnect()) false else mWebSocket.send(Gson().toJson(message))
     }
 
-    /**
-     * Close connection
-     */
     override fun close() {
         if (isConnect()) {
             mWebSocket.cancel()
