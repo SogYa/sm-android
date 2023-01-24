@@ -25,6 +25,17 @@ class FirebaseAccountFragment : Fragment(R.layout.fragment_firebase_account) {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        vm.getUserLiveData().observe(viewLifecycleOwner) {
+            binding.textViewEmail.text = it?.email
+            binding.textViewName.text = it?.name
+        }
+        vm.getErrorLiveData().observe(viewLifecycleOwner){
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
@@ -36,7 +47,6 @@ class FirebaseAccountFragment : Fragment(R.layout.fragment_firebase_account) {
                     }
 
                     override fun error() {}
-
                 })
             }
         }
