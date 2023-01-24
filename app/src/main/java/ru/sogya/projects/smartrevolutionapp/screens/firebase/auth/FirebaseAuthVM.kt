@@ -27,4 +27,5 @@ class FirebaseAuthVM : ViewModel() {
             }
         })
     }
+    fun getLoadingLiveData() = loadingLiveData
 }
