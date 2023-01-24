@@ -107,7 +107,9 @@
         android:label="FirebaseAuthFragment" >
         <action
             android:id="@+id/action_firebaseAuthFragment_to_firebaseRegistrationFragment"
-            app:destination="@id/firebaseRegistrationFragment" />
+            app:destination="@id/firebaseRegistrationFragment"
+            app:enterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
         <action
             android:id="@+id/action_firebaseAuthFragment_to_serversFragment"
             app:destination="@id/serversFragment" />
