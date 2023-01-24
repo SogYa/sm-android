@@ -18,7 +18,6 @@ class GroupVM : ViewModel() {
     private val getAllGroupByOwnerUseCase = GetAllGroupByOwnerUseCase(repository)
     private val deleteGroupUseCase = DeleteGroupUseCase(repository)
 
-
     init {
         val ownerId = SPControl.getInstance().getStringPrefs(Constants.SERVER_URI)
         groupsLiveData = getAllGroupByOwnerUseCase.invoke(ownerId)
