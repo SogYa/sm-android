@@ -6,5 +6,5 @@ import com.sogya.domain.utils.MyCallBack
 class SendEmailVerivicationUseCase(
     private val repository: FirebaseRepository
 ) {
-    fun invoke(myCallBack: MyCallBack<Boolean>) = repository.sendEmailVerification(myCallBack)
+    fun invoke(myCallBack: MyCallBack<String>) = repository.sendEmailVerification(myCallBack)
 }
