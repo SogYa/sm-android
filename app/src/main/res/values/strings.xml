@@ -35,4 +35,5 @@
     <string name="dialog_tittle_remove_server">Server removing</string>
     <string name="dialog_server_remove_text">Are you sure you want to delete the selected server</string>
     <string name="dialog_positive_remove">Remove</string>
+    <string name="menu_item_ticket">Tickets</string>
 </resources>
