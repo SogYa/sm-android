@@ -1,10 +1,12 @@
 package com.sogya.data.repository
 
+import androidx.lifecycle.LiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.sogya.domain.models.TicketDomain
 import com.sogya.domain.models.UserDomain
 import com.sogya.domain.repository.FirebaseRepository
 import com.sogya.domain.utils.MyCallBack
@@ -82,5 +84,21 @@ class FirebaseRepositoryImpl : FirebaseRepository {
                     myCallBack.error(error.message)
                 }
             })
+    }
+
+    override fun createTicket(ticketDevice: String, ticketZone: String, ticketDesc: String?,ticketDate:String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun readAllTickets(): LiveData<List<TicketDomain>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun readTicketByID(ticketId: String): LiveData<TicketDomain> {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteTicketById(ticketId: String) {
+        TODO("Not yet implemented")
     }
 }
