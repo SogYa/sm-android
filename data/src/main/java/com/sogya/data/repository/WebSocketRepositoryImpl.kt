@@ -2,8 +2,10 @@ package com.sogya.data.repository
 
 import android.util.Log
 import com.google.gson.Gson
+import com.sogya.domain.models.TriggerEventDomain
 import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.repository.WebSocketRepository
+import io.reactivex.Flowable
 import okhttp3.*
 import okio.ByteString
 import java.util.concurrent.TimeUnit
@@ -82,6 +84,10 @@ class WebSocketRepositoryImpl : WebSocketRepository {
             mWebSocket.cancel()
             mWebSocket.close(1001, "The client actively closes the connection ")
         }
+    }
+
+    override fun subscribeTrigger(baseUrl: String,stateId: String): Flowable<TriggerEventDomain> {
+        TODO("Not yet implemented")
     }
 
     private fun createListener(): WebSocketListener {
