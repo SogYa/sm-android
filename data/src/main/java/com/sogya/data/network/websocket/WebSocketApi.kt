@@ -1,6 +1,7 @@
 package com.sogya.data.network.websocket
 
 import com.sogya.data.models.LongLivedAccessToken
+import com.sogya.data.models.TriggerEvent
 import com.sogya.data.models.requests.LongLivedRequest
 import com.tinder.scarlet.WebSocket
 import com.tinder.scarlet.ws.Receive
@@ -18,5 +19,11 @@ interface WebSocketApi {
 
     @Receive
     fun observeWebSocketEvent(): Flowable<WebSocket.Event>
+
+    @Send
+    fun subscribeTriggerEvent()
+
+    @Receive
+    fun observerTriggersEvent(): Flowable<TriggerEvent>
 
 }
