@@ -20,7 +20,7 @@ object WebSocketService {
             .build()
 
         return Scarlet.Builder()
-            .webSocketFactory(okHttpClient.newWebSocketFactory(baseUri.replace("https", "ws")))
+            .webSocketFactory(okHttpClient.newWebSocketFactory(baseUri))
             .addMessageAdapterFactory(GsonMessageAdapter.Factory())
             .addStreamAdapterFactory(RxJava2StreamAdapterFactory())
             .build()
