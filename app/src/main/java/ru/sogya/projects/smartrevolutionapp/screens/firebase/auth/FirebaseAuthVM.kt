@@ -2,7 +2,7 @@ package ru.sogya.projects.smartrevolutionapp.screens.firebase.auth
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sogya.domain.usecases.firebase.LogInUserUseCase
+import com.sogya.domain.usecases.firebase.user.LogInUserUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
 import ru.sogya.projects.smartrevolutionapp.app.App

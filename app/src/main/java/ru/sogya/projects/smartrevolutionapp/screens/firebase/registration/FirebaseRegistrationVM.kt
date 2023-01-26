@@ -3,9 +3,9 @@ package ru.sogya.projects.smartrevolutionapp.screens.firebase.registration
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sogya.domain.usecases.firebase.CreateUserUseCase
+import com.sogya.domain.usecases.firebase.user.CreateUserUseCase
 import com.sogya.domain.usecases.firebase.SendEmailVerivicationUseCase
-import com.sogya.domain.usecases.firebase.WriteUserUseCase
+import com.sogya.domain.usecases.firebase.user.WriteUserUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
 import ru.sogya.projects.smartrevolutionapp.app.App

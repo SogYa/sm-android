@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sogya.domain.models.UserDomain
-import com.sogya.domain.usecases.firebase.LogOutUseCase
-import com.sogya.domain.usecases.firebase.ReadUserUseCase
+import com.sogya.domain.usecases.firebase.user.LogOutUseCase
+import com.sogya.domain.usecases.firebase.user.ReadUserUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
 import kotlinx.coroutines.launch
