@@ -1,4 +1,4 @@
-package com.sogya.domain.usecases.firebase
+package com.sogya.domain.usecases.firebase.user
 
 import com.sogya.domain.repository.FirebaseRepository
 
