@@ -133,4 +133,31 @@
             android:id="@+id/action_firebaseAccountFragment_to_firebaseAuthFragment"
             app:destination="@id/firebaseAuthFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ticketFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.ticket.ticket.TicketFragment"
+        android:label="TicketFragment" >
+        <action
+            android:id="@+id/action_ticketFragment_to_ticketListFragment"
+            app:destination="@id/ticketListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createTicketFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.ticket.create.CreateTicketFragment"
+        android:label="CreateTicketFragment" >
+        <action
+            android:id="@+id/action_createTicketFragment_to_ticketListFragment"
+            app:destination="@id/ticketListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ticketListFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.ticket.list.TicketListFragment"
+        android:label="TicketListFragment" >
+        <action
+            android:id="@+id/action_ticketListFragment_to_createTicketFragment"
+            app:destination="@id/createTicketFragment" />
+        <action
+            android:id="@+id/action_ticketListFragment_to_ticketFragment"
+            app:destination="@id/ticketFragment" />
+    </fragment>
 </navigation>
