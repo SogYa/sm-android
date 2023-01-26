@@ -56,6 +56,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-common-ktx:20.2.0'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.3'
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx:+'
 
     testImplementation 'junit:junit:4.13.2'
     implementation project(path: ':data')
