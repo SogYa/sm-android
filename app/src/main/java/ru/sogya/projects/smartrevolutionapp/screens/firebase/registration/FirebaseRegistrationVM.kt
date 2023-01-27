@@ -24,8 +24,8 @@ class FirebaseRegistrationVM : ViewModel() {
         createUserUseCase.invoke(email, password, object : MyCallBack<String> {
             override fun data(t: String) {
                 writeUserUseCase.invoke(name, email, object : MyCallBack<String> {
-                    override fun error(string: String) {
-                        errorLiveData.value = string
+                    override fun error(error: String) {
+                        errorLiveData.value = error
                     }
                 })
                 sendEmailVerificationUseCase.invoke(object : MyCallBack<String> {
@@ -34,8 +34,8 @@ class FirebaseRegistrationVM : ViewModel() {
                         myCallBack.data(true)
                     }
 
-                    override fun error(string: String) {
-                        errorLiveData.value = string
+                    override fun error(error: String) {
+                        errorLiveData.value = error
                         Log.d("Firebase", "error")
                     }
 
@@ -43,8 +43,8 @@ class FirebaseRegistrationVM : ViewModel() {
                 loadingLiveData.value = VisibilityStates.GONE.visibility
             }
 
-            override fun error(string: String) {
-                myCallBack.error(string)
+            override fun error(error: String) {
+                myCallBack.error(error)
                 loadingLiveData.value = VisibilityStates.GONE.visibility
             }
         })

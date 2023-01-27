@@ -24,8 +24,8 @@ class FirebaseAccountVM : ViewModel() {
                 userLiveData.value = t
             }
 
-            override fun error(string: String) {
-                errorLiveData.value = string
+            override fun error(error: String) {
+                errorLiveData.value = error
             }
         })
     }
