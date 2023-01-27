@@ -1,6 +1,5 @@
 package com.sogya.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.sogya.domain.models.TicketDomain
 import com.sogya.domain.models.UserDomain
 import com.sogya.domain.utils.MyCallBack
@@ -18,11 +17,20 @@ interface FirebaseRepository {
 
     fun readUser(myCallBack: MyCallBack<UserDomain?>)
 
-    fun createTicket(ticketDevice: String, ticketZone: String, ticketDesc: String?, ticketDate: String)
+    fun createTicket(
+        ticketDevice: String,
+        ticketZone: String,
+        ticketDesc: String?,
+        ticketDate: String,
+        myCallBack: MyCallBack<Boolean>
+    )
 
-    fun readAllTickets(): LiveData<List<TicketDomain>>
+    fun readAllTickets(myCallBack: MyCallBack<TicketDomain>)
 
-    fun readTicketByID(ticketId: String): LiveData<TicketDomain>
+    fun readTicketByID(ticketId: String, myCallBack: MyCallBack<TicketDomain>)
 
-    fun deleteTicketById(ticketId: String)
+    fun deleteTicketById(
+        ticketId: String,
+        myCallBack: MyCallBack<String>
+    )
 }

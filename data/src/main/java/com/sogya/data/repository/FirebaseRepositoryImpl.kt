@@ -1,6 +1,5 @@
 package com.sogya.data.repository
 
-import androidx.lifecycle.LiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -10,6 +9,7 @@ import com.sogya.domain.models.TicketDomain
 import com.sogya.domain.models.UserDomain
 import com.sogya.domain.repository.FirebaseRepository
 import com.sogya.domain.utils.MyCallBack
+import java.util.*
 
 class FirebaseRepositoryImpl : FirebaseRepository {
     private val firebaseAuthInstance = FirebaseAuth.getInstance()
@@ -62,12 +62,11 @@ class FirebaseRepositoryImpl : FirebaseRepository {
 
     override fun writeUser(name: String, email: String, myCallBack: MyCallBack<String>) {
         val uid = firebaseAuthInstance.currentUser?.uid.toString()
-        val user = UserDomain(uid,email,name, listOf())
+        val user = UserDomain(uid, email, name, listOf())
         firebaseReference.child("User").child(uid).setValue(user)
             .addOnCompleteListener {
                 if (it.exception != null)
                     myCallBack.error(it.exception?.message.toString())
-
             }
     }
 
@@ -86,19 +85,61 @@ class FirebaseRepositoryImpl : FirebaseRepository {
             })
     }
 
-    override fun createTicket(ticketDevice: String, ticketZone: String, ticketDesc: String?,ticketDate:String) {
+    override fun createTicket(
+        ticketDevice: String,
+        ticketZone: String,
+        ticketDesc: String?,
+        ticketDate: String,
+        myCallBack: MyCallBack<Boolean>
+    ) {
+        val ticketId = UUID.randomUUID().toString()
+        val ticketStatus = "Created"
+        val userId = firebaseAuthInstance.currentUser?.uid.toString()
+        val ticket =
+            TicketDomain(
+                ticketId = ticketId,
+                userId = userId,
+                ticketDate = ticketDate,
+                ticketDevice = ticketDevice,
+                ticketZone = ticketZone,
+                ticketDesc = ticketDesc,
+                ticketStatus = ticketStatus
+            )
+        firebaseReference.child("Tickets").setValue(ticket)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    myCallBack.data(true)
+                }
+                if (it.exception != null)
+                    myCallBack.error(it.exception?.message.toString())
+            }
+    }
+
+    override fun readAllTickets(myCallBack: MyCallBack<TicketDomain>) {
+        val userId = firebaseAuthInstance.currentUser?.uid.toString()
+        firebaseReference.child("Tickets").orderByChild("userId").equalTo(userId)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val ticket = snapshot.getValue(TicketDomain::class.java)
+                    if (ticket != null) {
+                        myCallBack.data(ticket)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    myCallBack.error(error.message)
+                }
+            })
+    }
+
+    override fun readTicketByID(ticketId: String, myCallBack: MyCallBack<TicketDomain>) {
         TODO("Not yet implemented")
     }
 
-    override fun readAllTickets(): LiveData<List<TicketDomain>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun readTicketByID(ticketId: String): LiveData<TicketDomain> {
-        TODO("Not yet implemented")
-    }
-
-    override fun deleteTicketById(ticketId: String) {
+    override fun deleteTicketById(
+        ticketId: String,
+        myCallBack: MyCallBack<String>
+    ) {
         TODO("Not yet implemented")
     }
 }
