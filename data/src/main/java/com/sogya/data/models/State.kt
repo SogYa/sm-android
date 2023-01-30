@@ -1,5 +1,6 @@
 package com.sogya.data.models
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -16,7 +17,7 @@ data class State(
 
     @SerializedName("last_changed") var lastChanged: String = "",
 
-    @Ignore @SerializedName("attributes") var attributes: Attributes = Attributes(),
+    @Embedded @SerializedName("attributes") var attributes: Attributes? = null,
     var ownerId: String = "",
 
     var groupId: Int = -1
