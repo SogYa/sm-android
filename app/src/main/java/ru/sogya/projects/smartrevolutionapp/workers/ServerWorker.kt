@@ -1,4 +1,4 @@
-package ru.sogya.projects.smartrevolutionapp.screens.servers
+package ru.sogya.projects.smartrevolutionapp.workers
 
 import android.content.Context
 import androidx.work.Worker
