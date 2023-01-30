@@ -11,7 +11,7 @@ interface StateDao {
     fun getAllByServerId(serverUri: String): LiveData<List<State>>
 
     @Query("SELECT * FROM states WHERE entityId IN(:entityId)")
-    fun getState(entityId: String): LiveData<List<State>>
+    fun getState(entityId: String): State
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(states: List<State>)
@@ -22,9 +22,15 @@ interface StateDao {
     @Query("DELETE FROM states WHERE entityId IN(:stateId)")
     fun delete(stateId: String)
 
+    @Query("SELECT EXISTS (SELECT 1 FROM states WHERE entityId = :stateId)")
+    fun isStateExist(stateId: String):Boolean
+
+    @Update
+    fun updateState(state: State)
+
     @Query("UPDATE states SET groupId = -1  WHERE groupId IN(:stateGroupId)")
     fun deleteGroupIdFromStets(stateGroupId: Int)
 
     @Query("SELECT * FROM states WHERE groupId IN(:groupId) ")
-    fun getAllByGroup(groupId: Int) : LiveData<List<State>>
+    fun getAllByGroup(groupId: Int): LiveData<List<State>>
 }
