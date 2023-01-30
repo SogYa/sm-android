@@ -6,9 +6,6 @@ import java.math.BigDecimal
 
 data class Attributes(
 
-    @SerializedName("entity_id")
-    var entityId: ArrayList<String>? = null,
-
     //    public String entityId;
     @SerializedName("next_dawn")
     var nextDawn: String? = null,
@@ -107,7 +104,7 @@ data class Attributes(
     var hidden: Boolean? = null,
 
     @SerializedName("view")
-    var view: Boolean? = null,
+    var viewOne: Boolean? = null,
 
     @SerializedName("name")
     var name: String? = null,
@@ -193,7 +190,7 @@ data class Attributes(
     val timestampForInputDateTime: Long?
         get() = if (timestamp == null) null else BigDecimal(timestamp).toLong()
 
-    fun getTemperature(): BigDecimal? {
+    fun getTemp(): BigDecimal? {
         //Crashlytics.log("temperature: $temperature")
         return if (temperature == null) {
             null
@@ -201,6 +198,6 @@ data class Attributes(
     }
 
     fun isView(): Boolean {
-        return view != null && view as Boolean
+        return viewOne != null && viewOne as Boolean
     }
 }

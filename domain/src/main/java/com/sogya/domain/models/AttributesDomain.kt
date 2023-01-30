@@ -3,7 +3,6 @@ package com.sogya.domain.models
 import java.math.BigDecimal
 data class AttributesDomain(
 
-var entityIds: ArrayList<String>? = null,
 
 //    public String entityId;
 
