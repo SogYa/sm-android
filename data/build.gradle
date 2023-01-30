@@ -62,13 +62,11 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1'
     implementation 'com.google.firebase:firebase-auth:21.1.0'
-    implementation 'androidx.core:core-ktx:+'
-    implementation 'androidx.core:core-ktx:+'
+
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
-    implementation 'androidx.core:core-ktx:+'
-    implementation 'androidx.core:core-ktx:+'
+
     //Room
-    def room_version = "2.4.3"
+    def room_version = "2.5.0"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
