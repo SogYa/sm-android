@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a56a8b5b4058e452e02aba8128946ccc",
+    "identityHash": "f37496b900d579e56d574f3ebb368761",
     "entities": [
       {
         "tableName": "states",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`entityId` TEXT NOT NULL, `state` TEXT NOT NULL, `lastUpdated` TEXT NOT NULL, `lastChanged` TEXT NOT NULL, `ownerId` TEXT NOT NULL, `groupId` INTEGER NOT NULL, PRIMARY KEY(`entityId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`entityId` TEXT NOT NULL, `state` TEXT NOT NULL, `lastUpdated` TEXT NOT NULL, `lastChanged` TEXT NOT NULL, `ownerId` TEXT NOT NULL, `groupId` INTEGER NOT NULL, `nextDawn` TEXT, `nextDusk` TEXT, `nextMidnight` TEXT, `nextNoon` TEXT, `nextRising` TEXT, `nextSetting` TEXT, `speedList` TEXT, `fanSpeedList` TEXT, `assumedState` TEXT, `friendlyName` TEXT, `appName` TEXT, `isVolumeMuted` INTEGER, `volumeLevel` TEXT, `entityPicture` TEXT, `icon` TEXT, `title` TEXT, `year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, `timestamp` TEXT, `hasDate` INTEGER, `hasTime` INTEGER, `deviceClass` TEXT, `brightness` TEXT, `colorTemp` TEXT, `rgbColors` TEXT, `options` TEXT, `order` INTEGER, `auto` INTEGER, `hidden` INTEGER, `viewOne` INTEGER, `name` TEXT, `initial` INTEGER, `codeFormat` TEXT, `pattern` TEXT, `max` TEXT, `min` TEXT, `step` TEXT, `currentTemperature` TEXT, `maxTemp` TEXT, `minTemp` TEXT, `temperature` TEXT, `operationMode` TEXT, `activity` TEXT, `provider` TEXT, `sourceType` TEXT, `battery` TEXT, `gpsAccuracy` TEXT, `altitude` TEXT, `latitude` TEXT, `longitude` TEXT, `radius` TEXT, `releaseNotes` INTEGER, `unitOfMeasurement` TEXT, PRIMARY KEY(`entityId`))",
         "fields": [
           {
             "fieldPath": "entityId",
@@ -43,13 +43,349 @@
             "columnName": "groupId",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "attributes.nextDawn",
+            "columnName": "nextDawn",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.nextDusk",
+            "columnName": "nextDusk",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.nextMidnight",
+            "columnName": "nextMidnight",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.nextNoon",
+            "columnName": "nextNoon",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.nextRising",
+            "columnName": "nextRising",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.nextSetting",
+            "columnName": "nextSetting",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.speedList",
+            "columnName": "speedList",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.fanSpeedList",
+            "columnName": "fanSpeedList",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.assumedState",
+            "columnName": "assumedState",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.friendlyName",
+            "columnName": "friendlyName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.appName",
+            "columnName": "appName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.isVolumeMuted",
+            "columnName": "isVolumeMuted",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.volumeLevel",
+            "columnName": "volumeLevel",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.entityPicture",
+            "columnName": "entityPicture",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.icon",
+            "columnName": "icon",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.year",
+            "columnName": "year",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.month",
+            "columnName": "month",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.day",
+            "columnName": "day",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.hour",
+            "columnName": "hour",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.minute",
+            "columnName": "minute",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.timestamp",
+            "columnName": "timestamp",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.hasDate",
+            "columnName": "hasDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.hasTime",
+            "columnName": "hasTime",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.deviceClass",
+            "columnName": "deviceClass",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.brightness",
+            "columnName": "brightness",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.colorTemp",
+            "columnName": "colorTemp",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.rgbColors",
+            "columnName": "rgbColors",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.options",
+            "columnName": "options",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.order",
+            "columnName": "order",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.auto",
+            "columnName": "auto",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.hidden",
+            "columnName": "hidden",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.viewOne",
+            "columnName": "viewOne",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.initial",
+            "columnName": "initial",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.codeFormat",
+            "columnName": "codeFormat",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.pattern",
+            "columnName": "pattern",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.max",
+            "columnName": "max",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.min",
+            "columnName": "min",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.step",
+            "columnName": "step",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.currentTemperature",
+            "columnName": "currentTemperature",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.maxTemp",
+            "columnName": "maxTemp",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.minTemp",
+            "columnName": "minTemp",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.temperature",
+            "columnName": "temperature",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.operationMode",
+            "columnName": "operationMode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.activity",
+            "columnName": "activity",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.provider",
+            "columnName": "provider",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.sourceType",
+            "columnName": "sourceType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.battery",
+            "columnName": "battery",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.gpsAccuracy",
+            "columnName": "gpsAccuracy",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.altitude",
+            "columnName": "altitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.latitude",
+            "columnName": "latitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.longitude",
+            "columnName": "longitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.radius",
+            "columnName": "radius",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.releaseNotes",
+            "columnName": "releaseNotes",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.unitOfMeasurement",
+            "columnName": "unitOfMeasurement",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
+          "autoGenerate": false,
           "columnNames": [
             "entityId"
-          ],
-          "autoGenerate": false
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -78,10 +414,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": false,
           "columnNames": [
             "serverUri"
-          ],
-          "autoGenerate": false
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -116,10 +452,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "groupId"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -128,7 +464,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a56a8b5b4058e452e02aba8128946ccc')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f37496b900d579e56d574f3ebb368761')"
     ]
   }
 }
