@@ -105,7 +105,7 @@ class FirebaseRepositoryImpl : FirebaseRepository {
                 ticketDesc = ticketDesc,
                 ticketStatus = ticketStatus
             )
-        firebaseReference.child("Tickets").setValue(ticket)
+        firebaseReference.child("Tickets").child(ticketId).setValue(ticket)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     myCallBack.data(true)
@@ -117,13 +117,17 @@ class FirebaseRepositoryImpl : FirebaseRepository {
 
     override fun readAllTickets(myCallBack: MyCallBack<TicketDomain>) {
         val userId = firebaseAuthInstance.currentUser?.uid.toString()
-        firebaseReference.child("Tickets").orderByChild("userId").equalTo(userId)
-            .addValueEventListener(object : ValueEventListener {
+        firebaseDatabaseInstance.getReference("Tickets").orderByChild("userId").equalTo(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val ticket = snapshot.getValue(TicketDomain::class.java)
-                    if (ticket != null) {
-                        myCallBack.data(ticket)
+                    val snapshots = snapshot.children
+                    snapshots.forEach{
+                        val ticket = it.getValue(TicketDomain::class.java)
+                        if (ticket != null) {
+                            myCallBack.data(ticket)
+                        }
                     }
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
