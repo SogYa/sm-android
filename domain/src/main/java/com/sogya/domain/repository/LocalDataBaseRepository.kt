@@ -10,13 +10,17 @@ interface LocalDataBaseRepository {
 
     fun getAllStates(serverUri: String): LiveData<List<StateDomain>>
 
-    fun getStateById(entityId: String): LiveData<List<StateDomain>>
+    fun getStateById(entityId: String): StateDomain
 
     fun insertState(states: List<StateDomain>)
 
     fun insertOneState(states: StateDomain)
 
     fun deleteState(stateId: String)
+
+    fun isStateInDB(stateId: String):Boolean
+
+    fun updateState(stateDomain: StateDomain)
 
     fun getAllGroupsByOwner(ownerId: String): LiveData<List<StateGroupDomain>>
 

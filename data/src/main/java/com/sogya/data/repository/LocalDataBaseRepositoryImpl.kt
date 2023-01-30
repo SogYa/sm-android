@@ -13,6 +13,7 @@ import com.sogya.data.mappers.server.ServerDomainMapper
 import com.sogya.data.mappers.state.ListOfStatesDomainMapper
 import com.sogya.data.mappers.state.ListOfStatesMapper
 import com.sogya.data.mappers.state.StateDomainMapper
+import com.sogya.data.mappers.state.StatesMapper
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.models.StateGroupDomain
@@ -30,10 +31,8 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         }
     }
 
-    override fun getStateById(entityId: String): LiveData<List<StateDomain>> {
-        return Transformations.map(db.stateDao().getState(entityId)) {
-            ListOfStatesMapper(it).toDomainList()
-        }
+    override fun getStateById(entityId: String): StateDomain {
+        return StatesMapper(db.stateDao().getState(entityId)).toStateDomain()
     }
 
     override fun insertState(states: List<StateDomain>) {
@@ -46,6 +45,14 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
 
     override fun deleteState(stateId: String) {
         return db.stateDao().delete(stateId)
+    }
+
+    override fun isStateInDB(stateId: String) :Boolean{
+        return db.stateDao().isStateExist(stateId)
+    }
+
+    override fun updateState(stateDomain: StateDomain) {
+        db.stateDao().updateState(StateDomainMapper(stateDomain).toStateData())
     }
 
     override fun getAllGroupsByOwner(ownerId: String): LiveData<List<StateGroupDomain>> {
