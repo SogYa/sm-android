@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
         appBarConfig = AppBarConfiguration(
-            setOf(R.id.homeFragment, R.id.settingsFragment),
+            setOf(R.id.homeFragment, R.id.settingsFragment,R.id.ticketListFragment),
             binding.drawerLayout
         )
         binding.bottomNav.setupWithNavController(navController)
