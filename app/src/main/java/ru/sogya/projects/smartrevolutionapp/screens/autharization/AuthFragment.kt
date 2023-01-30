@@ -58,26 +58,29 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                 binding.loadingConstraint.visibility = it
             }
             vm.getNavigationLiveData().observe(viewLifecycleOwner) {
-                if (it) findNavController().navigate(
-                    R.id.action_authFragment_to_homeFragment,
-                    bundleOf(),
-                    navOptions {
-                        launchSingleTop = true
-                        popUpTo(R.id.nav_graph) {
-                            inclusive = true
-                        }
-                    })
+                if (it) {
+                    findNavController().navigate(
+                        R.id.action_authFragment_to_homeFragment,
+                        bundleOf(),
+                        navOptions {
+                            launchSingleTop = true
+                            popUpTo(R.id.nav_graph) {
+                                inclusive = true
+                            }
+                        })
+                    vm.closeWebSocket()
+                }
             }
 
 
             binding.logInWebView.settings.javaScriptEnabled = true
-            if (serverUri != "" && serverName != ""){
+            if (serverUri != "" && serverName != "") {
                 binding.loginConstraint.visibility = GONE
 
                 binding.logInWebView.loadUrl(
                     "$serverUri/auth/authorize?" + "client_id=$serverUri" + "&redirect_uri=${redirectUri}"
                 )
-            }else{
+            } else {
                 Toast.makeText(context, "Fields are empty", Toast.LENGTH_SHORT).show()
             }
             binding.logInWebView.webViewClient = object : WebViewClient() {
@@ -101,23 +104,27 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                     request?.let {
                         if (request.url.toString().startsWith("${serverUri}/auth_callback")) {
                             request.url.getQueryParameter("code")?.let {
-                                vm.getToken(serverName,serverUri, it, object : MyCallBack<Boolean> {
-                                    override fun data(t: Boolean) {
-                                        Toast.makeText(
-                                            context,
-                                            getString(R.string.auth_succes),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
+                                vm.getToken(
+                                    serverName,
+                                    serverUri,
+                                    it,
+                                    object : MyCallBack<Boolean> {
+                                        override fun data(t: Boolean) {
+                                            Toast.makeText(
+                                                context,
+                                                getString(R.string.auth_succes),
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
 
-                                    override fun error() {
-                                        Toast.makeText(
-                                            context,
-                                            getString(R.string.auth_failed),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                })
+                                        override fun error() {
+                                            Toast.makeText(
+                                                context,
+                                                getString(R.string.auth_failed),
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    })
 
                             } ?: kotlin.run {
                                 Log.d("AUTHCODE", "Authorization code not received")
@@ -129,5 +136,4 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
             }
         }
     }
-
 }

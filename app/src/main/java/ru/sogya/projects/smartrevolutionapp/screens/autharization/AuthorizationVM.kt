@@ -6,16 +6,16 @@ import androidx.lifecycle.ViewModel
 import com.sogya.data.models.requests.AuthMessage
 import com.sogya.data.models.requests.LongLivedRequest
 import com.sogya.data.repository.NetworkRepositoryImpl
-import com.sogya.data.repository.WebSocketRepositoryImpl
-import com.sogya.domain.utils.Constants
-import com.sogya.domain.utils.MyCallBack
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.TokenInfo
 import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.usecases.GetTokenUseCase
 import com.sogya.domain.usecases.databaseusecase.servers.InsertServerUseCase
+import com.sogya.domain.usecases.websocketus.CloseUseCase
 import com.sogya.domain.usecases.websocketus.InitUseCase
 import com.sogya.domain.usecases.websocketus.SendMessageUseCase
+import com.sogya.domain.utils.Constants
+import com.sogya.domain.utils.MyCallBack
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
@@ -28,11 +28,12 @@ import kotlin.concurrent.thread
 
 class AuthorizationVM : ViewModel(), MessageListener {
     private val networkRepository = NetworkRepositoryImpl()
-    private val webSocketRepository = WebSocketRepositoryImpl()
+    private val webSocketRepository = App.getWebSocketRepository()
     private val getTokenUseCase = GetTokenUseCase(networkRepository)
     private val initUseCase = InitUseCase(webSocketRepository)
     private val sendMessageUseCase = SendMessageUseCase(webSocketRepository)
     private val insertServerUseCase = InsertServerUseCase(App.getRoom())
+    private val closeWebSocketUseCase = CloseUseCase(webSocketRepository)
     private lateinit var serverToken: String
     private lateinit var serverUri: String
     private lateinit var serverTag: String
@@ -111,6 +112,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
                     serverTag, serverUri, serverToken
                 )
             )
+            closeWebSocketUseCase.invoke()
             loadScreenLiveData.postValue(VisibilityStates.VISIBLE.visibility)
             navigationLiveData.postValue(true)
             webSocketRepository.close()
@@ -119,5 +121,8 @@ class AuthorizationVM : ViewModel(), MessageListener {
 
     fun getLoadingLiveData() = loadScreenLiveData
     fun getNavigationLiveData() = navigationLiveData
+    fun closeWebSocket() {
+        closeWebSocketUseCase.invoke()
+    }
 
 }
