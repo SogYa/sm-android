@@ -2,10 +2,8 @@ package com.sogya.data.repository
 
 import android.util.Log
 import com.google.gson.Gson
-import com.sogya.domain.models.TriggerEventDomain
 import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.repository.WebSocketRepository
-import io.reactivex.Flowable
 import okhttp3.*
 import okio.ByteString
 import java.util.concurrent.TimeUnit
@@ -35,7 +33,8 @@ class WebSocketRepositoryImpl : WebSocketRepository {
         messageListener = _messageListener
         connect()
     }
-     private fun connect() {
+
+    private fun connect() {
         if (isConnect()) {
             Log.i(TAG, "web socket connected")
             return
@@ -43,7 +42,7 @@ class WebSocketRepositoryImpl : WebSocketRepository {
         client.newWebSocket(request, createListener())
     }
 
-     private fun disconnect(): Boolean {
+    private fun disconnect(): Boolean {
 
         Log.d(TAG, "disconnect: called")
         isConnect = false
@@ -54,7 +53,7 @@ class WebSocketRepositoryImpl : WebSocketRepository {
         return true
     }
 
-     private fun reconnect() {
+    override fun reconnect() {
         if (connectNum <= MAX_NUM) {
             try {
                 Thread.sleep(MILLIS.toLong())
@@ -86,7 +85,7 @@ class WebSocketRepositoryImpl : WebSocketRepository {
         }
     }
 
-    override fun subscribeTrigger(baseUrl: String,stateId: String): Flowable<TriggerEventDomain> {
+    override fun subscribeTrigger() {
         TODO("Not yet implemented")
     }
 
@@ -101,7 +100,7 @@ class WebSocketRepositoryImpl : WebSocketRepository {
                 mWebSocket = webSocket
                 isConnect = response.code == 101
                 if (!isConnect) {
-                    reconnect()
+                    //
                 } else {
                     Log.i(TAG, "connect success.")
                     messageListener.onConnectSuccess()
@@ -156,7 +155,6 @@ class WebSocketRepositoryImpl : WebSocketRepository {
                 )
                 isConnect = false
                 messageListener.onConnectFailed()
-                reconnect()
             }
         }
     }
