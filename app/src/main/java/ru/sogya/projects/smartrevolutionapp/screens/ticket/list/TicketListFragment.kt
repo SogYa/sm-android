@@ -32,15 +32,18 @@ class TicketListFragment : Fragment(R.layout.fragment_ticket_list),
 
     override fun onStart() {
         super.onStart()
-        vm.getTicketsLiveData().observe(viewLifecycleOwner) {
-            adapter.updateList(it)
-            binding.ticketsHint.visibility = GONE
-        }
         vm.getErrorLiveData().observe(viewLifecycleOwner) {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        vm.getTicketsLiveData().observe(viewLifecycleOwner) {
+            adapter.updateList(it)
+            binding.ticketsHint.visibility = GONE
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
