@@ -10,15 +10,15 @@ import ru.sogya.projects.smartrevolutionapp.app.App
 class TicketListVM : ViewModel() {
     private val repository = App.getFirebase()
     private val getAllTicketUseCase = ReadAllTicketUseCase(repository)
-    private val ticketsLiveData = MutableLiveData<List<TicketDomain>>()
+    private val ticketsLiveData = MutableLiveData<Map<String,TicketDomain>>()
     private val errorLiveData = MutableLiveData<String>()
 
     init {
-        val list = arrayListOf<TicketDomain>()
+        val list = mutableMapOf<String,TicketDomain>()
         getAllTicketUseCase.invoke(object : MyCallBack<TicketDomain> {
             override fun data(t: TicketDomain) {
                 super.data(t)
-                list.add(t)
+                list[t.ticketId] = t
                 ticketsLiveData.postValue(list)
             }
 
