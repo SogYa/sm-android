@@ -28,6 +28,9 @@ interface StateDao {
     @Update
     fun updateState(state: State)
 
+    @Update
+    fun updateStates(state: List<State>)
+
     @Query("UPDATE states SET groupId = -1  WHERE groupId IN(:stateGroupId)")
     fun deleteGroupIdFromStets(stateGroupId: Int)
 
