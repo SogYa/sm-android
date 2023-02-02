@@ -79,4 +79,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
     companion object {
         private const val STATE_ID = "id"
     }
+
+    override fun onSwitchStateChanged(stateId: String, switchState: String) {
+        vm.callSwitchService(stateId,switchState)
+    }
 }
