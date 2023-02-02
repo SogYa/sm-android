@@ -37,8 +37,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewId"
-                app:layout_constraintVertical_bias="0.5"
-                app:srcCompat="@drawable/temperature_thermometer_cold_warm_hot_icon_194210" />
+                app:layout_constraintVertical_bias="0.5" />
 
             <TextView
                 android:id="@+id/textViewState"
@@ -46,7 +45,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:fontFamily="@font/alata"
-                android:text="TextView"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewIcon"
                 app:layout_constraintEnd_toStartOf="@+id/imageViewIcon"
