@@ -27,7 +27,7 @@ class TicketCreatedDialogFragment(
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
-        return inflater.inflate(R.layout.dialog_email_verification, container, false)
+        return inflater.inflate(R.layout.dialog_ticket_created, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
