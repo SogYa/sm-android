@@ -51,7 +51,6 @@ class EventWorker(context: Context, workerParams: WorkerParameters) :
 
     override fun onConnectFailed() {
         reconnectUseCase.invoke()
-
     }
 
     override fun onClose() {
@@ -63,17 +62,21 @@ class EventWorker(context: Context, workerParams: WorkerParameters) :
         if (result.get("type") == "auth_ok") {
             sendMessageUseCase.invoke(EventSubscribe())
         } else if (result.get("type") == "result") {
+            if (result.get("success").toString() == "false") {
+                Log.d("Error", result.get("error").toString())
+            }
             Log.d("EventSubscription", result.get("success").toString())
         } else if (result.get("type") == "event") {
             val newStateJson =
                 result.getJSONObject("event").getJSONObject("data").getJSONObject("new_state")
                     .toString()
             val mJson = JsonParser.parseString(newStateJson)
-            println(mJson)
+
             val newStateData = Gson().fromJson(mJson, State::class.java)
+            Log.d("NewState", "${newStateData.entityId} changed with state${newStateData.state}")
             if (checkStateExistUSeCase.invoke(newStateData.entityId)) {
                 val oldState = getStateById.invoke(newStateData.entityId)
-                Log.d("NewState", newStateJson)
+
                 val newState = StateDomain(
                     newStateData.entityId,
                     newStateData.state,
