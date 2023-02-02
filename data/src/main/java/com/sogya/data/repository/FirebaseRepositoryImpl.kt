@@ -9,7 +9,6 @@ import com.sogya.domain.models.TicketDomain
 import com.sogya.domain.models.UserDomain
 import com.sogya.domain.repository.FirebaseRepository
 import com.sogya.domain.utils.MyCallBack
-import java.util.*
 
 class FirebaseRepositoryImpl : FirebaseRepository {
     private val firebaseAuthInstance = FirebaseAuth.getInstance()
@@ -92,9 +91,9 @@ class FirebaseRepositoryImpl : FirebaseRepository {
         ticketDate: String,
         myCallBack: MyCallBack<Boolean>
     ) {
-        val ticketId = UUID.randomUUID().toString()
         val ticketStatus = "Created"
         val userId = firebaseAuthInstance.currentUser?.uid.toString()
+        val ticketId = "Ticket№: " + System.currentTimeMillis().toString()
         val ticket =
             TicketDomain(
                 ticketId = ticketId,
@@ -118,16 +117,15 @@ class FirebaseRepositoryImpl : FirebaseRepository {
     override fun readAllTickets(myCallBack: MyCallBack<TicketDomain>) {
         val userId = firebaseAuthInstance.currentUser?.uid.toString()
         firebaseDatabaseInstance.getReference("Tickets").orderByChild("userId").equalTo(userId)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val snapshots = snapshot.children
-                    snapshots.forEach{
+                    snapshots.forEach {
                         val ticket = it.getValue(TicketDomain::class.java)
                         if (ticket != null) {
                             myCallBack.data(ticket)
                         }
                     }
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -137,7 +135,19 @@ class FirebaseRepositoryImpl : FirebaseRepository {
     }
 
     override fun readTicketByID(ticketId: String, myCallBack: MyCallBack<TicketDomain>) {
-        TODO("Not yet implemented")
+        firebaseReference.child("Tickets").child(ticketId)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val ticket = snapshot.getValue(TicketDomain::class.java)
+                    if (ticket != null) {
+                        myCallBack.data(ticket)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    myCallBack.error(error.message)
+                }
+            })
     }
 
     override fun deleteTicketById(
