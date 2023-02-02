@@ -9,15 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.sogya.domain.utils.Constants
 import com.sogya.domain.models.StateGroupDomain
+import com.sogya.domain.utils.Constants
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.screens.MainActivity
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.group.GroupBottomSheetFragment
 import ru.sogya.projects.smartrevolutionapp.workers.EventWorker
+import java.util.concurrent.TimeUnit
 
 class GroupFragment : Fragment(R.layout.fragment_dashboard), GroupAdapter.OnGroupClickListener {
     private lateinit var binding: FragmentDashboardBinding
@@ -42,8 +43,18 @@ class GroupFragment : Fragment(R.layout.fragment_dashboard), GroupAdapter.OnGrou
         adapter = GroupAdapter(this)
         binding.statesRecyclerView.adapter = adapter
         binding.statesRecyclerView.itemAnimator = null
-        val oneTimeWork = OneTimeWorkRequestBuilder<EventWorker>().build()
-        WorkManager.getInstance(requireContext()).enqueue(oneTimeWork)
+        val updateStatesWork = PeriodicWorkRequestBuilder<EventWorker>(
+            repeatInterval = 15,
+            repeatIntervalTimeUnit = TimeUnit.MINUTES,
+            flexTimeInterval = 15,
+            flexTimeIntervalUnit = TimeUnit.MINUTES
+        )
+            .build()
+        WorkManager.getInstance(requireContext())
+            .enqueue(
+                updateStatesWork
+            )
+
     }
 
     override fun onResume() {
@@ -70,4 +81,5 @@ class GroupFragment : Fragment(R.layout.fragment_dashboard), GroupAdapter.OnGrou
     override fun onLongClick(stateGroupDomain: StateGroupDomain) {
         TODO("Not yet implemented")
     }
+
 }
