@@ -1,5 +1,6 @@
 package ru.sogya.projects.smartrevolutionapp.screens.ticket.list
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,12 @@ class TicketAdapter(
     interface OnTicketClickListener {
         fun onClick(ticketDomain: TicketDomain)
         fun onLongClick(ticketDomain: TicketDomain)
+    }
+
+    companion object {
+        const val YELLOW = "#CC5500"
+        const val GREEN = "#00FF00"
+        const val RED = "#FF0000"
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -41,6 +48,11 @@ class TicketAdapter(
         holder.ticketId.text = ticket.ticketId
         holder.ticketDate.text = ticket.ticketDate
         holder.ticketStatus.text = ticket.ticketStatus
+        when (ticket.ticketStatus) {
+            "Created" -> holder.ticketStatus.setTextColor(Color.parseColor(YELLOW))
+            "Done" -> holder.ticketStatus.setTextColor(Color.parseColor(GREEN))
+            "Canceled" -> holder.ticketStatus.setTextColor(Color.parseColor(RED))
+        }
         holder.itemView.setOnClickListener {
             onTicketClickListener.onClick(ticket)
         }
@@ -50,10 +62,11 @@ class TicketAdapter(
         }
     }
 
-    fun updateList(ticketList: List<TicketDomain>) {
+    fun updateList(ticketList: Map<String, TicketDomain>) {
+        val list = ticketList.values.toList()
         ticketArrayList.clear()
         notifyItemChanged(1)
-        ticketArrayList.addAll(ticketList)
+        ticketArrayList.addAll(list)
         notifyItemRangeChanged(0, ticketList.size)
     }
 }
