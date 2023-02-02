@@ -47,12 +47,16 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         return db.stateDao().delete(stateId)
     }
 
-    override fun isStateInDB(stateId: String) :Boolean{
+    override fun isStateInDB(stateId: String): Boolean {
         return db.stateDao().isStateExist(stateId)
     }
 
     override fun updateState(stateDomain: StateDomain) {
         db.stateDao().updateState(StateDomainMapper(stateDomain).toStateData())
+    }
+
+    override fun updateStates(stateList: List<StateDomain>) {
+        db.stateDao().updateStates(ListOfStatesDomainMapper(stateList).toDataList())
     }
 
     override fun getAllGroupsByOwner(ownerId: String): LiveData<List<StateGroupDomain>> {

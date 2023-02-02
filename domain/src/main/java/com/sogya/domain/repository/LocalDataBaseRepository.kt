@@ -22,6 +22,8 @@ interface LocalDataBaseRepository {
 
     fun updateState(stateDomain: StateDomain)
 
+    fun updateStates(stateList: List<StateDomain>)
+
     fun getAllGroupsByOwner(ownerId: String): LiveData<List<StateGroupDomain>>
 
     fun insertGroup(stateGroupDomain: StateGroupDomain)
