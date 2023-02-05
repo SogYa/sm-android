@@ -15,13 +15,14 @@ import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUSeCase
 import com.sogya.domain.usecases.databaseusecase.states.GetStatesByIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.UpdateStateUseCase
+import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.usecases.websocketus.InitUseCase
 import com.sogya.domain.usecases.websocketus.ReconnectUseCase
 import com.sogya.domain.usecases.websocketus.SendMessageUseCase
 import com.sogya.domain.utils.Constants
 import org.json.JSONObject
 import ru.sogya.projects.smartrevolutionapp.app.App
-import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
+
 
 
 class EventWorker(context: Context, workerParams: WorkerParameters) :
@@ -29,13 +30,15 @@ class EventWorker(context: Context, workerParams: WorkerParameters) :
     private val repository = App.getWebSocketRepository()
     private val iniUseCase = InitUseCase(repository)
     private val roomRepository = App.getRoom()
+    private val sharedPreferencesRepository  =App.getSharedPreferncesRepository()
+    private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
     private val updateStateUseCase = UpdateStateUseCase(repository = roomRepository)
     private val getStateById = GetStatesByIdUseCase(roomRepository)
     private val reconnectUseCase = ReconnectUseCase(repository)
     private val sendMessageUseCase = SendMessageUseCase(repository)
     private val checkStateExistUSeCase = CheckStateExistUSeCase(roomRepository)
     override fun doWork(): Result {
-        val url = SPControl.getInstance().getStringPrefs(Constants.SERVER_URI)
+        val url = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
         iniUseCase.invoke("$url/api/websocket", this)
 
         return Result.success()
@@ -44,7 +47,7 @@ class EventWorker(context: Context, workerParams: WorkerParameters) :
     override fun onConnectSuccess() {
         sendMessageUseCase.invoke(
             AuthMessage(
-                token = SPControl.getInstance().getStringPrefs(Constants.AUTH_TOKEN)
+                token = getStringPrefsUseCase.invoke(Constants.AUTH_TOKEN)
             )
         )
     }

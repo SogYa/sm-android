@@ -11,6 +11,7 @@ import com.sogya.domain.models.TokenInfo
 import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.usecases.GetTokenUseCase
 import com.sogya.domain.usecases.databaseusecase.servers.InsertServerUseCase
+import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
 import com.sogya.domain.usecases.websocketus.CloseUseCase
 import com.sogya.domain.usecases.websocketus.InitUseCase
 import com.sogya.domain.usecases.websocketus.SendMessageUseCase
@@ -21,7 +22,6 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import ru.sogya.projects.smartrevolutionapp.app.App
-import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 import kotlin.concurrent.thread
 
@@ -29,6 +29,8 @@ import kotlin.concurrent.thread
 class AuthorizationVM : ViewModel(), MessageListener {
     private val networkRepository = NetworkRepositoryImpl()
     private val webSocketRepository = App.getWebSocketRepository()
+    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
+    private val updatePrefsUseCase = UpdatePrefsUseCase(sharedPreferencesRepository)
     private val getTokenUseCase = GetTokenUseCase(networkRepository)
     private val initUseCase = InitUseCase(webSocketRepository)
     private val sendMessageUseCase = SendMessageUseCase(webSocketRepository)
@@ -53,8 +55,8 @@ class AuthorizationVM : ViewModel(), MessageListener {
             .subscribe(object : DisposableSingleObserver<TokenInfo>() {
                 override fun onSuccess(t: TokenInfo) {
                     Log.d("TOKEN", t.access_token)
-                    SPControl.getInstance().updatePrefs(Constants.SERVER_URI, baseUri)
-                    SPControl.getInstance().updatePrefs(Constants.SERVER_NAME, serverName)
+                    updatePrefsUseCase.invoke(Constants.SERVER_URI, baseUri)
+                    updatePrefsUseCase.invoke(Constants.SERVER_NAME, serverName)
                     serverToken = t.access_token
                     serverTag = serverName
                     serverUri = baseUri
@@ -78,7 +80,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
     }
 
     fun startTestMode() {
-        SPControl.getInstance().updatePrefs(Constants.TEST_MODE, true)
+        updatePrefsUseCase.invoke(Constants.TEST_MODE, true)
     }
 
     override fun onConnectSuccess() {
@@ -106,7 +108,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
             sendMessageUseCase.invoke(LongLivedRequest())
         } else if (result.get("type") == "result") {
             serverToken = result.get("result").toString()
-            SPControl.getInstance().updatePrefs(Constants.AUTH_TOKEN, serverToken)
+            updatePrefsUseCase.invoke(Constants.AUTH_TOKEN, serverToken)
             insertServerUseCase.invoke(
                 serverStateDomain = ServerStateDomain(
                     serverTag, serverUri, serverToken

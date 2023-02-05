@@ -6,14 +6,16 @@ import androidx.lifecycle.ViewModel
 import com.sogya.domain.usecases.firebase.user.CreateUserUseCase
 import com.sogya.domain.usecases.firebase.SendEmailVerivicationUseCase
 import com.sogya.domain.usecases.firebase.user.WriteUserUseCase
+import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
 import ru.sogya.projects.smartrevolutionapp.app.App
-import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 
 class FirebaseRegistrationVM : ViewModel() {
     private val repository = App.getFirebase()
+    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
+    private val updatePrefsUseCase = UpdatePrefsUseCase(sharedPreferencesRepository)
     private val createUserUseCase = CreateUserUseCase(repository)
     private val sendEmailVerificationUseCase = SendEmailVerivicationUseCase(App.getFirebase())
     private val writeUserUseCase = WriteUserUseCase(repository)
@@ -30,7 +32,7 @@ class FirebaseRegistrationVM : ViewModel() {
                 })
                 sendEmailVerificationUseCase.invoke(object : MyCallBack<String> {
                     override fun data(t: String) {
-                        SPControl.getInstance().updatePrefs(Constants.IS_FIREBASE_AUTH, true)
+                        updatePrefsUseCase.invoke(Constants.IS_FIREBASE_AUTH, true)
                         myCallBack.data(true)
                     }
 

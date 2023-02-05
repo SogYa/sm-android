@@ -10,16 +10,18 @@ import com.sogya.domain.models.StateDomain
 import com.sogya.domain.usecases.databaseusecase.states.DeleteStateUseCase
 import com.sogya.domain.usecases.databaseusecase.states.GetAllByGroupIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.GetAllStatesUseCase
+import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.usecases.websocketus.SendMessageUseCase
 import com.sogya.domain.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.sogya.projects.smartrevolutionapp.app.App
-import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 
 class DashboardVM : ViewModel() {
     private var itemsLiveData: LiveData<List<StateDomain>> = MutableLiveData()
     private val repository = App.getRoom()
+    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
+    private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
     private val webSocketRepository = App.getWebSocketRepository()
     private val sendMessageUseCase = SendMessageUseCase(webSocketRepository)
     private val getAllByGroup = GetAllByGroupIdUseCase(repository)
@@ -31,7 +33,7 @@ class DashboardVM : ViewModel() {
 
     fun getGroupStates(groupId: Int) {
         itemsLiveData = if (groupId == Constants.DEFAULT_GROUP_ID) {
-            val ownerId = SPControl.getInstance().getStringPrefs(Constants.SERVER_URI)
+            val ownerId = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
             getAllStates.invoke(ownerId)
         } else {
             getAllByGroup.invoke(groupId)

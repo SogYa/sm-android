@@ -8,18 +8,22 @@ import com.sogya.domain.usecases.GetStatesUseCase
 import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUSeCase
 import com.sogya.domain.usecases.databaseusecase.states.GetStatesByIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.UpdateStateUseCase
+import com.sogya.domain.usecases.sharedpreferences.GetBooleanPrefsUseCase
+import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.utils.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.app.App
-import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 
 class StartVM : ViewModel() {
     private val navigationLiveData = MutableLiveData<Int>()
     private val repository = App.getRoom()
     private val networkRepository = App.getNetworkRepository()
+    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
+    private val getBooleanPrefsUseCase = GetBooleanPrefsUseCase(sharedPreferencesRepository)
+    private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
     private val getAllStatesUseCase = GetStatesUseCase(networkRepository)
     private val checkStateExistUSeCase = CheckStateExistUSeCase(repository)
     private val updateStateUseCase = UpdateStateUseCase(repository)
@@ -28,11 +32,11 @@ class StartVM : ViewModel() {
     init {
         if (isFirebaseAuth()) {
             if (isAuth()) {
-                if (SPControl.getInstance().getBoolPrefs(Constants.PREFS_IS_LOCKED)) {
+                if (getBooleanPrefsUseCase.invoke(Constants.PREFS_IS_LOCKED)) {
                     navigationLiveData.value = R.id.action_startFragment_to_lockFragment
                 } else {
-                    val ownerId = SPControl.getInstance().getStringPrefs(Constants.SERVER_URI)
-                    val token = SPControl.getInstance().getStringPrefs(Constants.AUTH_TOKEN)
+                    val ownerId = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
+                    val token = getStringPrefsUseCase.invoke(Constants.AUTH_TOKEN)
                     getAllStatesUseCase.invoke(ownerId, token)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -73,10 +77,10 @@ class StartVM : ViewModel() {
     fun getNavLiveData() = navigationLiveData
 
     private fun isFirebaseAuth(): Boolean {
-        return SPControl.getInstance().getBoolPrefs(Constants.IS_FIREBASE_AUTH)
+        return getBooleanPrefsUseCase.invoke(Constants.IS_FIREBASE_AUTH)
     }
 
     private fun isAuth(): Boolean {
-        return SPControl.getInstance().getStringPrefs(Constants.AUTH_TOKEN).isNotEmpty()
+        return getStringPrefsUseCase.invoke(Constants.AUTH_TOKEN).isNotEmpty()
     }
 }

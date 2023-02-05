@@ -1,14 +1,18 @@
 package ru.sogya.projects.smartrevolutionapp.screens.lock
 
 import androidx.lifecycle.ViewModel
+import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
-import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
+import ru.sogya.projects.smartrevolutionapp.app.App
+
 
 class LockVM : ViewModel() {
+    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
+    private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
     fun checkPin(pin: String, myCallBack: MyCallBack<Boolean>) {
         if (pin.length < 4 ||
-            SPControl.getInstance().getStringPrefs(Constants.PREFS_APPLOCK_PINCODE) != pin
+            getStringPrefsUseCase.invoke(Constants.PREFS_APPLOCK_PINCODE) != pin
         ) {
             myCallBack.error()
 
