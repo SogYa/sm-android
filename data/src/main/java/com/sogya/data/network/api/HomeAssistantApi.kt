@@ -1,6 +1,7 @@
 package com.sogya.data.network.api
 
 
+import com.sogya.data.models.DeviceData
 import com.sogya.data.models.MessageData
 import com.sogya.data.models.State
 import com.sogya.domain.models.TokenInfo
@@ -22,4 +23,9 @@ interface HomeAssistantApi {
         @Field("code") code: String,
         @Field("client_id") clientId: String
     ): Single<TokenInfo>
+
+    @POST("/api/mobile_app/registrations")
+    fun registrationMobileAppIntegration(
+        @Body device: DeviceData
+    )
 }
