@@ -3,14 +3,8 @@ package ru.sogya.projects.smartrevolutionapp.app
 import android.app.Application
 import android.content.Context
 import com.google.firebase.FirebaseApp
-import com.sogya.data.repository.FirebaseRepositoryImpl
-import com.sogya.data.repository.LocalDataBaseRepositoryImpl
-import com.sogya.data.repository.NetworkRepositoryImpl
-import com.sogya.data.repository.WebSocketRepositoryImpl
-import com.sogya.domain.repository.FirebaseRepository
-import com.sogya.domain.repository.LocalDataBaseRepository
-import com.sogya.domain.repository.NetworkRepository
-import com.sogya.domain.repository.WebSocketRepository
+import com.sogya.data.repository.*
+import com.sogya.domain.repository.*
 
 class App : Application() {
 
@@ -21,6 +15,7 @@ class App : Application() {
         private lateinit var firebaseRepository: FirebaseRepository
         private lateinit var webSocketRepository: WebSocketRepository
         private lateinit var networkRepository: NetworkRepository
+        private lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
         fun getApplicationContext(): Context {
             return app.applicationContext
@@ -37,19 +32,26 @@ class App : Application() {
         fun getWebSocketRepository(): WebSocketRepository {
             return webSocketRepository
         }
-        fun getNetworkRepository():NetworkRepository{
+
+        fun getNetworkRepository(): NetworkRepository {
             return networkRepository
+        }
+
+        fun getSharedPreferncesRepository(): SharedPreferencesRepository {
+            return sharedPreferencesRepository
         }
     }
 
     override fun onCreate() {
         super.onCreate()
         app = this
-        FirebaseApp.initializeApp(app.applicationContext)
-        repository = LocalDataBaseRepositoryImpl(app.applicationContext)
+        val appContext = app.applicationContext
+        FirebaseApp.initializeApp(appContext)
+        repository = LocalDataBaseRepositoryImpl(appContext)
         firebaseRepository = FirebaseRepositoryImpl()
         webSocketRepository = WebSocketRepositoryImpl()
         networkRepository = NetworkRepositoryImpl()
+        sharedPreferencesRepository = SharedPreferencesRepositoryImpl(appContext)
 
     }
 }
