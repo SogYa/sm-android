@@ -12,4 +12,5 @@ object Constants {
     const val GROUP_ID = "groupId"
     const val IS_FIREBASE_AUTH = "firebaseAuth"
     const val TICKET_ID_KEY = "ticketId"
+    const val APP_VERSION = "0.5"
 }
