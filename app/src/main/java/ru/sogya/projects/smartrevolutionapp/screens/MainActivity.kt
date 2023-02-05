@@ -10,11 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
-import com.sogya.domain.utils.Constants
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.ActivityMainBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.LogOutDialogFragment
-import ru.sogya.projects.smartrevolutionapp.needtoremove.SPControl
 
 class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentListener {
     private lateinit var appBarConfig: AppBarConfiguration
@@ -58,7 +56,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
         appBarConfig = AppBarConfiguration(
-            setOf(R.id.homeFragment, R.id.settingsFragment,R.id.ticketListFragment),
+            setOf(R.id.homeFragment, R.id.settingsFragment, R.id.ticketListFragment),
             binding.drawerLayout
         )
         binding.bottomNav.setupWithNavController(navController)
@@ -71,12 +69,18 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
     }
 
     fun getServerState() {
-        serverUri.text =
-            SPControl.getInstance().getStringPrefs(Constants.SERVER_URI)
-        serverName.text =
-            SPControl.getInstance().getStringPrefs(Constants.SERVER_NAME)
+        vm.getServerState()
     }
 
+    override fun onResume() {
+        super.onResume()
+        vm.getServerNameLiveData().observe(this) {
+            serverName.text = it
+        }
+        vm.getServerUriLiveData().observe(this) {
+            serverUri.text = it
+        }
+    }
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
