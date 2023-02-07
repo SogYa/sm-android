@@ -1,6 +1,7 @@
 package ru.sogya.projects.smartrevolutionapp.screens.autharization
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.data.models.requests.AuthMessage
@@ -121,8 +122,8 @@ class AuthorizationVM : ViewModel(), MessageListener {
         }
     }
 
-    fun getLoadingLiveData() = loadScreenLiveData
-    fun getNavigationLiveData() = navigationLiveData
+    fun getLoadingLiveData(): LiveData<Int> = loadScreenLiveData
+    fun getNavigationLiveData(): LiveData<Boolean> = navigationLiveData
     fun closeWebSocket() {
         closeWebSocketUseCase.invoke()
     }

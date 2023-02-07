@@ -1,6 +1,7 @@
 package ru.sogya.projects.smartrevolutionapp.screens.start
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.models.StateDomain
@@ -74,7 +75,7 @@ class StartVM : ViewModel() {
 
     }
 
-    fun getNavLiveData() = navigationLiveData
+    fun getNavLiveData(): LiveData<Int> = navigationLiveData
 
     private fun isFirebaseAuth(): Boolean {
         return getBooleanPrefsUseCase.invoke(Constants.IS_FIREBASE_AUTH)

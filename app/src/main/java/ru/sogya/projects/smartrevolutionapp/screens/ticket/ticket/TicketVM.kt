@@ -1,5 +1,6 @@
 package ru.sogya.projects.smartrevolutionapp.screens.ticket.ticket
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.models.TicketDomain
@@ -30,6 +31,6 @@ class TicketVM : ViewModel() {
         })
     }
 
-    fun getTicketLiveData() = ticketLiveData
-    fun getLoadingLiveData() = loadingLiveData
+    fun getTicketLiveData(): LiveData<TicketDomain> = ticketLiveData
+    fun getLoadingLiveData(): LiveData<Int> = loadingLiveData
 }

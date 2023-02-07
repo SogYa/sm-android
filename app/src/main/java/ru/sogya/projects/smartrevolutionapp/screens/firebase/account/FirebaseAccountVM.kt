@@ -1,5 +1,6 @@
 package ru.sogya.projects.smartrevolutionapp.screens.firebase.account
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -44,7 +45,7 @@ class FirebaseAccountVM : ViewModel() {
         }
     }
 
-    fun getUserLiveData() = userLiveData
+    fun getUserLiveData(): LiveData<UserDomain?> = userLiveData
 
-    fun getErrorLiveData() = errorLiveData
+    fun getErrorLiveData(): LiveData<String> = errorLiveData
 }

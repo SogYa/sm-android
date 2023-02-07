@@ -1,5 +1,6 @@
 package ru.sogya.projects.smartrevolutionapp.screens.ticket.create
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.usecases.firebase.ticket.CreateTicketUseCase
@@ -43,5 +44,5 @@ class CreateTicketVM : ViewModel() {
             })
     }
 
-    fun getLoadingLiveData() = loadingLiveData
+    fun getLoadingLiveData(): LiveData<Int> = loadingLiveData
 }

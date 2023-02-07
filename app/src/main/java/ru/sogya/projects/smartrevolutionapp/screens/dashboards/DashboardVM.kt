@@ -27,7 +27,8 @@ class DashboardVM : ViewModel() {
     private val getAllByGroup = GetAllByGroupIdUseCase(repository)
     private val getAllStates = GetAllStatesUseCase(repository)
     private val deleteUseCase = DeleteStateUseCase(repository)
-    companion object{
+
+    companion object {
         private var ID_SERVICE_COUNT = 24
     }
 
@@ -44,7 +45,12 @@ class DashboardVM : ViewModel() {
         val serviceDomain = stateId.substringBefore(".")
         val targetDevice = CallServiceTarget(stateId)
         val service =
-            CallService(id = ID_SERVICE_COUNT, domain = serviceDomain, service = switchState, target = targetDevice)
+            CallService(
+                id = ID_SERVICE_COUNT,
+                domain = serviceDomain,
+                service = switchState,
+                target = targetDevice
+            )
         println(service)
         sendMessageUseCase.invoke(service)
         ID_SERVICE_COUNT++
@@ -56,5 +62,5 @@ class DashboardVM : ViewModel() {
         }
     }
 
-    fun getItemsLiveDat() = itemsLiveData
+    fun getItemsLiveDat(): LiveData<List<StateDomain>> = itemsLiveData
 }

@@ -1,6 +1,7 @@
 package ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -47,7 +48,11 @@ class StateAddingVM : ViewModel() {
             })
     }
 
-    fun addStatesToDataBase(states: HashSet<StateDomain>,groupId: Int, myCallBack: MyCallBack<Boolean>) {
+    fun addStatesToDataBase(
+        states: HashSet<StateDomain>,
+        groupId: Int,
+        myCallBack: MyCallBack<Boolean>
+    ) {
         val ownerId = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
         val listOfStates = states.toList()
         viewModelScope.launch(Dispatchers.IO) {
@@ -63,6 +68,6 @@ class StateAddingVM : ViewModel() {
         myCallBack.data(true)
     }
 
-    fun getStatesLiveData() = statesLiveData
-    fun getLoadingLiveData() = loadingViewLiveData
+    fun getStatesLiveData(): LiveData<List<StateDomain>> = statesLiveData
+    fun getLoadingLiveData(): LiveData<Int> = loadingViewLiveData
 }

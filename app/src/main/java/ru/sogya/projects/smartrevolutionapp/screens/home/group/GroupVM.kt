@@ -32,5 +32,5 @@ class GroupVM : ViewModel() {
         }
     }
 
-    fun getGroupsLiveData() = groupsLiveData
+    fun getGroupsLiveData(): LiveData<List<StateGroupDomain>> = groupsLiveData
 }

@@ -1,6 +1,7 @@
 package ru.sogya.projects.smartrevolutionapp.screens.firebase.registration
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.usecases.firebase.user.CreateUserUseCase
@@ -52,7 +53,7 @@ class FirebaseRegistrationVM : ViewModel() {
         })
     }
 
-    fun getLoadingLiveData() = loadingLiveData
+    fun getLoadingLiveData(): LiveData<Int> = loadingLiveData
 
-    fun getErrorLiveData() = errorLiveData
+    fun getErrorLiveData(): LiveData<String> = errorLiveData
 }

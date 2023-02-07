@@ -1,5 +1,6 @@
 package ru.sogya.projects.smartrevolutionapp.screens.firebase.auth
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.usecases.firebase.user.LogInUserUseCase
@@ -31,5 +32,5 @@ class FirebaseAuthVM : ViewModel() {
         })
     }
 
-    fun getLoadingLiveData() = loadingLiveData
+    fun getLoadingLiveData(): LiveData<Int> = loadingLiveData
 }

@@ -1,5 +1,6 @@
 package ru.sogya.projects.smartrevolutionapp.screens
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
@@ -30,7 +31,7 @@ class MainVM : ViewModel() {
             getStringPrefsUseCase.invoke(Constants.SERVER_NAME)
     }
 
-    fun getServerNameLiveData() = serverNameLiveData
+    fun getServerNameLiveData():LiveData<String> = serverNameLiveData
 
-    fun getServerUriLiveData() = serverUriLiveData
+    fun getServerUriLiveData():LiveData<String> = serverUriLiveData
 }
