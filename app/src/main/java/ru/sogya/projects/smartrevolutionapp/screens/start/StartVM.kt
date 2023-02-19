@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.usecases.GetStatesUseCase
 import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUSeCase
-import com.sogya.domain.usecases.databaseusecase.states.GetStatesByIdUseCase
+import com.sogya.domain.usecases.databaseusecase.states.GetStateByIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.UpdateStateUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetBooleanPrefsUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
@@ -28,7 +28,7 @@ class StartVM : ViewModel() {
     private val getAllStatesUseCase = GetStatesUseCase(networkRepository)
     private val checkStateExistUSeCase = CheckStateExistUSeCase(repository)
     private val updateStateUseCase = UpdateStateUseCase(repository)
-    private val getStateById = GetStatesByIdUseCase(repository)
+    private val getStateById = GetStateByIdUseCase(repository)
 
     init {
         if (isFirebaseAuth()) {

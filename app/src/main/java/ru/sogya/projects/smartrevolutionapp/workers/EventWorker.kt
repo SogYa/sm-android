@@ -13,7 +13,7 @@ import com.sogya.data.models.requests.EventSubscribe
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUSeCase
-import com.sogya.domain.usecases.databaseusecase.states.GetStatesByIdUseCase
+import com.sogya.domain.usecases.databaseusecase.states.GetStateByIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.UpdateStateUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.usecases.websocketus.InitUseCase
@@ -33,7 +33,7 @@ class EventWorker(context: Context, workerParams: WorkerParameters) :
     private val sharedPreferencesRepository  =App.getSharedPreferncesRepository()
     private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
     private val updateStateUseCase = UpdateStateUseCase(repository = roomRepository)
-    private val getStateById = GetStatesByIdUseCase(roomRepository)
+    private val getStateById = GetStateByIdUseCase(roomRepository)
     private val reconnectUseCase = ReconnectUseCase(repository)
     private val sendMessageUseCase = SendMessageUseCase(repository)
     private val checkStateExistUSeCase = CheckStateExistUSeCase(roomRepository)
