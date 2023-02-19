@@ -5,6 +5,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.sogya.domain.models.ServerDomain
 import com.sogya.domain.models.TicketDomain
 import com.sogya.domain.models.UserDomain
 import com.sogya.domain.repository.FirebaseRepository
@@ -62,7 +63,7 @@ class FirebaseRepositoryImpl : FirebaseRepository {
     override fun writeUser(name: String, email: String, myCallBack: MyCallBack<String>) {
         val uid = firebaseAuthInstance.currentUser?.uid.toString()
         val user = UserDomain(uid, email, name, listOf())
-        firebaseReference.child("User").child(uid).setValue(user)
+        firebaseReference.child(DATABASE_USER).child(uid).setValue(user)
             .addOnCompleteListener {
                 if (it.exception != null)
                     myCallBack.error(it.exception?.message.toString())
@@ -70,7 +71,7 @@ class FirebaseRepositoryImpl : FirebaseRepository {
     }
 
     override fun readUser(myCallBack: MyCallBack<UserDomain?>) {
-        firebaseReference.child("User")
+        firebaseReference.child(DATABASE_USER)
             .child(firebaseAuthInstance.currentUser?.uid.toString())
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -104,7 +105,7 @@ class FirebaseRepositoryImpl : FirebaseRepository {
                 ticketDesc = ticketDesc,
                 ticketStatus = ticketStatus
             )
-        firebaseReference.child("Tickets").child(ticketId).setValue(ticket)
+        firebaseReference.child(DATABASE_TICKETS).child(ticketId).setValue(ticket)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     myCallBack.data(true)
@@ -116,7 +117,8 @@ class FirebaseRepositoryImpl : FirebaseRepository {
 
     override fun readAllTickets(myCallBack: MyCallBack<TicketDomain>) {
         val userId = firebaseAuthInstance.currentUser?.uid.toString()
-        firebaseDatabaseInstance.getReference("Tickets").orderByChild("userId").equalTo(userId)
+        firebaseDatabaseInstance.getReference(DATABASE_TICKETS).orderByChild("userId")
+            .equalTo(userId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val snapshots = snapshot.children
@@ -135,7 +137,7 @@ class FirebaseRepositoryImpl : FirebaseRepository {
     }
 
     override fun readTicketByID(ticketId: String, myCallBack: MyCallBack<TicketDomain>) {
-        firebaseReference.child("Tickets").child(ticketId)
+        firebaseReference.child(DATABASE_TICKETS).child(ticketId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val ticket = snapshot.getValue(TicketDomain::class.java)
@@ -155,5 +157,22 @@ class FirebaseRepositoryImpl : FirebaseRepository {
         myCallBack: MyCallBack<String>
     ) {
         TODO("Not yet implemented")
+    }
+
+    override fun writeServerUserLists(list: List<ServerDomain>, myCallBack: MyCallBack<String>) {
+        val uid = firebaseAuthInstance.currentUser?.uid
+        if (uid != null) {
+            firebaseReference.child(DATABASE_USER).child(uid).child(DATABASE_SERVERS).setValue(list)
+                .addOnCompleteListener {
+                    if (it.exception != null)
+                        myCallBack.error(it.exception?.message.toString())
+                }
+        }
+    }
+
+    companion object {
+        private const val DATABASE_USER = "User"
+        private const val DATABASE_TICKETS = "Tickets"
+        private const val DATABASE_SERVERS = "Servers"
     }
 }

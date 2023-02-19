@@ -1,5 +1,6 @@
 package com.sogya.domain.repository
 
+import com.sogya.domain.models.ServerDomain
 import com.sogya.domain.models.TicketDomain
 import com.sogya.domain.models.UserDomain
 import com.sogya.domain.utils.MyCallBack
@@ -33,4 +34,6 @@ interface FirebaseRepository {
         ticketId: String,
         myCallBack: MyCallBack<String>
     )
+
+    fun writeServerUserLists(list: List<ServerDomain>, myCallBack: MyCallBack<String>)
 }
