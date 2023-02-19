@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "560653065953",
+    "project_id": "smart-revolution-android",
+    "storage_bucket": "smart-revolution-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560653065953:android:ff3d05e9391008b59da1a0",
+        "android_client_info": {
+          "package_name": "ru.sogya.projects.smartrevolutionapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560653065953-g4gkememphluqg620l1oh2ml3j0hco5f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb5miXowPkmPsXivumWKAO_gBqlLUyZ34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560653065953-g4gkememphluqg620l1oh2ml3j0hco5f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
