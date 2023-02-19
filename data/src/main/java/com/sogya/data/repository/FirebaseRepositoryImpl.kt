@@ -5,7 +5,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.sogya.domain.models.ServerDomain
+import com.sogya.domain.models.ServerFirebaseDomain
 import com.sogya.domain.models.TicketDomain
 import com.sogya.domain.models.UserDomain
 import com.sogya.domain.repository.FirebaseRepository
@@ -159,7 +159,7 @@ class FirebaseRepositoryImpl : FirebaseRepository {
         TODO("Not yet implemented")
     }
 
-    override fun writeServerUserLists(list: List<ServerDomain>, myCallBack: MyCallBack<String>) {
+    override fun writeServerUserLists(list: List<ServerFirebaseDomain>, myCallBack: MyCallBack<String>) {
         val uid = firebaseAuthInstance.currentUser?.uid
         if (uid != null) {
             firebaseReference.child(DATABASE_USER).child(uid).child(DATABASE_SERVERS).setValue(list)
