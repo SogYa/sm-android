@@ -14,4 +14,6 @@ object Constants {
     const val TICKET_ID_KEY = "ticketId"
     const val APP_VERSION = "0.5"
     const val STATE_ID = "stateId"
+    const val INTEGRATION_SECRET = "integrationSecret"
+    const val INTEGRATION_WEB_HOOK = "integrationWebHook"
 }
