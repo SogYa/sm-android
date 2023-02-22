@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#F48FB1</color>
     <color name="light_pink">#FFE0EB</color>
+    <color name="pinl_background">#FFF5F8</color>
 </resources>
