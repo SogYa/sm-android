@@ -158,7 +158,11 @@ class DashboardAdapter(
             }
         }
         holder.itemView.setOnClickListener {
-            onStateClickListener?.onClick(states[position])
+            onStateClickListener?.onClick(stateDomain)
+        }
+        holder.itemView.setOnLongClickListener {
+            onStateClickListener?.onLongClick(stateDomain)
+            return@setOnLongClickListener true
         }
     }
 
@@ -171,6 +175,7 @@ class DashboardAdapter(
 
     interface OnStateClickListener {
         fun onClick(stateDomain: StateDomain)
+        fun onLongClick(stateDomain: StateDomain)
         fun onSwitchStateChanged(stateId: String, switchState: String) {}
     }
 }

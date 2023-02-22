@@ -76,6 +76,13 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardAdapte
 
     }
 
+    override fun onLongClick(stateDomain: StateDomain) {
+        val dialog = DeleteItemDialogFragment(this)
+        val argument = Bundle()
+        argument.putString(STATE_ID,stateDomain.entityId)
+        dialog.show(childFragmentManager, dialog.tag)
+    }
+
     override fun positiveButtonClicked(stateId: String) {
         vm.deleteState(stateId)
     }
