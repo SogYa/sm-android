@@ -1,9 +1,10 @@
 package com.sogya.data.network.api
 
 
-import com.sogya.data.models.DeviceData
+import com.sogya.data.models.IntegrationResponseData
 import com.sogya.data.models.MessageData
 import com.sogya.data.models.State
+import com.sogya.data.models.requests.IntegrationRequestData
 import com.sogya.domain.models.TokenInfo
 import io.reactivex.Single
 import retrofit2.http.*
@@ -26,6 +27,7 @@ interface HomeAssistantApi {
 
     @POST("/api/mobile_app/registrations")
     fun registrationMobileAppIntegration(
-        @Body device: DeviceData
-    )
+        @Header("Authorization") token: String,
+        @Body device: IntegrationRequestData
+    ): Single<IntegrationResponseData>
 }
