@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.sogya.domain.models.StateDomain
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
-import com.sogya.domain.models.StateDomain
 import ru.sogya.projects.smartrevolutionapp.databinding.StateBottomSheetBinding
 
 class DashboardBottomSheet : BottomSheetDialogFragment() {
@@ -36,7 +36,7 @@ class DashboardBottomSheet : BottomSheetDialogFragment() {
         val groupId = arguments?.getInt(Constants.GROUP_ID)
         val layoutManager = LinearLayoutManager(context)
         binding.statesRecyclerView.layoutManager = layoutManager
-        adapter = StateAdapter(null)
+        adapter = StateAdapter()
         binding.statesRecyclerView.adapter = adapter
 
         vm.getLoadingLiveData().observe(viewLifecycleOwner) {
@@ -50,10 +50,6 @@ class DashboardBottomSheet : BottomSheetDialogFragment() {
                 vm.addStatesToDataBase(checkedSet, groupId!!, object : MyCallBack<Boolean> {
                     override fun data(t: Boolean) {
                         Toast.makeText(context, "State added", Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun error() {
-                        TODO("Not yet implemented")
                     }
                 })
             }
