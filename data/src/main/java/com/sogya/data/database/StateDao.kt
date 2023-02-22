@@ -13,6 +13,9 @@ interface StateDao {
     @Query("SELECT * FROM states WHERE entityId IN(:entityId)")
     fun getState(entityId: String): State
 
+    @Query("SELECT * FROM states WHERE entityId IN(:entityId)")
+    fun getStateLiveData(entityId: String): LiveData<State>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(states: List<State>)
 
@@ -23,7 +26,7 @@ interface StateDao {
     fun delete(stateId: String)
 
     @Query("SELECT EXISTS (SELECT 1 FROM states WHERE entityId = :stateId)")
-    fun isStateExist(stateId: String):Boolean
+    fun isStateExist(stateId: String): Boolean
 
     @Update
     fun updateState(state: State)

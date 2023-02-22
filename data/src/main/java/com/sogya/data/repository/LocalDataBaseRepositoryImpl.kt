@@ -35,6 +35,12 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         return StatesMapper(db.stateDao().getState(entityId)).toStateDomain()
     }
 
+    override fun getStateByIdLiveData(entityId: String): LiveData<StateDomain> {
+        return Transformations.map(db.stateDao().getStateLiveData(entityId)) {
+            StatesMapper(it).toStateDomain()
+        }
+    }
+
     override fun insertState(states: List<StateDomain>) {
         return db.stateDao().insert(ListOfStatesDomainMapper(states).toDataList())
     }

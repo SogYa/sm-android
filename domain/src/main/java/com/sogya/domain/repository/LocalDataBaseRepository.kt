@@ -12,6 +12,8 @@ interface LocalDataBaseRepository {
 
     fun getStateById(entityId: String): StateDomain
 
+    fun getStateByIdLiveData(entityId: String): LiveData<StateDomain>
+
     fun insertState(states: List<StateDomain>)
 
     fun insertOneState(states: StateDomain)
