@@ -1,4 +1,4 @@
-package com.sogya.domain.usecases
+package com.sogya.domain.usecases.databaseusecase
 
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.repository.LocalDataBaseRepository
