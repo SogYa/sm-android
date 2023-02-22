@@ -35,10 +35,28 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        vm.getLoadingLiveData().observe(viewLifecycleOwner) {
+            binding.loadingConstraint.visibility = it
+        }
+        vm.getNavigationLiveData().observe(viewLifecycleOwner) {
+            if (it) {
+                findNavController().navigate(
+                    R.id.action_authFragment_to_homeFragment,
+                    bundleOf(),
+                    navOptions {
+                        launchSingleTop = true
+                        popUpTo(R.id.nav_graph) {
+                            inclusive = true
+                        }
+                    })
+                vm.closeWebSocket()
+            }
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         binding.buttonConnect.setOnClickListener {
             serverUri = binding.editTextUri.text.toString()
             serverName = binding.editTextServerName.text.toString()
@@ -53,30 +71,9 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
             }
             val redirectUri =
                 "${serverUri.replace(" https ://", Constants.REDIRECT_URI)}/auth_callback"
-
-            vm.getLoadingLiveData().observe(viewLifecycleOwner) {
-                binding.loadingConstraint.visibility = it
-            }
-            vm.getNavigationLiveData().observe(viewLifecycleOwner) {
-                if (it) {
-                    findNavController().navigate(
-                        R.id.action_authFragment_to_homeFragment,
-                        bundleOf(),
-                        navOptions {
-                            launchSingleTop = true
-                            popUpTo(R.id.nav_graph) {
-                                inclusive = true
-                            }
-                        })
-                    vm.closeWebSocket()
-                }
-            }
-
-
             binding.logInWebView.settings.javaScriptEnabled = true
             if (serverUri != "" && serverName != "") {
                 binding.loginConstraint.visibility = GONE
-
                 binding.logInWebView.loadUrl(
                     "$serverUri/auth/authorize?" + "client_id=$serverUri" + "&redirect_uri=${redirectUri}"
                 )
@@ -88,7 +85,6 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                     super.onPageStarted(view, url, favicon)
                     binding.loadingConstraint.visibility = VISIBLE
                 }
-
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
                     binding.loadingConstraint.visibility = GONE
@@ -97,7 +93,6 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
                         "javascript:(function() { " + "document.getElementsByTagName('div')[1].style.visibility = 'hidden';  " + "})()"
                     )
                 }
-
                 override fun shouldOverrideUrlLoading(
                     view: WebView?, request: WebResourceRequest?
                 ): Boolean {
