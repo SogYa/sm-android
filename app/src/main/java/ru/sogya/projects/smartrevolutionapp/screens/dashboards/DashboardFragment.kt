@@ -17,14 +17,13 @@ import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.DashboardBottomSheet
-import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.StateAdapter
 import ru.sogya.projects.smartrevolutionapp.screens.states.sensor.SensorFragment
 
-class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.OnStateClickListener,
+class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardAdapter.OnStateClickListener,
     DeleteItemDialogFragment.DialogFragmentListener {
     private lateinit var binding: FragmentDashboardBinding
     private val vm: DashboardVM by viewModels()
-    private lateinit var adapter: StateAdapter
+    private lateinit var adapter: DashboardAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,7 +46,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
         vm.getGroupStates(groupId)
 
         binding.statesRecyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = StateAdapter(this)
+        adapter = DashboardAdapter(this)
         binding.statesRecyclerView.adapter = adapter
         binding.statesRecyclerView.itemAnimator = null
     }
