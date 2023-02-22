@@ -88,7 +88,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
         updatePrefsUseCase.invoke(Constants.TEST_MODE, true)
     }
 
-    fun getDeviceData() = DeviceDataDomain(
+    private fun getDeviceData() = DeviceDataDomain(
         Build.ID,
         Build.DEVICE,
         Build.MANUFACTURER,
