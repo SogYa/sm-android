@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.models.StateDomain
-import com.sogya.domain.usecases.GetStatesUseCase
+import com.sogya.domain.usecases.network.GetStatesUseCase
 import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUSeCase
 import com.sogya.domain.usecases.databaseusecase.states.GetStateByIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.UpdateStateUseCase

@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sogya.domain.models.StateDomain
-import com.sogya.domain.usecases.GetStatesUseCase
 import com.sogya.domain.usecases.databaseusecase.states.InsertStateUseCase
+import com.sogya.domain.usecases.network.GetStatesUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
