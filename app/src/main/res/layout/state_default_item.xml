@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textId"
+                android:id="@+id/textFriendlyName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
@@ -47,7 +47,7 @@
                 android:fontFamily="@font/roboto" />
 
             <TextView
-                android:id="@+id/textLastChanged"
+                android:id="@+id/textId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
