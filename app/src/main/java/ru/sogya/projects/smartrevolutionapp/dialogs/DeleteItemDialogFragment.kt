@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import androidx.fragment.app.DialogFragment
+import com.sogya.domain.utils.Constants.STATE_ID
 import ru.sogya.projects.smartrevolutionapp.R
 
 class DeleteItemDialogFragment(
@@ -36,7 +37,7 @@ class DeleteItemDialogFragment(
         val positiveButton: Button = view.findViewById(R.id.positive)
         val negativeButton: Button = view.findViewById(R.id.negative)
         positiveButton.setOnClickListener {
-            val entityId = arguments?.getString("id")
+            val entityId = arguments?.getString(STATE_ID)
             dialogFragmentListener.positiveButtonClicked(entityId.toString())
             dismiss()
         }

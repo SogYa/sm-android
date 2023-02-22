@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sogya.domain.utils.Constants
 import com.sogya.domain.models.StateDomain
+import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.Constants.STATE_ID
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
@@ -19,7 +19,8 @@ import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.DashboardBottomSheet
 import ru.sogya.projects.smartrevolutionapp.screens.states.sensor.SensorFragment
 
-class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardAdapter.OnStateClickListener,
+class DashboardFragment : Fragment(R.layout.fragment_dashboard),
+    DashboardAdapter.OnStateClickListener,
     DeleteItemDialogFragment.DialogFragmentListener {
     private lateinit var binding: FragmentDashboardBinding
     private val vm: DashboardVM by viewModels()
@@ -66,7 +67,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardAdapte
     }
 
     override fun onClick(stateDomain: StateDomain) {
-        if(stateDomain.entityId.startsWith("sensor")){
+        if (stateDomain.entityId.startsWith("sensor")) {
             val dialog = SensorFragment()
             val arguments = Bundle()
             arguments.putString(STATE_ID, stateDomain.entityId)
@@ -79,7 +80,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardAdapte
     override fun onLongClick(stateDomain: StateDomain) {
         val dialog = DeleteItemDialogFragment(this)
         val argument = Bundle()
-        argument.putString(STATE_ID,stateDomain.entityId)
+        argument.putString(STATE_ID, stateDomain.entityId)
+        dialog.arguments = argument
         dialog.show(childFragmentManager, dialog.tag)
     }
 
@@ -88,6 +90,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardAdapte
     }
 
     override fun onSwitchStateChanged(stateId: String, switchState: String) {
-        vm.callSwitchService(stateId,switchState)
+        vm.callSwitchService(stateId, switchState)
     }
 }
