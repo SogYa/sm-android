@@ -12,11 +12,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.models.StateDomain
+import com.sogya.domain.utils.Constants.STATE_ID
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.DashboardBottomSheet
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.StateAdapter
+import ru.sogya.projects.smartrevolutionapp.screens.states.sensor.SensorFragment
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.OnStateClickListener,
     DeleteItemDialogFragment.DialogFragmentListener {
@@ -65,19 +67,18 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), StateAdapter.On
     }
 
     override fun onClick(stateDomain: StateDomain) {
-        val dialog = DeleteItemDialogFragment(this)
-        val arguments = Bundle()
-        arguments.putString(STATE_ID, stateDomain.entityId)
-        dialog.arguments = arguments
-        dialog.show(childFragmentManager, dialog.tag)
+        if(stateDomain.entityId.startsWith("sensor")){
+            val dialog = SensorFragment()
+            val arguments = Bundle()
+            arguments.putString(STATE_ID, stateDomain.entityId)
+            dialog.arguments = arguments
+            dialog.show(childFragmentManager, dialog.tag)
+        }
+
     }
 
     override fun positiveButtonClicked(stateId: String) {
         vm.deleteState(stateId)
-    }
-
-    companion object {
-        private const val STATE_ID = "id"
     }
 
     override fun onSwitchStateChanged(stateId: String, switchState: String) {
