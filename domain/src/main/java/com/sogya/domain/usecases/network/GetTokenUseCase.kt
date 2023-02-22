@@ -1,4 +1,4 @@
-package com.sogya.domain.usecases
+package com.sogya.domain.usecases.network
 
 import com.sogya.domain.repository.NetworkRepository
 
