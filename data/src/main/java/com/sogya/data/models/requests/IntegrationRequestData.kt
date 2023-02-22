@@ -1,11 +1,11 @@
-package com.sogya.data.models
+package com.sogya.data.models.requests
 
 import com.google.gson.annotations.SerializedName
 import com.sogya.domain.utils.Constants
 
-data class DeviceData(
+data class IntegrationRequestData(
     @SerializedName("device_id")
-    val deviceId: String = "SmartRevolutionAndroid_" + System.currentTimeMillis(),
+    val deviceId: String,
     @SerializedName("app_id")
     val appId: String = "SmartRevolutionApp",
     @SerializedName("app_name")
@@ -13,15 +13,15 @@ data class DeviceData(
     @SerializedName("app_version")
     val appVersion: String = Constants.APP_VERSION,
     @SerializedName("device_name")
-    var deviceName: String,
+    val deviceName: String,
     @SerializedName("manufacturer")
-    var manufacturer: String,
+    val manufacturer: String,
     @SerializedName("model")
-    var model: String,
+    val model: String,
     @SerializedName("os_name")
-    val operationSystemName: String = "Android",
+    val operationSystemName: String,
     @SerializedName("os_version")
-    var operationSystemVersion: String,
+    val operationSystemVersion: String,
     @SerializedName("supports_encryption")
-    val support: String = ""
+    val support: Boolean = true
 )
