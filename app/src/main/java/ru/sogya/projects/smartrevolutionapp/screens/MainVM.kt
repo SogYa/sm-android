@@ -27,7 +27,6 @@ class MainVM : ViewModel() {
         closeWebSocketUseCase.invoke()
     }
 
-
     fun getServerState() {
         serverUriLiveData.value =
             getStringPrefsUseCase.invoke(Constants.SERVER_URI)
