@@ -36,7 +36,7 @@ class FirebaseRepositoryImpl : FirebaseRepository {
                 myCallBack.data(it.result.user?.uid.toString())
             } else {
                 if (it.exception != null) {
-                    myCallBack.data(it.exception?.message.toString())
+                    myCallBack.error(it.exception?.message.toString())
                 } else {
                     myCallBack.error()
                 }

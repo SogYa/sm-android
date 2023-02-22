@@ -29,6 +29,12 @@ class FirebaseAuthVM : ViewModel() {
                 myCallBack.error()
                 loadingLiveData.value = VisibilityStates.GONE.visibility
             }
+
+            override fun error(error: String) {
+                super.error(error)
+                myCallBack.error(error)
+                loadingLiveData.value = VisibilityStates.GONE.visibility
+            }
         })
     }
 

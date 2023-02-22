@@ -47,8 +47,8 @@ class FirebaseAuthFragment : Fragment(R.layout.fragment_firebase_auth) {
                             Toast.makeText(context, "Welcome", Toast.LENGTH_SHORT).show()
                         }
 
-                        override fun error() {
-                            Toast.makeText(context, "Authentication failed", Toast.LENGTH_SHORT)
+                        override fun error(error: String) {
+                            Toast.makeText(context, error, Toast.LENGTH_SHORT)
                                 .show()
                         }
 
