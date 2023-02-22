@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class EventSubscribe(
     @SerializedName("id")
-    val id: Int = 18,
+    var id: Int,
     @SerializedName("type")
     val type: String = "subscribe_events",
     @SerializedName("event_type")

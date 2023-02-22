@@ -37,6 +37,7 @@ class EventWorker(context: Context, workerParams: WorkerParameters) :
     private val reconnectUseCase = ReconnectUseCase(repository)
     private val sendMessageUseCase = SendMessageUseCase(repository)
     private val checkStateExistUSeCase = CheckStateExistUSeCase(roomRepository)
+    private var count=0
     override fun doWork(): Result {
         val url = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
         iniUseCase.invoke("$url/api/websocket", this)
@@ -63,7 +64,8 @@ class EventWorker(context: Context, workerParams: WorkerParameters) :
     override fun onMessage(text: String?) {
         val result = JSONObject(text.toString())
         if (result.get("type") == "auth_ok") {
-            sendMessageUseCase.invoke(EventSubscribe())
+            ++count
+            sendMessageUseCase.invoke(EventSubscribe(count))
         } else if (result.get("type") == "result") {
             if (result.get("success").toString() == "false") {
                 Log.d("Error", result.get("error").toString())
