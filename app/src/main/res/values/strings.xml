@@ -38,4 +38,5 @@
     <string name="menu_item_ticket">Tickets</string>
     <string name="dialog_ticket_created_text">Your ticket has been created and sent for processing. If its status changes, you will receive a notification and email</string>
     <string name="dialog_ticket_created_header">Ticket created</string>
+    <string name="menu_item_map">Map</string>
 </resources>
