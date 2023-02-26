@@ -14,9 +14,12 @@ import com.sogya.data.mappers.state.ListOfStatesDomainMapper
 import com.sogya.data.mappers.state.ListOfStatesMapper
 import com.sogya.data.mappers.state.StateDomainMapper
 import com.sogya.data.mappers.state.StatesMapper
+import com.sogya.data.mappers.zones.ListZoneMapper
+import com.sogya.data.mappers.zones.ZoneDomainMapper
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.models.StateGroupDomain
+import com.sogya.domain.models.ZoneDomain
 import com.sogya.domain.repository.LocalDataBaseRepository
 
 class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
@@ -106,5 +109,19 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         return Transformations.map(db.stateDao().getAllByGroup(groupId)) {
             ListOfStatesMapper(it).toDomainList()
         }
+    }
+
+    override fun getAllZones(): LiveData<List<ZoneDomain>> {
+        return Transformations.map(db.zoneDao().getAllZones()) {
+            ListZoneMapper(it).toDomain()
+        }
+    }
+
+    override fun insertZone(zoneDomain: ZoneDomain) {
+        db.zoneDao().insertZone(ZoneDomainMapper(zoneDomain).toData())
+    }
+
+    override fun deleteZone(zoneDomain: ZoneDomain) {
+        db.zoneDao().deleteZone(ZoneDomainMapper(zoneDomain).toData())
     }
 }

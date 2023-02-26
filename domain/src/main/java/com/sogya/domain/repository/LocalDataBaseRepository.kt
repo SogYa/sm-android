@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.models.StateGroupDomain
+import com.sogya.domain.models.ZoneDomain
 
 interface LocalDataBaseRepository {
 
@@ -20,7 +21,7 @@ interface LocalDataBaseRepository {
 
     fun deleteState(stateId: String)
 
-    fun isStateInDB(stateId: String):Boolean
+    fun isStateInDB(stateId: String): Boolean
 
     fun updateState(stateDomain: StateDomain)
 
@@ -43,4 +44,9 @@ interface LocalDataBaseRepository {
     fun updateServer(serverState: ServerStateDomain)
 
     fun getAllByGroup(groupId: Int): LiveData<List<StateDomain>>
+    fun getAllZones(): LiveData<List<ZoneDomain>>
+
+    fun insertZone(zoneDomain: ZoneDomain)
+
+    fun deleteZone(zoneDomain: ZoneDomain)
 }
