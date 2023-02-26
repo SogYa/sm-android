@@ -9,7 +9,7 @@ data class StateDomain(
     var ownerId: String,
     var groupId: Int
 ) {
-//    fun isPersone(): Boolean {
-//        return (state.contains("person."))
-//    }
+    fun isZone(): Boolean {
+        return (state.startsWith("zone."))
+    }
 }
