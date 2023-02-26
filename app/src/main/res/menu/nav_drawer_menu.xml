@@ -10,6 +10,10 @@
             android:icon="@drawable/baseline_assignment_24"
             android:title="@string/menu_item_ticket" />
         <item
+            android:id="@+id/mapFragment"
+            android:icon="@drawable/baseline_map_24"
+            android:title="@string/menu_item_map" />
+        <item
             android:id="@+id/settingsFragment"
             android:icon="@drawable/ic_baseline_settings_24"
             android:title="@string/menu_item_settings" />

@@ -160,4 +160,8 @@
             android:id="@+id/action_ticketListFragment_to_ticketFragment"
             app:destination="@id/ticketFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.map.MapFragment"
+        android:label="MapFragment" />
 </navigation>
