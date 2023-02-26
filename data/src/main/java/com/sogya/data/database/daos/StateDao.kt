@@ -1,4 +1,4 @@
-package com.sogya.data.database
+package com.sogya.data.database.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
