@@ -30,4 +30,10 @@ interface HomeAssistantApi {
         @Header("Authorization") token: String,
         @Body device: IntegrationRequestData
     ): Single<IntegrationResponseData>
+
+    @GET("/api/states/{entityId}")
+    fun getStateById(
+        @Header("Authorization") token: String,
+        @Path("entityId") entityId: String
+    ): Single<State>
 }

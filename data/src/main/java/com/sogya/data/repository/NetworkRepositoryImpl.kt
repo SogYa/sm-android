@@ -2,6 +2,7 @@ package com.sogya.data.repository
 
 import com.sogya.data.mappers.message.MessageMapper
 import com.sogya.data.mappers.state.ListOfStatesMapper
+import com.sogya.data.mappers.state.StatesMapper
 import com.sogya.data.models.requests.IntegrationRequestData
 import com.sogya.data.network.api.NetworkService
 import com.sogya.domain.models.*
@@ -26,6 +27,16 @@ class NetworkRepositoryImpl : NetworkRepository {
             .getApiStates(token).map {
                 return@map ListOfStatesMapper(it).toDomainList()
             }
+    }
+
+    override fun getStateById(
+        baseUri: String,
+        token: String,
+        entityId: String
+    ): Single<StateDomain> {
+        return NetworkService.getRetrofitService(baseUri).getStateById(token, entityId).map {
+            return@map StatesMapper(it).toStateDomain()
+        }
     }
 
     override fun sendAppIntegration(
