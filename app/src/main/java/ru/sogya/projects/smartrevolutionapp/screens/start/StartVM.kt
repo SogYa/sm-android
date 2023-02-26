@@ -26,7 +26,7 @@ class StartVM : ViewModel() {
     private val getBooleanPrefsUseCase = GetBooleanPrefsUseCase(sharedPreferencesRepository)
     private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
     private val getAllStatesUseCase = GetStatesUseCase(networkRepository)
-    private val checkStateExistUSeCase = CheckStateExistUSeCase(repository)
+    private val checkStateExistUseCase = CheckStateExistUSeCase(repository)
     private val updateStateUseCase = UpdateStateUseCase(repository)
     private val getStateById = GetStateByIdUseCase(repository)
 
@@ -44,7 +44,7 @@ class StartVM : ViewModel() {
                         .subscribe(object : DisposableSingleObserver<List<StateDomain>>() {
                             override fun onSuccess(t: List<StateDomain>) {
                                 t.forEach {
-                                    if (checkStateExistUSeCase.invoke(it.entityId)) {
+                                    if (checkStateExistUseCase.invoke(it.entityId)) {
                                         val oldState = getStateById.invoke(it.entityId)
                                         val newState = StateDomain(
                                             it.entityId,
@@ -56,6 +56,9 @@ class StartVM : ViewModel() {
                                             oldState.groupId
                                         )
                                         updateStateUseCase.invoke(newState)
+                                    }
+                                    if (it.isZone()){
+
                                     }
                                 }
                             }
