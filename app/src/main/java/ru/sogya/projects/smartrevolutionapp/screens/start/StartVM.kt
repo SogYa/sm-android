@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.models.StateDomain
-import com.sogya.domain.usecases.network.GetStatesUseCase
 import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUSeCase
 import com.sogya.domain.usecases.databaseusecase.states.GetStateByIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.UpdateStateUseCase
+import com.sogya.domain.usecases.network.GetStatesUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetBooleanPrefsUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.utils.Constants
@@ -20,15 +20,15 @@ import ru.sogya.projects.smartrevolutionapp.app.App
 
 class StartVM : ViewModel() {
     private val navigationLiveData = MutableLiveData<Int>()
-    private val repository = App.getRoom()
+    private val roomRepository = App.getRoom()
     private val networkRepository = App.getNetworkRepository()
     private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
     private val getBooleanPrefsUseCase = GetBooleanPrefsUseCase(sharedPreferencesRepository)
     private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
     private val getAllStatesUseCase = GetStatesUseCase(networkRepository)
-    private val checkStateExistUseCase = CheckStateExistUSeCase(repository)
-    private val updateStateUseCase = UpdateStateUseCase(repository)
-    private val getStateById = GetStateByIdUseCase(repository)
+    private val checkStateExistUseCase = CheckStateExistUSeCase(roomRepository)
+    private val updateStateUseCase = UpdateStateUseCase(roomRepository)
+    private val getStateById = GetStateByIdUseCase(roomRepository)
 
     init {
         if (isFirebaseAuth()) {
@@ -56,9 +56,6 @@ class StartVM : ViewModel() {
                                             oldState.groupId
                                         )
                                         updateStateUseCase.invoke(newState)
-                                    }
-                                    if (it.isZone()){
-
                                     }
                                 }
                             }
