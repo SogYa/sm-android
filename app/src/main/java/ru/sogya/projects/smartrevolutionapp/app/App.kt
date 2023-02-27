@@ -1,6 +1,7 @@
 package ru.sogya.projects.smartrevolutionapp.app
 
 import android.app.Application
+import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.sogya.data.repository.*
 import com.sogya.domain.repository.*
@@ -15,6 +16,11 @@ class App : Application() {
         private lateinit var webSocketRepository: WebSocketRepository
         private lateinit var networkRepository: NetworkRepository
         private lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
+        fun getAppContext(): Context {
+            return app.applicationContext
+        }
+
         fun getRoom(): LocalDataBaseRepository {
             return repository
         }
