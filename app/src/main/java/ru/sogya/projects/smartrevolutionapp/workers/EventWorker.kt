@@ -24,20 +24,20 @@ import org.json.JSONObject
 import ru.sogya.projects.smartrevolutionapp.app.App
 
 
-
 class EventWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams), MessageListener {
     private val repository = App.getWebSocketRepository()
     private val iniUseCase = InitUseCase(repository)
     private val roomRepository = App.getRoom()
-    private val sharedPreferencesRepository  =App.getSharedPreferncesRepository()
+    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
     private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
     private val updateStateUseCase = UpdateStateUseCase(repository = roomRepository)
     private val getStateById = GetStateByIdUseCase(roomRepository)
     private val reconnectUseCase = ReconnectUseCase(repository)
     private val sendMessageUseCase = SendMessageUseCase(repository)
     private val checkStateExistUSeCase = CheckStateExistUSeCase(roomRepository)
-    private var count=0
+    private var count = 0
+
     override fun doWork(): Result {
         val url = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
         iniUseCase.invoke("$url/api/websocket", this)
