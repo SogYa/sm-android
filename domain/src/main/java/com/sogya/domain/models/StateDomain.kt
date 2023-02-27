@@ -10,6 +10,6 @@ data class StateDomain(
     var groupId: Int
 ) {
     fun isZone(): Boolean {
-        return (state.startsWith("zone."))
+        return (entityId.startsWith("zone."))
     }
 }
