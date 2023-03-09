@@ -173,7 +173,11 @@ class DashboardAdapter(
             is MediaPLayerViewHolder -> {
                 holder.textViewId.text = stateDomain.attributesDomain?.friendlyName
                 holder.buttonPowerOn.setOnClickListener {
-                    onStateClickListener?.onClickMediaPlayer(stateDomain.entityId, "turn_on")
+                    if (stateDomain.state == "off") {
+                        onStateClickListener?.onClickMediaPlayer(stateDomain.entityId, "turn_on")
+                    } else {
+                        onStateClickListener?.onClickMediaPlayer(stateDomain.entityId, "turn_off")
+                    }
                 }
                 holder.buttonPrivios.setOnClickListener {
                     onStateClickListener?.onClickMediaPlayer(
@@ -182,7 +186,15 @@ class DashboardAdapter(
                     )
                 }
                 holder.buttonPlay.setOnClickListener {
-                    onStateClickListener?.onClickMediaPlayer(stateDomain.entityId, "media_play")
+                    if (stateDomain.state == "playing")
+                        onStateClickListener?.onClickMediaPlayer(
+                            stateDomain.entityId,
+                            "media_pause"
+                        )
+                    else
+                        onStateClickListener?.onClickMediaPlayer(stateDomain.entityId,
+                            "media_play")
+
                 }
                 holder.buttonNext.setOnClickListener {
                     onStateClickListener?.onClickMediaPlayer(
