@@ -186,14 +186,19 @@ class DashboardAdapter(
                     )
                 }
                 holder.buttonPlay.setOnClickListener {
-                    if (stateDomain.state == "playing")
+                    if (stateDomain.state == "playing") {
                         onStateClickListener?.onClickMediaPlayer(
                             stateDomain.entityId,
                             "media_pause"
                         )
-                    else
-                        onStateClickListener?.onClickMediaPlayer(stateDomain.entityId,
-                            "media_play")
+                        holder.buttonPlay.setImageResource(R.drawable.baseline_play_arrow_24)
+                    } else {
+                        onStateClickListener?.onClickMediaPlayer(
+                            stateDomain.entityId,
+                            "media_play"
+                        )
+                        holder.buttonPlay.setImageResource(R.drawable.baseline_pause_24)
+                    }
 
                 }
                 holder.buttonNext.setOnClickListener {
