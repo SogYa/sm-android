@@ -171,6 +171,11 @@ class DashboardAdapter(
                 }
             }
             is MediaPLayerViewHolder -> {
+                if (stateDomain.state == "playing") {
+                    holder.buttonPlay.setImageResource(R.drawable.baseline_pause_24)
+                } else {
+                    holder.buttonPlay.setImageResource(R.drawable.baseline_play_arrow_24)
+                }
                 holder.textViewId.text = stateDomain.attributesDomain?.friendlyName
                 holder.buttonPowerOn.setOnClickListener {
                     if (stateDomain.state == "off") {
@@ -191,13 +196,11 @@ class DashboardAdapter(
                             stateDomain.entityId,
                             "media_pause"
                         )
-                        holder.buttonPlay.setImageResource(R.drawable.baseline_play_arrow_24)
                     } else {
                         onStateClickListener?.onClickMediaPlayer(
                             stateDomain.entityId,
                             "media_play"
                         )
-                        holder.buttonPlay.setImageResource(R.drawable.baseline_pause_24)
                     }
 
                 }
