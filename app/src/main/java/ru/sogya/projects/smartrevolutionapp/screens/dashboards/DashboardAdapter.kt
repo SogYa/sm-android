@@ -3,7 +3,7 @@ package ru.sogya.projects.smartrevolutionapp.screens.dashboards
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
@@ -53,10 +53,10 @@ class DashboardAdapter(
         val texViewLabel: TextView = itemView.findViewById(R.id.textViewTittle)
         val textViewId: TextView = itemView.findViewById(R.id.textViewEntityId)
         val textViewAuthor: TextView = itemView.findViewById(R.id.textViewAuthor)
-        val buttonPowerOn: Button = itemView.findViewById(R.id.imageButtonPowerPOn)
-        val buttonPrivios: Button = itemView.findViewById(R.id.imageButtonPrivios)
-        val buttonPlay: Button = itemView.findViewById(R.id.imageButtonPlay)
-        val buttonNext: Button = itemView.findViewById(R.id.imageButtonNext)
+        val buttonPowerOn: ImageButton = itemView.findViewById(R.id.imageButtonPowerPOn)
+        val buttonPrivios: ImageButton = itemView.findViewById(R.id.imageButtonPrivios)
+        val buttonPlay: ImageButton = itemView.findViewById(R.id.imageButtonPlay)
+        val buttonNext: ImageButton = itemView.findViewById(R.id.imageButtonNext)
     }
 
 
