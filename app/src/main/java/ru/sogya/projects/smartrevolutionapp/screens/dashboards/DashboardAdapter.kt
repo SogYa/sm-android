@@ -20,6 +20,7 @@ class DashboardAdapter(
         private const val IS_SUN = 1
         private const val IS_USER = 2
         private const val IS_SWITCH = 3
+        private const val IS_MEDIA_PLAYER = 4
     }
 
     class SensorWeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -47,6 +48,14 @@ class DashboardAdapter(
 
     }
 
+    class MediaPLayerViewHolder(itemView: View):  RecyclerView.ViewHolder(itemView) {
+        val texViewLabel: TextView = itemView.findViewById(R.id.textViewTittle)
+        val textViewId: TextView = itemView.findViewById(R.id.textViewEntityId)
+        val textViewAuthor: TextView = itemView.findViewById(R.id.textViewAuthor)
+
+    }
+
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val idTextView: TextView = itemView.findViewById(R.id.textFriendlyName)
         val stateTV: TextView = itemView.findViewById(R.id.textState)
@@ -64,6 +73,8 @@ class DashboardAdapter(
             return IS_USER
         else if (entityId.startsWith("switch.")) {
             return IS_SWITCH
+        } else if (entityId.startsWith("media_player.")) {
+            return IS_MEDIA_PLAYER
         }
         return -1
     }
@@ -95,6 +106,11 @@ class DashboardAdapter(
                     .inflate(R.layout.state_switch_item, parent, false)
                 return SwitchViewHolder(view)
             }
+            IS_MEDIA_PLAYER ->{
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.state_media_player, parent, false)
+                return MediaPLayerViewHolder(view)
+            }
             else -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.state_default_item, parent, false)
@@ -108,12 +124,11 @@ class DashboardAdapter(
         when (holder) {
             is SensorWeatherViewHolder -> {
                 when (stateDomain.attributesDomain?.deviceClass) {
-                    "temperature" -> {
-                        holder.textViewState.text = "${stateDomain.state}°C"
-                        holder.iconView.setImageResource(R.drawable.ic_thermometer)
-                    }
-                    "humidity" -> {
-                        holder.textViewState.text = "${stateDomain.state}%"
+                    "temperature", "humidity" -> {
+                        holder.textViewState.text = buildString {
+                            append(stateDomain.state)
+                            append(stateDomain.attributesDomain?.unitOfMeasurement)
+                        }
                         holder.iconView.setImageResource(R.drawable.ic_thermometer)
                     }
                     else -> {
@@ -150,6 +165,9 @@ class DashboardAdapter(
                         "turn_off"
                     onStateClickListener?.onSwitchStateChanged(stateDomain.entityId, state)
                 }
+            }
+            is MediaPLayerViewHolder ->{
+                holder.textViewId.text = stateDomain.attributesDomain?.friendlyName
             }
             is ViewHolder -> {
                 holder.idTextView.text = stateDomain.attributesDomain!!.friendlyName

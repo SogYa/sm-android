@@ -5,6 +5,7 @@ import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.sogya.data.repository.*
 import com.sogya.domain.repository.*
+import com.yandex.mapkit.MapKitFactory
 
 class App : Application() {
 
@@ -52,6 +53,7 @@ class App : Application() {
         webSocketRepository = WebSocketRepositoryImpl()
         networkRepository = NetworkRepositoryImpl()
         sharedPreferencesRepository = SharedPreferencesRepositoryImpl(appContext)
+        MapKitFactory.setApiKey("8fb09c9c-0e0e-4aaf-b5b9-f6903d7e6b8d")
 
     }
 }

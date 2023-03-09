@@ -5,12 +5,9 @@
     app:startDestination="@id/startFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/groupFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.home.group.GroupFragment"
         android:label="Dashboard">
-        <action
-            android:id="@+id/action_homeFragment_to_authFragment"
-            app:destination="@id/authFragment" />
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment2"
             app:destination="@id/settingsFragment" />
@@ -24,7 +21,7 @@
         android:label="AuthFragment">
         <action
             android:id="@+id/action_authFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/groupFragment" />
     </fragment>
     <fragment
         android:id="@+id/startFragment"
@@ -35,7 +32,7 @@
             app:destination="@id/serversFragment" />
         <action
             android:id="@+id/action_startFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/groupFragment" />
         <action
             android:id="@+id/action_startFragment_to_lockFragment"
             app:destination="@id/lockFragment" />
@@ -49,7 +46,7 @@
         android:label="Settings">
         <action
             android:id="@+id/action_settingsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/groupFragment" />
         <action
             android:id="@+id/action_settingsFragment_to_appLockFragment"
             app:destination="@id/appLockFragment" />
@@ -71,7 +68,7 @@
         android:label="LockFragment">
         <action
             android:id="@+id/action_lockFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/groupFragment" />
     </fragment>
     <fragment
         android:id="@+id/serversFragment"
@@ -85,7 +82,7 @@
             app:destination="@id/lockFragment" />
         <action
             android:id="@+id/action_serversFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/groupFragment" />
         <action
             android:id="@+id/action_serversFragment_to_firebaseAuthFragment"
             app:destination="@id/firebaseAuthFragment" />
@@ -99,7 +96,7 @@
         android:label="DashboardFragment" >
         <action
             android:id="@+id/action_dashboardFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/groupFragment" />
     </fragment>
     <fragment
         android:id="@+id/firebaseAuthFragment"

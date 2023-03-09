@@ -10,6 +10,7 @@ import com.sogya.data.mappers.state.attributes.AttributeMapper
 import com.sogya.data.models.State
 import com.sogya.data.models.requests.AuthMessage
 import com.sogya.data.models.requests.EventSubscribe
+import com.sogya.data.models.requests.NotificationSubscribe
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUSeCase
@@ -37,6 +38,7 @@ class EventWorker(context: Context, workerParams: WorkerParameters) :
     private val sendMessageUseCase = SendMessageUseCase(repository)
     private val checkStateExistUSeCase = CheckStateExistUSeCase(roomRepository)
     private var count = 0
+    private var notifyCount = 1
 
     override fun doWork(): Result {
         val url = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
@@ -65,33 +67,43 @@ class EventWorker(context: Context, workerParams: WorkerParameters) :
         val result = JSONObject(text.toString())
         if (result.get("type") == "auth_ok") {
             ++count
+            ++notifyCount
+            val webHookId = getStringPrefsUseCase.invoke(Constants.INTEGRATION_WEB_HOOK)
             sendMessageUseCase.invoke(EventSubscribe(count))
+            sendMessageUseCase.invoke(NotificationSubscribe(notifyCount, webHookId = webHookId))
         } else if (result.get("type") == "result") {
             if (result.get("success").toString() == "false") {
                 Log.d("Error", result.get("error").toString())
             }
             Log.d("EventSubscription", result.get("success").toString())
         } else if (result.get("type") == "event") {
-            val newStateJson =
-                result.getJSONObject("event").getJSONObject("data").getJSONObject("new_state")
-                    .toString()
-            val mJson = JsonParser.parseString(newStateJson)
+            if (!result.getJSONObject("event").isNull("message")) {
+                Log.d("Notify", result.toString())
+            } else {
+                val newStateJson =
+                    result.getJSONObject("event").getJSONObject("data").getJSONObject("new_state")
+                        .toString()
+                val mJson = JsonParser.parseString(newStateJson)
 
-            val newStateData = Gson().fromJson(mJson, State::class.java)
-            Log.d("NewState", "${newStateData.entityId} changed with state${newStateData.state}")
-            if (checkStateExistUSeCase.invoke(newStateData.entityId)) {
-                val oldState = getStateById.invoke(newStateData.entityId)
-
-                val newState = StateDomain(
-                    newStateData.entityId,
-                    newStateData.state,
-                    newStateData.lastUpdated,
-                    newStateData.lastChanged,
-                    AttributeMapper(newStateData.attributes).toAttributeDomain(),
-                    oldState.ownerId,
-                    oldState.groupId
+                val newStateData = Gson().fromJson(mJson, State::class.java)
+                Log.d(
+                    "NewState",
+                    "${newStateData.entityId} changed with state${newStateData.state}"
                 )
-                updateStateUseCase.invoke(newState)
+                if (checkStateExistUSeCase.invoke(newStateData.entityId)) {
+                    val oldState = getStateById.invoke(newStateData.entityId)
+
+                    val newState = StateDomain(
+                        newStateData.entityId,
+                        newStateData.state,
+                        newStateData.lastUpdated,
+                        newStateData.lastChanged,
+                        AttributeMapper(newStateData.attributes).toAttributeDomain(),
+                        oldState.ownerId,
+                        oldState.groupId
+                    )
+                    updateStateUseCase.invoke(newState)
+                }
             }
         }
     }
