@@ -63,4 +63,18 @@ class DashboardVM : ViewModel() {
     }
 
     fun getItemsLiveDat(): LiveData<List<StateDomain>> = itemsLiveData
+    fun callMediaPLayerService(stateId: String, command: String) {
+        val serviceDomain = stateId.substringBefore(".")
+        val targetDevice = CallServiceTarget(stateId)
+        val service =
+            CallService(
+                id = ID_SERVICE_COUNT,
+                domain = serviceDomain,
+                service = command,
+                target = targetDevice
+            )
+        println(service)
+        sendMessageUseCase.invoke(service)
+        ID_SERVICE_COUNT++
+    }
 }

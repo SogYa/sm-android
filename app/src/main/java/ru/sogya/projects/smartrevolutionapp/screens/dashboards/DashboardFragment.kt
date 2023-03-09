@@ -92,4 +92,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard),
     override fun onSwitchStateChanged(stateId: String, switchState: String) {
         vm.callSwitchService(stateId, switchState)
     }
+
+    override fun onClickMediaPlayer(stateId: String, command: String) {
+        vm.callMediaPLayerService(stateId, command)
+    }
 }

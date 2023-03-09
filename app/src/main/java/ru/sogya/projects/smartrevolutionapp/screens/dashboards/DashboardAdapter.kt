@@ -3,6 +3,7 @@ package ru.sogya.projects.smartrevolutionapp.screens.dashboards
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
@@ -48,11 +49,14 @@ class DashboardAdapter(
 
     }
 
-    class MediaPLayerViewHolder(itemView: View):  RecyclerView.ViewHolder(itemView) {
+    class MediaPLayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val texViewLabel: TextView = itemView.findViewById(R.id.textViewTittle)
         val textViewId: TextView = itemView.findViewById(R.id.textViewEntityId)
         val textViewAuthor: TextView = itemView.findViewById(R.id.textViewAuthor)
-
+        val buttonPowerOn: Button = itemView.findViewById(R.id.imageButtonPowerPOn)
+        val buttonPrivios: Button = itemView.findViewById(R.id.imageButtonPrivios)
+        val buttonPlay: Button = itemView.findViewById(R.id.imageButtonPlay)
+        val buttonNext: Button = itemView.findViewById(R.id.imageButtonNext)
     }
 
 
@@ -106,7 +110,7 @@ class DashboardAdapter(
                     .inflate(R.layout.state_switch_item, parent, false)
                 return SwitchViewHolder(view)
             }
-            IS_MEDIA_PLAYER ->{
+            IS_MEDIA_PLAYER -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.state_media_player, parent, false)
                 return MediaPLayerViewHolder(view)
@@ -166,8 +170,26 @@ class DashboardAdapter(
                     onStateClickListener?.onSwitchStateChanged(stateDomain.entityId, state)
                 }
             }
-            is MediaPLayerViewHolder ->{
+            is MediaPLayerViewHolder -> {
                 holder.textViewId.text = stateDomain.attributesDomain?.friendlyName
+                holder.buttonPowerOn.setOnClickListener {
+                    onStateClickListener?.onClickMediaPlayer(stateDomain.entityId, "turn_on")
+                }
+                holder.buttonPrivios.setOnClickListener {
+                    onStateClickListener?.onClickMediaPlayer(
+                        stateDomain.entityId,
+                        "media_previous_track"
+                    )
+                }
+                holder.buttonPlay.setOnClickListener {
+                    onStateClickListener?.onClickMediaPlayer(stateDomain.entityId, "media_play")
+                }
+                holder.buttonNext.setOnClickListener {
+                    onStateClickListener?.onClickMediaPlayer(
+                        stateDomain.entityId,
+                        "media_next_track"
+                    )
+                }
             }
             is ViewHolder -> {
                 holder.idTextView.text = stateDomain.attributesDomain!!.friendlyName
@@ -195,5 +217,6 @@ class DashboardAdapter(
         fun onClick(stateDomain: StateDomain)
         fun onLongClick(stateDomain: StateDomain)
         fun onSwitchStateChanged(stateId: String, switchState: String) {}
+        fun onClickMediaPlayer(stateId: String, command: String) {}
     }
 }
