@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.Constants.STATE_ID
@@ -17,6 +18,7 @@ import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.DashboardBottomSheet
+import ru.sogya.projects.smartrevolutionapp.screens.states.player.MediaPlayerFragment
 import ru.sogya.projects.smartrevolutionapp.screens.states.sensor.SensorFragment
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard),
@@ -25,6 +27,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard),
     private lateinit var binding: FragmentDashboardBinding
     private val vm: DashboardVM by viewModels()
     private lateinit var adapter: DashboardAdapter
+    private lateinit var dialogFragment: BottomSheetDialogFragment
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -68,13 +71,14 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard),
 
     override fun onClick(stateDomain: StateDomain) {
         if (stateDomain.entityId.startsWith("sensor")) {
-            val dialog = SensorFragment()
-            val arguments = Bundle()
-            arguments.putString(STATE_ID, stateDomain.entityId)
-            dialog.arguments = arguments
-            dialog.show(childFragmentManager, dialog.tag)
+            dialogFragment = SensorFragment()
+        } else if (stateDomain.entityId.startsWith("media_player")) {
+            dialogFragment = MediaPlayerFragment()
         }
-
+        val arguments = Bundle()
+        arguments.putString(STATE_ID, stateDomain.entityId)
+        dialogFragment.arguments = arguments
+        dialogFragment.show(childFragmentManager, dialogFragment.tag)
     }
 
     override fun onLongClick(stateDomain: StateDomain) {
@@ -93,7 +97,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard),
         vm.callSwitchService(stateId, switchState)
     }
 
-    override fun onClickMediaPlayer(stateId: String, command: String) {
+    override fun onClickWithCommand(stateId: String, command: String) {
         vm.callMediaPLayerService(stateId, command)
     }
 }

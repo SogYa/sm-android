@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.sogya.domain.models.StateDomain
@@ -22,6 +23,14 @@ class DashboardAdapter(
         private const val IS_USER = 2
         private const val IS_SWITCH = 3
         private const val IS_MEDIA_PLAYER = 4
+        private const val IS_CAMERA = 5
+        private const val IS_COVER = 6
+        private const val IS_BINARY_SENSOR = 7
+
+        private const val IS_OPEN = "open"
+        private const val IS_CLOSED = "closed"
+        private const val IS_UNAVAILABLE = "unavailable"
+        private const val UNAVAILABLE_COLOR = "#AAAAAA"
     }
 
     class SensorWeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -50,37 +59,57 @@ class DashboardAdapter(
     }
 
     class MediaPLayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val texViewLabel: TextView = itemView.findViewById(R.id.textViewTittle)
+        val textView: TextView = itemView.findViewById(R.id.textViewMediaPlayerName)
         val textViewId: TextView = itemView.findViewById(R.id.textViewEntityId)
-        val textViewAuthor: TextView = itemView.findViewById(R.id.textViewAuthor)
         val buttonPowerOn: ImageButton = itemView.findViewById(R.id.imageButtonPowerPOn)
-        val buttonPrivios: ImageButton = itemView.findViewById(R.id.imageButtonPrivios)
-        val buttonPlay: ImageButton = itemView.findViewById(R.id.imageButtonPlay)
-        val buttonNext: ImageButton = itemView.findViewById(R.id.imageButtonNext)
     }
 
+    class CameraViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textViewName: TextView = itemView.findViewById(R.id.textCameraName)
+        val imageCamera: ImageView = itemView.findViewById(R.id.imageViewCamera)
+    }
+
+    class CoverViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val nameTextView: TextView = itemView.findViewById(R.id.textCoverName)
+        val stateTV: TextView = itemView.findViewById(R.id.textCoverState)
+        val buttonUp: AppCompatButton = itemView.findViewById(R.id.buttonCoverUp)
+        val buttonStop: AppCompatButton = itemView.findViewById(R.id.buttonCoverStop)
+        val buttonDown: AppCompatButton = itemView.findViewById(R.id.buttonCoverDown)
+    }
+
+    class BinarySensorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val nameTextView: TextView = itemView.findViewById(R.id.textBinaryName)
+        val stateTV: TextView = itemView.findViewById(R.id.textBinaryState)
+        val idTextView: TextView = itemView.findViewById(R.id.textBinaryId)
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val idTextView: TextView = itemView.findViewById(R.id.textFriendlyName)
+        val nameTextView: TextView = itemView.findViewById(R.id.textFriendlyName)
         val stateTV: TextView = itemView.findViewById(R.id.textState)
-        val lastChangeTV: TextView = itemView.findViewById(R.id.textId)
+        val idTextView: TextView = itemView.findViewById(R.id.textId)
     }
 
 
     override fun getItemViewType(position: Int): Int {
         val entityId = states[position].entityId
-        if (entityId.startsWith("sensor.")) {
-            return IS_SENSOR
+        return if (entityId.startsWith("sensor.")) {
+            IS_SENSOR
         } else if (entityId.startsWith("sun.")) {
-            return IS_SUN
+            IS_SUN
         } else if (entityId.startsWith("person."))
-            return IS_USER
+            IS_USER
         else if (entityId.startsWith("switch.")) {
-            return IS_SWITCH
+            IS_SWITCH
         } else if (entityId.startsWith("media_player.")) {
-            return IS_MEDIA_PLAYER
-        }
-        return -1
+            IS_MEDIA_PLAYER
+        } else if (entityId.startsWith("camera.")) {
+            IS_CAMERA
+        } else if (entityId.startsWith("cover.")) {
+            IS_COVER
+        } else if (entityId.startsWith("binary_sensor.")) {
+            IS_BINARY_SENSOR
+        } else
+            -1
     }
 
     override fun getItemCount(): Int {
@@ -114,6 +143,21 @@ class DashboardAdapter(
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.state_media_player, parent, false)
                 return MediaPLayerViewHolder(view)
+            }
+            IS_CAMERA -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.states_camera, parent, false)
+                return CameraViewHolder(view)
+            }
+            IS_COVER -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.state_cover, parent, false)
+                return CoverViewHolder(view)
+            }
+            IS_BINARY_SENSOR -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.state_binary_sensor, parent, false)
+                return BinarySensorViewHolder(view)
             }
             else -> {
                 view = LayoutInflater.from(parent.context)
@@ -171,50 +215,69 @@ class DashboardAdapter(
                 }
             }
             is MediaPLayerViewHolder -> {
-                if (stateDomain.state == "playing") {
-                    holder.buttonPlay.setImageResource(R.drawable.baseline_pause_24)
-                } else {
-                    holder.buttonPlay.setImageResource(R.drawable.baseline_play_arrow_24)
-                }
                 holder.textViewId.text = stateDomain.attributesDomain?.friendlyName
                 holder.buttonPowerOn.setOnClickListener {
                     if (stateDomain.state == "off") {
-                        onStateClickListener?.onClickMediaPlayer(stateDomain.entityId, "turn_on")
+                        onStateClickListener?.onClickWithCommand(stateDomain.entityId, "turn_on")
                     } else {
-                        onStateClickListener?.onClickMediaPlayer(stateDomain.entityId, "turn_off")
+                        onStateClickListener?.onClickWithCommand(stateDomain.entityId, "turn_off")
                     }
                 }
-                holder.buttonPrivios.setOnClickListener {
-                    onStateClickListener?.onClickMediaPlayer(
-                        stateDomain.entityId,
-                        "media_previous_track"
-                    )
-                }
-                holder.buttonPlay.setOnClickListener {
-                    if (stateDomain.state == "playing") {
-                        onStateClickListener?.onClickMediaPlayer(
-                            stateDomain.entityId,
-                            "media_pause"
-                        )
-                    } else {
-                        onStateClickListener?.onClickMediaPlayer(
-                            stateDomain.entityId,
-                            "media_play"
-                        )
-                    }
+                holder.textView.text = stateDomain.state
 
-                }
-                holder.buttonNext.setOnClickListener {
-                    onStateClickListener?.onClickMediaPlayer(
-                        stateDomain.entityId,
-                        "media_next_track"
-                    )
+            }
+            is CameraViewHolder -> {
+                holder.textViewName.text = stateDomain.attributesDomain?.friendlyName
+
+            }
+            is CoverViewHolder -> {
+                holder.apply {
+                    nameTextView.text = stateDomain.attributesDomain?.friendlyName
+                    stateTV.text = stateDomain.state
+                    when (stateDomain.state) {
+                        IS_OPEN -> {
+                            buttonDown.isEnabled = true
+                            buttonUp.isEnabled = false
+                        }
+                        IS_CLOSED -> {
+                            buttonDown.isEnabled = false
+                            buttonUp.isEnabled = true
+                        }
+                        IS_UNAVAILABLE -> {
+                            buttonDown.isEnabled = false
+                            buttonUp.isEnabled = false
+                            buttonStop.isEnabled = false
+                        }
+                    }
+                    buttonUp.setOnClickListener {
+                        onStateClickListener?.onClickWithCommand(
+                            stateDomain.entityId,
+                            "open_cover"
+                        )
+                    }
+                    buttonStop.setOnClickListener {
+                        onStateClickListener?.onClickWithCommand(
+                            stateDomain.entityId,
+                            "stop_cover"
+                        )
+                    }
+                    buttonDown.setOnClickListener {
+                        onStateClickListener?.onClickWithCommand(
+                            stateDomain.entityId,
+                            "close_cover"
+                        )
+                    }
                 }
             }
-            is ViewHolder -> {
-                holder.idTextView.text = stateDomain.attributesDomain!!.friendlyName
+            is BinarySensorViewHolder -> {
+                holder.nameTextView.text = stateDomain.attributesDomain!!.friendlyName
                 holder.stateTV.text = stateDomain.state
-                holder.lastChangeTV.text = stateDomain.lastChanged
+                holder.idTextView.text = stateDomain.lastChanged
+            }
+            is ViewHolder -> {
+                holder.nameTextView.text = stateDomain.attributesDomain!!.friendlyName
+                holder.stateTV.text = stateDomain.state
+                holder.idTextView.text = stateDomain.lastChanged
             }
         }
         holder.itemView.setOnClickListener {
@@ -237,6 +300,6 @@ class DashboardAdapter(
         fun onClick(stateDomain: StateDomain)
         fun onLongClick(stateDomain: StateDomain)
         fun onSwitchStateChanged(stateId: String, switchState: String) {}
-        fun onClickMediaPlayer(stateId: String, command: String) {}
+        fun onClickWithCommand(stateId: String, command: String) {}
     }
 }
