@@ -63,5 +63,10 @@ class AttributeDomainMapper(
         attribute?.radius,
         attribute?.releaseNotes,
         attribute?.unitOfMeasurement,
+        attribute?.mediaPlayerSongName,
+        attribute?.mediaPlayerArtistName,
+        attribute?.mediaDuration,
+        attribute?.mediaPosition,
+        attribute?.currentPosition
     )
 }

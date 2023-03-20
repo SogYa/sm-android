@@ -32,7 +32,7 @@ var appName: String? = null,
 
 var isVolumeMuted: Boolean? = null,
 
-var volumeLevel: BigDecimal? = null,
+var volumeLevel: Double? = null,
 
 var entityPicture: String? = null,
 
@@ -121,4 +121,14 @@ var radius: BigDecimal? = null,
 var releaseNotes: Boolean? = null,
 
 var unitOfMeasurement: String? = null,
+
+var mediaPlayerSongName: String? = null,
+
+var mediaPlayerArtistName: String? = null,
+
+var mediaDuration: Double? = null,
+
+var mediaPosition: Double? = null,
+
+var currentPosition: Int? = null
 )

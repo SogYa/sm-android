@@ -44,7 +44,7 @@ data class Attributes(
     var isVolumeMuted: Boolean? = null,
 
     @SerializedName("volume_level")
-    var volumeLevel: BigDecimal? = null,
+    var volumeLevel: Double? = null,
 
     @SerializedName("entity_picture")
     var entityPicture: String? = null,
@@ -178,6 +178,23 @@ data class Attributes(
 
     @SerializedName("unit_of_measurement")
     var unitOfMeasurement: String? = null,
+
+    //Media player
+    @SerializedName("media_title")
+    var mediaPlayerSongName: String? = null,
+
+    @SerializedName("media_artist")
+    var mediaPlayerArtistName: String? = null,
+
+    @SerializedName("media_duration")
+    var mediaDuration: Double? = 0.0,
+
+    @SerializedName("media_position")
+    var mediaPosition: Double? = 0.0,
+
+    //Cover
+    @SerializedName("current_position")
+    var currentPosition: Int? = 0
 ) {
     val numberOfDecimalPlaces: Int
         get() {
