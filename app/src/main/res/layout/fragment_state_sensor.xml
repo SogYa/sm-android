@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bottom_sheet_background"
-    android:backgroundTint="@color/pinl_background"
+    android:backgroundTint="@color/pink_background"
     android:orientation="vertical"
     android:padding="5dp">
 
