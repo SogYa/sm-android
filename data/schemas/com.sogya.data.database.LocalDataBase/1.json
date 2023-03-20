@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3a654fdabff11b63901086bc850b2a4f",
+    "identityHash": "8b5075f3af4b57a7a5b7af7b199bb500",
     "entities": [
       {
         "tableName": "states",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`entityId` TEXT NOT NULL, `state` TEXT NOT NULL, `lastUpdated` TEXT NOT NULL, `lastChanged` TEXT NOT NULL, `ownerId` TEXT NOT NULL, `groupId` INTEGER NOT NULL, `nextDawn` TEXT, `nextDusk` TEXT, `nextMidnight` TEXT, `nextNoon` TEXT, `nextRising` TEXT, `nextSetting` TEXT, `speedList` TEXT, `fanSpeedList` TEXT, `assumedState` TEXT, `friendlyName` TEXT, `appName` TEXT, `isVolumeMuted` INTEGER, `volumeLevel` TEXT, `entityPicture` TEXT, `icon` TEXT, `title` TEXT, `year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, `timestamp` TEXT, `hasDate` INTEGER, `hasTime` INTEGER, `deviceClass` TEXT, `brightness` TEXT, `colorTemp` TEXT, `rgbColors` TEXT, `options` TEXT, `order` INTEGER, `auto` INTEGER, `hidden` INTEGER, `viewOne` INTEGER, `name` TEXT, `initial` INTEGER, `codeFormat` TEXT, `pattern` TEXT, `max` TEXT, `min` TEXT, `step` TEXT, `currentTemperature` TEXT, `maxTemp` TEXT, `minTemp` TEXT, `temperature` TEXT, `operationMode` TEXT, `activity` TEXT, `provider` TEXT, `sourceType` TEXT, `battery` TEXT, `gpsAccuracy` TEXT, `altitude` TEXT, `latitude` TEXT, `longitude` TEXT, `radius` TEXT, `releaseNotes` INTEGER, `unitOfMeasurement` TEXT, PRIMARY KEY(`entityId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`entityId` TEXT NOT NULL, `state` TEXT NOT NULL, `lastUpdated` TEXT NOT NULL, `lastChanged` TEXT NOT NULL, `ownerId` TEXT NOT NULL, `groupId` INTEGER NOT NULL, `nextDawn` TEXT, `nextDusk` TEXT, `nextMidnight` TEXT, `nextNoon` TEXT, `nextRising` TEXT, `nextSetting` TEXT, `speedList` TEXT, `fanSpeedList` TEXT, `assumedState` TEXT, `friendlyName` TEXT, `appName` TEXT, `isVolumeMuted` INTEGER, `volumeLevel` REAL, `entityPicture` TEXT, `icon` TEXT, `title` TEXT, `year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, `timestamp` TEXT, `hasDate` INTEGER, `hasTime` INTEGER, `deviceClass` TEXT, `brightness` TEXT, `colorTemp` TEXT, `rgbColors` TEXT, `options` TEXT, `order` INTEGER, `auto` INTEGER, `hidden` INTEGER, `viewOne` INTEGER, `name` TEXT, `initial` INTEGER, `codeFormat` TEXT, `pattern` TEXT, `max` TEXT, `min` TEXT, `step` TEXT, `currentTemperature` TEXT, `maxTemp` TEXT, `minTemp` TEXT, `temperature` TEXT, `operationMode` TEXT, `activity` TEXT, `provider` TEXT, `sourceType` TEXT, `battery` TEXT, `gpsAccuracy` TEXT, `altitude` TEXT, `latitude` TEXT, `longitude` TEXT, `radius` TEXT, `releaseNotes` INTEGER, `unitOfMeasurement` TEXT, `mediaPlayerSongName` TEXT, `mediaPlayerArtistName` TEXT, `mediaDuration` REAL, `mediaPosition` REAL, `currentPosition` INTEGER, PRIMARY KEY(`entityId`))",
         "fields": [
           {
             "fieldPath": "entityId",
@@ -119,7 +119,7 @@
           {
             "fieldPath": "attributes.volumeLevel",
             "columnName": "volumeLevel",
-            "affinity": "TEXT",
+            "affinity": "REAL",
             "notNull": false
           },
           {
@@ -379,6 +379,36 @@
             "columnName": "unitOfMeasurement",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "attributes.mediaPlayerSongName",
+            "columnName": "mediaPlayerSongName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.mediaPlayerArtistName",
+            "columnName": "mediaPlayerArtistName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.mediaDuration",
+            "columnName": "mediaDuration",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.mediaPosition",
+            "columnName": "mediaPosition",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributes.currentPosition",
+            "columnName": "currentPosition",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -508,7 +538,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3a654fdabff11b63901086bc850b2a4f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8b5075f3af4b57a7a5b7af7b199bb500')"
     ]
   }
 }
