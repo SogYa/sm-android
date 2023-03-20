@@ -1,5 +1,6 @@
 package ru.sogya.projects.smartrevolutionapp.screens.autharization
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
@@ -55,6 +56,7 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
             }
         }
     }
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonConnect.setOnClickListener {

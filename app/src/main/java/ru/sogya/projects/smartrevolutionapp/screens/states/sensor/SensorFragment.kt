@@ -11,10 +11,11 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sogya.domain.utils.Constants
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentStateSensorBinding
+import ru.sogya.projects.smartrevolutionapp.screens.states.StateSharedVM
 
 class SensorFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentStateSensorBinding
-    private val vm: SensorVM by viewModels()
+    private val vm: StateSharedVM by viewModels()
     private val list =
         arrayListOf(
             Entry(1f, 5f), Entry(2f, 6f),
