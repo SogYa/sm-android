@@ -57,6 +57,9 @@ class StateAdapter : RecyclerView.Adapter<StateAdapter.ViewHolder>() {
     }
 
     fun sendCheckedSet(): HashSet<StateDomain> = checkedSet
+    fun clearCheckedSet() {
+        checkedSet.clear()
+    }
 
     companion object {
         private const val LIGHT_PINK = "#FFE0EB"

@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.usecases.databaseusecase.states.InsertStateUseCase
 import com.sogya.domain.usecases.network.GetStatesUseCase
@@ -15,7 +14,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import ru.sogya.projects.smartrevolutionapp.app.App
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 
@@ -54,18 +54,20 @@ class StateAddingVM : ViewModel() {
         myCallBack: MyCallBack<Boolean>
     ) {
         val ownerId = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
-        val listOfStates = states.toList()
-        viewModelScope.launch(Dispatchers.IO) {
-            val job = launch {
-                listOfStates.forEach {
-                    it.ownerId = ownerId
-                    it.groupId = groupId
-                }
+        val listOfStates: MutableList<StateDomain> = states.toMutableList()
+        Log.d("SetVM", listOfStates.toString())
+        if (listOfStates.isEmpty()) {
+            myCallBack.error()
+        } else {
+            listOfStates.forEach {
+                it.ownerId = ownerId
+                it.groupId = groupId
             }
-            job.join()
-            insertStateUseCase.invoke(listOfStates)
+            GlobalScope.async(Dispatchers.IO) {
+                Log.d("Start", "Start")
+                insertStateUseCase.invoke(listOfStates)
+            }
         }
-        myCallBack.data(true)
     }
 
     fun getStatesLiveData(): LiveData<List<StateDomain>> = statesLiveData

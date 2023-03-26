@@ -15,6 +15,8 @@ import ru.sogya.projects.smartrevolutionapp.screens.states.StateSharedVM
 class MediaPlayerFragment : BottomSheetDialogFragment(R.layout.fragment_state_player) {
     private val vm: StateSharedVM by viewModels()
     private lateinit var binding: FragmentStatePlayerBinding
+    private var isMuted: Boolean? = false
+    private var mediaPlayerState: String? = null
 
     companion object {
         private const val MEDIA_PAUSED = "paused"
@@ -29,6 +31,7 @@ class MediaPlayerFragment : BottomSheetDialogFragment(R.layout.fragment_state_pl
         private const val MEDIA_TURN_OFF = "turn_off"
         private const val MEDIA_MUTE = "volume_mute"
         private const val MEDIA_VOLUME_UP = "volume_up"
+        private const val MEDIA_VOLUME_DOWN = "volume_down"
     }
 
     override fun onCreateView(
@@ -42,9 +45,8 @@ class MediaPlayerFragment : BottomSheetDialogFragment(R.layout.fragment_state_pl
         super.onResume()
         vm.getStateLiveData().observe(viewLifecycleOwner) {
             val volume = it.attributesDomain?.volumeLevel
-            val isMuted = it.attributesDomain?.isVolumeMuted
-            val mediaPlayerState = it.state
-            val id = it.entityId
+            isMuted = it.attributesDomain?.isVolumeMuted
+            mediaPlayerState = it.state
             binding.apply {
                 playerId.text = it.attributesDomain?.friendlyName
                 textViewTitle.text = it.attributesDomain?.mediaPlayerSongName
@@ -60,37 +62,10 @@ class MediaPlayerFragment : BottomSheetDialogFragment(R.layout.fragment_state_pl
                     true -> buttonMute.setImageResource(R.drawable.baseline_volume_off_24)
                     else -> buttonMute.setImageResource(R.drawable.baseline_volume_mute_24)
                 }
-                imageButtonNext.setOnClickListener {
-                    vm.callMediaPLayerService(id, MEDIA_NEXT)
-                }
-                imageButtonPrivios.setOnClickListener {
-                    vm.callMediaPLayerService(id, MEDIA_PRIVIOUS)
-                }
-                imageButtonPlay.setOnClickListener {
-                    if (mediaPlayerState == MEDIA_PLAYING) {
-                        vm.callMediaPLayerService(id, MEDIA_PAUSE)
-                    } else {
-                        vm.callMediaPLayerService(id, MEDIA_PLAY)
-                    }
-                }
-                buttonPower.setOnClickListener {
-                    if (mediaPlayerState == MEDIA_OFF) {
-                        vm.callMediaPLayerService(id, MEDIA_TURN_ON)
-                    } else {
-                        vm.callMediaPLayerService(id, MEDIA_TURN_OFF)
-                    }
-                }
-                buttonMute.setOnClickListener {
-                    if (!isMuted!!) {
-                        vm.callMediaPLayerService(id, MEDIA_MUTE)
-                    } else {
-                        vm.callMediaPLayerService(id, MEDIA_VOLUME_UP)
-                    }
-                }
-                seekBar.max = it.attributesDomain?.mediaDuration!!.toInt()
-                seekBar.progress = it.attributesDomain?.mediaPosition!!.toInt()
-                seekBarVolume.progress = (it.attributesDomain?.volumeLevel!!*100).toInt()
-                seekBarVolume.max = 100
+                durationProgressBar.max = it.attributesDomain?.mediaDuration!!.toInt()
+                durationProgressBar.progress = it.attributesDomain?.mediaPosition!!.toInt()
+                progressBarVolume.progress = (volume!! * 100).toInt()
+                progressBarVolume.max = 100
             }
         }
     }
@@ -99,5 +74,40 @@ class MediaPlayerFragment : BottomSheetDialogFragment(R.layout.fragment_state_pl
         super.onViewCreated(view, savedInstanceState)
         val stateId = arguments?.getString(Constants.STATE_ID).toString()
         vm.getState(stateId)
+        binding.apply {
+            imageButtonNext.setOnClickListener {
+                vm.callMediaPLayerService(stateId, MEDIA_NEXT)
+            }
+            imageButtonPrivios.setOnClickListener {
+                vm.callMediaPLayerService(stateId, MEDIA_PRIVIOUS)
+            }
+            imageButtonPlay.setOnClickListener {
+                if (mediaPlayerState == MEDIA_PLAYING) {
+                    vm.callMediaPLayerService(stateId, MEDIA_PAUSE)
+                } else {
+                    vm.callMediaPLayerService(stateId, MEDIA_PLAY)
+                }
+            }
+            buttonPower.setOnClickListener {
+                if (mediaPlayerState == MEDIA_OFF) {
+                    vm.callMediaPLayerService(stateId, MEDIA_TURN_ON)
+                } else {
+                    vm.callMediaPLayerService(stateId, MEDIA_TURN_OFF)
+                }
+            }
+            buttonMute.setOnClickListener {
+                if (!isMuted!!) {
+                    vm.callMediaPLayerService(stateId, MEDIA_MUTE)
+                } else {
+                    vm.callMediaPLayerService(stateId, MEDIA_VOLUME_UP)
+                }
+            }
+            buttonVolumeDown.setOnClickListener {
+                vm.callMediaPLayerService(stateId, MEDIA_VOLUME_DOWN)
+            }
+            buttonVolumeUp.setOnClickListener {
+                vm.callMediaPLayerService(stateId, MEDIA_VOLUME_UP)
+            }
+        }
     }
 }

@@ -29,12 +29,12 @@
         android:layout_margin="5dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <SeekBar
-        android:id="@+id/seekBar"
+    <ProgressBar
+        android:id="@+id/durationProgressBar"
         style="@android:style/Widget.Material.SeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:clickable="false"
         android:progressTint="@color/gray"
         android:thumb="@color/gray" />
@@ -81,24 +81,26 @@
 
         <ImageButton
             android:id="@+id/buttonPower"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_margin="5dp"
             android:background="#00FFFFFF"
-            android:scaleType="fitCenter"
-            android:text="Button"
-            app:tint="@color/gray"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageButtonPlay"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/gray"
             tools:src="@drawable/baseline_power_settings_new_24" />
 
         <ImageButton
             android:id="@+id/imageButtonPrivios"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_margin="5dp"
             android:background="#00FFFFFF"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageButtonPlay"
@@ -124,10 +126,11 @@
 
         <ImageButton
             android:id="@+id/imageButtonNext"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_margin="5dp"
             android:background="#00FFFFFF"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonMute"
@@ -139,30 +142,54 @@
 
         <ImageButton
             android:id="@+id/buttonMute"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_margin="5dp"
             android:background="#00FFFFFF"
-            android:scaleType="fitStart"
-            android:text="Button"
-            app:tint="@color/gray"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/gray"
             tools:src="@drawable/baseline_volume_off_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <SeekBar
-        android:id="@+id/seekBarVolume"
-        style="@android:style/Widget.Material.SeekBar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="15dp"
-        android:clickable="false"
-        android:progressTint="@color/gray"
-        android:thumb="@color/gray" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/buttonVolumeDown"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/baseline_volume_down_24" />
+
+        <ProgressBar
+            android:id="@+id/progressBarVolume"
+            style="@android:style/Widget.Material.SeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
+            android:clickable="false"
+            android:progressTint="@color/gray"
+            android:thumb="@color/gray" />
+
+        <ImageButton
+            android:id="@+id/buttonVolumeUp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/baseline_volume_up_24" />
+    </LinearLayout>
 
 </LinearLayout>

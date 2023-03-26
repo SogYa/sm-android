@@ -51,6 +51,11 @@ class DashboardBottomSheet : BottomSheetDialogFragment() {
                     override fun data(t: Boolean) {
                         Toast.makeText(context, "State added", Toast.LENGTH_SHORT).show()
                     }
+
+                    override fun error() {
+                        super.error()
+                        Toast.makeText(context, "Nothing to add(", Toast.LENGTH_SHORT).show()
+                    }
                 })
             }
         }
@@ -68,5 +73,10 @@ class DashboardBottomSheet : BottomSheetDialogFragment() {
             Log.d("List", it.toString())
             state = it[0]
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        adapter.clearCheckedSet()
     }
 }

@@ -16,5 +16,4 @@ object Constants {
     const val STATE_ID = "stateId"
     const val INTEGRATION_SECRET = "integrationSecret"
     const val INTEGRATION_WEB_HOOK = "integrationWebHook"
-    const val NETWORK_STATUS = "networkStatus"
 }

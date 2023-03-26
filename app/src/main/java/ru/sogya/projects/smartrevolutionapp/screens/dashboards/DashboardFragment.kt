@@ -27,7 +27,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard),
     private lateinit var binding: FragmentDashboardBinding
     private val vm: DashboardVM by viewModels()
     private lateinit var adapter: DashboardAdapter
-    private lateinit var dialogFragment: BottomSheetDialogFragment
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -70,14 +69,21 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard),
     }
 
     override fun onClick(stateDomain: StateDomain) {
-        if (stateDomain.entityId.startsWith("sensor")) {
-            dialogFragment = SensorFragment()
-        } else if (stateDomain.entityId.startsWith("media_player")) {
-            dialogFragment = MediaPlayerFragment()
-        }
+        val dialogFragment: BottomSheetDialogFragment
         val arguments = Bundle()
         arguments.putString(STATE_ID, stateDomain.entityId)
-        dialogFragment.arguments = arguments
+        if (stateDomain.entityId.startsWith("sensor")) {
+            dialogFragment = SensorFragment()
+            showDialog(dialogFragment,arguments)
+
+        } else if (stateDomain.entityId.startsWith("media_player")) {
+            dialogFragment = MediaPlayerFragment()
+            showDialog(dialogFragment,arguments)
+        }
+
+    }
+    private fun showDialog(dialogFragment: BottomSheetDialogFragment,argument:Bundle){
+        dialogFragment.arguments = argument
         dialogFragment.show(childFragmentManager, dialogFragment.tag)
     }
 

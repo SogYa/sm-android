@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmartRevolutionApp</string>
+    <string name="app_name">Smart Revolution App</string>
     <string name="auth_succes">Authorization success</string>
     <string name="auth_failed">Authorization failed</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
