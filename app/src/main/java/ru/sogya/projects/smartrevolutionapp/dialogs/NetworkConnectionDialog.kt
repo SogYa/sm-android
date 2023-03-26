@@ -23,7 +23,7 @@ class NetworkConnectionDialog : DialogFragment() {
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
-        return inflater.inflate(R.layout.dialog_ticket_created, container, false)
+        return inflater.inflate(R.layout.dialog_network, container, false)
     }
 
     override fun onResume() {
