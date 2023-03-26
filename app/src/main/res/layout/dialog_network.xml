@@ -41,7 +41,7 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                app:srcCompat="@mipmap/task_created" />
+                app:srcCompat="@drawable/no_internet_connection_ic" />
 
             <TextView
                 android:id="@+id/dialogText"
@@ -56,29 +56,6 @@
                 android:gravity="center"
                 android:text="@string/dialog_network_text"
                 android:textSize="18sp" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="0"
-                android:background="@drawable/dialog_buttons_top"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/closeButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="2"
-                    android:background="@drawable/dialog_button_left_stroke"
-                    android:fontFamily="@font/roboto"
-                    android:text="Close"
-                    android:textColor="@color/pink"
-                    android:textStyle="bold"
-                    app:rippleColor="@color/light_pink" />
-            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

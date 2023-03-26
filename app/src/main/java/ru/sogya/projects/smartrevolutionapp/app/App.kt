@@ -17,6 +17,7 @@ class App : Application() {
         private lateinit var webSocketRepository: WebSocketRepository
         private lateinit var networkRepository: NetworkRepository
         private lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+        private lateinit var networkStatesRepository: NetworkStatesRepository
 
         fun getAppContext(): Context {
             return app.applicationContext
@@ -41,6 +42,10 @@ class App : Application() {
         fun getSharedPreferncesRepository(): SharedPreferencesRepository {
             return sharedPreferencesRepository
         }
+
+        fun getNetworkStatesRepository(): NetworkStatesRepository {
+            return networkStatesRepository
+        }
     }
 
     override fun onCreate() {
@@ -53,7 +58,7 @@ class App : Application() {
         webSocketRepository = WebSocketRepositoryImpl()
         networkRepository = NetworkRepositoryImpl()
         sharedPreferencesRepository = SharedPreferencesRepositoryImpl(appContext)
+        networkStatesRepository = NetworkStatesRepositoryImpl(appContext)
         MapKitFactory.setApiKey("8fb09c9c-0e0e-4aaf-b5b9-f6903d7e6b8d")
-
     }
 }

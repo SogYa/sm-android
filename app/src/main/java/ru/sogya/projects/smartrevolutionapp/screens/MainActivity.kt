@@ -1,6 +1,7 @@
 package ru.sogya.projects.smartrevolutionapp.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View.*
 import android.widget.TextView
@@ -13,6 +14,7 @@ import androidx.navigation.ui.*
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.ActivityMainBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.LogOutDialogFragment
+import ru.sogya.projects.smartrevolutionapp.dialogs.NetworkConnectionDialog
 
 class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentListener {
     private lateinit var appBarConfig: AppBarConfiguration
@@ -56,7 +58,12 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
         appBarConfig = AppBarConfiguration(
-            setOf(R.id.groupFragment, R.id.settingsFragment, R.id.ticketListFragment,R.id.mapFragment),
+            setOf(
+                R.id.groupFragment,
+                R.id.settingsFragment,
+                R.id.ticketListFragment,
+                R.id.mapFragment
+            ),
             binding.drawerLayout
         )
         binding.bottomNav.setupWithNavController(navController)
@@ -79,6 +86,12 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         }
         vm.getServerUriLiveData().observe(this) {
             serverUri.text = it
+        }
+        vm.getNetworkStateLiveData().observe(this) {
+            val dialogFragment = NetworkConnectionDialog()
+            if (!it) {
+                dialogFragment.show(supportFragmentManager, dialogFragment.tag)
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package ru.sogya.projects.smartrevolutionapp.screens
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sogya.domain.usecases.network.GetNetworkStateUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
 import com.sogya.domain.usecases.websocketus.CloseUseCase
@@ -17,6 +18,11 @@ class MainVM : ViewModel() {
     private val closeWebSocketUseCase = CloseUseCase(webSocketRepository)
     private val getStringPrefsUseCase = GetStringPrefsUseCase(repository)
     private val updatePrefsUseCase = UpdatePrefsUseCase(repository)
+    private val networkStatesRepository = App.getNetworkStatesRepository()
+    private val getNetworkStatesUseCase = GetNetworkStateUseCase(networkStatesRepository)
+    private val networkStateLiveData: LiveData<Boolean> = getNetworkStatesUseCase.invoke()
+
+    fun getNetworkStateLiveData() = networkStateLiveData
 
     fun logOut() {
         updatePrefsUseCase.invoke(Constants.AUTH_TOKEN, "")

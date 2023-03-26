@@ -7,17 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Button
 import androidx.fragment.app.DialogFragment
+import com.sogya.domain.usecases.network.GetNetworkStateUseCase
 import ru.sogya.projects.smartrevolutionapp.R
+import ru.sogya.projects.smartrevolutionapp.app.App
 
-class NetworkConnectionDialog(
-    private val networkClickListener: NetworkClickListener
-) : DialogFragment() {
-    interface NetworkClickListener {
-        fun onCloseClick()
-    }
-
+class NetworkConnectionDialog : DialogFragment() {
+    private val getNetworkStateUseCase = GetNetworkStateUseCase(App.getNetworkStatesRepository())
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,11 +26,12 @@ class NetworkConnectionDialog(
         return inflater.inflate(R.layout.dialog_ticket_created, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val closeButton = view.findViewById<Button>(R.id.closeButton)
-        closeButton.setOnClickListener {
-            networkClickListener.onCloseClick()
+    override fun onResume() {
+        super.onResume()
+        getNetworkStateUseCase.invoke().observe(this){
+            if(it){
+                dismiss()
+            }
         }
     }
 }
