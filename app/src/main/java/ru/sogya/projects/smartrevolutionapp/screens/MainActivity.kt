@@ -1,11 +1,13 @@
 package ru.sogya.projects.smartrevolutionapp.screens
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+        //setSupportActionBar(binding.toolbar)
         setupNavigation()
         FirebaseMessaging.getInstance().subscribeToTopic("info")
             .addOnCompleteListener { task ->
@@ -44,7 +46,13 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
                 }
             }
-
+        binding.hambutgerButton.setOnClickListener {
+            if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }else{
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
         vm = ViewModelProvider(this)[MainVM::class.java]
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -72,17 +80,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
-        appBarConfig = AppBarConfiguration(
-            setOf(
-                R.id.groupFragment,
-                R.id.settingsFragment,
-                R.id.ticketListFragment,
-                R.id.mapFragment
-            ),
-            binding.drawerLayout
-        )
         binding.bottomNav.setupWithNavController(navController)
-        setupActionBarWithNavController(navController, appBarConfig)
         binding.navView.setupWithNavController(navController)
         //Передача URL в текст заголовка меню
         serverUri = binding.navView.getHeaderView(0).findViewById(R.id.baseUrl)
