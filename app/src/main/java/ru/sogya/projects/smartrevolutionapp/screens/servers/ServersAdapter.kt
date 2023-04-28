@@ -33,10 +33,10 @@ class ServersAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val server = serverList[position]
-        val currentPsition = position+1
+        val currentPosition = position+1
         holder.nameTextView.text = server.serverName
         holder.uriTextView.text = server.serverUri
-        holder.serverCount.text = currentPsition.toString()
+        holder.serverCount.text = currentPosition.toString()
         holder.itemView.setOnClickListener {
             onServerClickListener.onClick(server)
         }
