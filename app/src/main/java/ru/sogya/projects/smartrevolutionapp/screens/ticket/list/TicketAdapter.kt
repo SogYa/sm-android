@@ -29,6 +29,7 @@ class TicketAdapter(
         val ticketId: TextView = itemView.findViewById(R.id.textTicketId)
         val ticketDate: TextView = itemView.findViewById(R.id.textTicketDate)
         val ticketStatus: TextView = itemView.findViewById(R.id.textTicketStatus)
+        val ticketCounter:TextView = itemView.findViewById(R.id.textViewCounter)
 
     }
 
@@ -45,9 +46,11 @@ class TicketAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ticket = ticketArrayList[position]
+        val currentPsition = position+1
         holder.ticketId.text = ticket.ticketId
         holder.ticketDate.text = ticket.ticketDate
         holder.ticketStatus.text = ticket.ticketStatus
+        holder.ticketCounter.text = currentPsition.toString()
         when (ticket.ticketStatus) {
             "Created" -> holder.ticketStatus.setTextColor(Color.parseColor(YELLOW))
             "Done" -> holder.ticketStatus.setTextColor(Color.parseColor(GREEN))
