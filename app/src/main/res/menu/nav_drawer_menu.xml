@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <group>
         <item
             android:id="@+id/groupFragment"
-            android:icon="@drawable/ic_baseline_dashboard_24"
-            android:title="@string/menu_item_dashboard" />
+            app:actionLayout="@layout/action_menu_dashboards"
+            android:title=""
+            app:showAsAction="ifRoom" />
         <item
             android:id="@+id/ticketListFragment"
-            android:icon="@drawable/baseline_assignment_24"
-            android:title="@string/menu_item_ticket"
-            android:actionLayout=""/>
+            app:actionLayout="@layout/action_menu_tickets"
+            android:title=""
+            app:showAsAction="ifRoom" />
         <item
             android:id="@+id/mapFragment"
-            android:icon="@drawable/baseline_map_24"
-            android:title="@string/menu_item_map" />
+            app:actionLayout="@layout/action_menu_map"
+            android:title=""
+            app:showAsAction="ifRoom" />
         <item
             android:id="@+id/settingsFragment"
-            android:icon="@drawable/ic_baseline_settings_24"
-            android:title="@string/menu_item_settings" />
+            app:actionLayout="@layout/action_menu_settings"
+            android:title=""
+            app:showAsAction="ifRoom" />
         <item
-            android:icon="@drawable/ic_baseline_info_24"
-            android:title="@string/menu_item_about" />
+            app:actionLayout="@layout/action_menu_about"
+            android:title=""
+            app:showAsAction="ifRoom" />
         <item
-            android:icon="@drawable/ic_baseline_contact_support_24"
-            android:title="@string/menu_item_contacts" />
+            app:actionLayout="@layout/action_menu_contacts"
+            android:title=""
+            app:showAsAction="ifRoom" />
+        </group>
 </menu>
