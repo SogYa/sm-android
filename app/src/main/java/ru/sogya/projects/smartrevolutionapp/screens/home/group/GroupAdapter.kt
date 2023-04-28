@@ -17,6 +17,7 @@ class GroupAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val groupLabel: TextView = itemView.findViewById(R.id.group_label)
         val groupDesc: TextView = itemView.findViewById(R.id.group_desc)
+        val groupCounter: TextView = itemView.findViewById(R.id.textViewCounter)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,7 +28,9 @@ class GroupAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val group = groups[position]
+        val currentPosition = position + 1
         holder.groupLabel.text = group.groupTag
+        holder.groupCounter.text = currentPosition.toString()
         val groupDesc = group.groupDesc
         if (groupDesc != "") {
             holder.groupDesc.text = groupDesc
@@ -50,7 +53,7 @@ class GroupAdapter(
         groups.add(
             StateGroupDomain(
                 Constants.DEFAULT_GROUP_ID,
-                "All states","All states",
+                "All states", "All states",
                 "A shared dashboard with all the states added to the app"
             )
         )
