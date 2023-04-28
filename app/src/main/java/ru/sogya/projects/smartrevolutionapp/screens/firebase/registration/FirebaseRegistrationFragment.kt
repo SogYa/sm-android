@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.sogya.domain.utils.MyCallBack
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentFirebaseRegistrationBinding
@@ -71,6 +72,9 @@ class FirebaseRegistrationFragment : Fragment(R.layout.fragment_firebase_registr
                     Toast.makeText(context, "Some fields are not filled in", Toast.LENGTH_SHORT)
                         .show()
                 }
+            }
+            toLogin.setOnClickListener {
+                findNavController().popBackStack()
             }
         }
     }

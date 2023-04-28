@@ -48,8 +48,8 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         vm.getServerLiveData().observe(viewLifecycleOwner) {
             adapter.updateList(it)
             if (it.isEmpty())

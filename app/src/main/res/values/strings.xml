@@ -41,5 +41,5 @@
     <string name="menu_item_map">Map</string>
     <string name="state_media_player">Media player</string>
     <string name="dialog_network_header">Network connection closed!</string>
-    <string name="dialog_network_text">A stable internet connection is required for the application to work. Please connect to the Internet and this dialog will close automatically. \nWhen you click OK, you will return to the server selection screen</string>
+    <string name="dialog_network_text">A stable internet connection is required for the application to work. Please connect to the Internet and this dialog will close automatically.</string>
 </resources>

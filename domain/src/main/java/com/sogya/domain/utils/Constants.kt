@@ -16,4 +16,6 @@ object Constants {
     const val STATE_ID = "stateId"
     const val INTEGRATION_SECRET = "integrationSecret"
     const val INTEGRATION_WEB_HOOK = "integrationWebHook"
+    const val NOTIFICATION_TITLE = "notification_title"
+    const val NOTIFICATION_MESSAGE = "notification_message"
 }

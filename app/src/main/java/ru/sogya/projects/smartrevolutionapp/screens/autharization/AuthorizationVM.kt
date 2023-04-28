@@ -55,7 +55,7 @@ class AuthorizationVM : ViewModel(), MessageListener {
         authCode: String,
         myCallBack: MyCallBack<Boolean>
     ) {
-        getTokenUseCase.invoke(baseUri, authCode).subscribeOn(Schedulers.io())
+        getTokenUseCase(baseUri, authCode).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<TokenInfo>() {
                 override fun onSuccess(t: TokenInfo) {

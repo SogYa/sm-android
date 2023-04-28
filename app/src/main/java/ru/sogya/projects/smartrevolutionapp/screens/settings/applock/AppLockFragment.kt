@@ -30,25 +30,20 @@ class AppLockFragment : Fragment(R.layout.fragment_applock) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (isLocked()) {
-            binding.radioGroup.check(R.id.radiobutton_positive)
-        } else {
-            binding.radioGroup.check(R.id.radioButton_negative)
-        }
-        binding.radioGroup.setOnCheckedChangeListener { _, p1 ->
-            when (p1) {
-                R.id.radioButton_negative -> binding.applockLinearlayout.visibility = View.GONE
-                R.id.radiobutton_positive -> binding.applockLinearlayout.visibility = View.VISIBLE
+        binding.apply {
+            switchTurnBlock.setOnCheckedChangeListener { _, isChecked ->
+                editTextPincode.isEnabled = isChecked
+                editTextConfirmPincode.isEnabled = isChecked
+                buttonSave.isEnabled = isChecked
             }
         }
 
 
-
         binding.buttonSave.setOnClickListener {
-            pinCode = binding.applockEdittextPincode.text.toString()
-            pinCodeVerify = binding.applockEdittextPincodeRepeat.text.toString()
+            pinCode = binding.editTextPincode.text.toString()
+            pinCodeVerify = binding.editTextConfirmPincode.text.toString()
 
-            if (isLocked() || binding.radioButtonNegative.isChecked) {
+            if (binding.switchTurnBlock.isChecked) {
                 Toast.makeText(context, "Locker deactivated", Toast.LENGTH_SHORT).show()
                 vm.deactivateLocker()
             } else {
@@ -73,13 +68,16 @@ class AppLockFragment : Fragment(R.layout.fragment_applock) {
         }
     }
 
-    private fun isLocked(): Boolean {
-        return vm.getLockedInfo()
+    override fun onStart() {
+        super.onStart()
+        vm.getLockedLiveData().observe(viewLifecycleOwner) {
+            binding.switchTurnBlock.isChecked = it
+        }
     }
 
     private fun clearPin() {
-        binding.applockEdittextPincode.text = null
-        binding.applockEdittextPincodeRepeat.text = null
+        binding.editTextPincode.text = null
+        binding.editTextConfirmPincode.text = null
         pinCode = ""
         pinCodeVerify = ""
     }

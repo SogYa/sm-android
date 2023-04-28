@@ -20,7 +20,7 @@
         android:name="ru.sogya.projects.smartrevolutionapp.screens.autharization.AuthFragment"
         android:label="AuthFragment">
         <action
-            android:id="@+id/action_authFragment_to_homeFragment"
+            android:id="@+id/action_authFragment_to_groupFragment"
             app:destination="@id/groupFragment" />
     </fragment>
     <fragment
@@ -84,9 +84,6 @@
             android:id="@+id/action_serversFragment_to_homeFragment"
             app:destination="@id/groupFragment" />
         <action
-            android:id="@+id/action_serversFragment_to_firebaseAuthFragment"
-            app:destination="@id/firebaseAuthFragment" />
-        <action
             android:id="@+id/action_serversFragment_to_firebaseAccountFragment"
             app:destination="@id/firebaseAccountFragment" />
     </fragment>
@@ -105,8 +102,8 @@
         <action
             android:id="@+id/action_firebaseAuthFragment_to_firebaseRegistrationFragment"
             app:destination="@id/firebaseRegistrationFragment"
-            app:enterAnim="@anim/slide_up"
-            app:popExitAnim="@anim/slide_down" />
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_firebaseAuthFragment_to_serversFragment"
             app:destination="@id/serversFragment" />
@@ -114,18 +111,11 @@
     <fragment
         android:id="@+id/firebaseRegistrationFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.firebase.registration.FirebaseRegistrationFragment"
-        android:label="FirebaseRegistrationFragment" >
-        <action
-            android:id="@+id/action_firebaseRegistrationFragment_to_firebaseAuthFragment"
-            app:destination="@id/firebaseAuthFragment" />
-    </fragment>
+        android:label="FirebaseRegistrationFragment" />
     <fragment
         android:id="@+id/firebaseAccountFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.firebase.account.FirebaseAccountFragment"
         android:label="FirebaseAccountFragment" >
-        <action
-            android:id="@+id/action_firebaseAccountFragment_to_serversFragment"
-            app:destination="@id/serversFragment" />
         <action
             android:id="@+id/action_firebaseAccountFragment_to_firebaseAuthFragment"
             app:destination="@id/firebaseAuthFragment" />
@@ -133,19 +123,11 @@
     <fragment
         android:id="@+id/ticketFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.ticket.ticket.TicketFragment"
-        android:label="TicketFragment" >
-        <action
-            android:id="@+id/action_ticketFragment_to_ticketListFragment"
-            app:destination="@id/ticketListFragment" />
-    </fragment>
+        android:label="TicketFragment" />
     <fragment
         android:id="@+id/createTicketFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.ticket.create.CreateTicketFragment"
-        android:label="CreateTicketFragment" >
-        <action
-            android:id="@+id/action_createTicketFragment_to_ticketListFragment"
-            app:destination="@id/ticketListFragment" />
-    </fragment>
+        android:label="CreateTicketFragment" />
     <fragment
         android:id="@+id/ticketListFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.ticket.list.TicketListFragment"

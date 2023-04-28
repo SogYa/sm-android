@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
         <item
             android:id="@+id/groupFragment"
             android:icon="@drawable/ic_baseline_dashboard_24"
@@ -8,7 +7,8 @@
         <item
             android:id="@+id/ticketListFragment"
             android:icon="@drawable/baseline_assignment_24"
-            android:title="@string/menu_item_ticket" />
+            android:title="@string/menu_item_ticket"
+            android:actionLayout=""/>
         <item
             android:id="@+id/mapFragment"
             android:icon="@drawable/baseline_map_24"
@@ -23,6 +23,4 @@
         <item
             android:icon="@drawable/ic_baseline_contact_support_24"
             android:title="@string/menu_item_contacts" />
-
-    </group>
 </menu>

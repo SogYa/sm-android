@@ -1,5 +1,7 @@
 package ru.sogya.projects.smartrevolutionapp.screens.settings.applock
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.usecases.sharedpreferences.GetBooleanPrefsUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
@@ -14,13 +16,11 @@ class AppLockVM : ViewModel() {
     private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
     private val updatePrefsUseCase = UpdatePrefsUseCase(sharedPreferencesRepository)
     private val getBooleanPrefsUseCase = GetBooleanPrefsUseCase(sharedPreferencesRepository)
+    private val checkedLiveData = MutableLiveData<Boolean>()
 
     init {
         isLocked = getBooleanPrefsUseCase.invoke(Constants.PREFS_IS_LOCKED)
-    }
-
-    fun getLockedInfo(): Boolean {
-        return isLocked
+        checkedLiveData.value = isLocked
     }
 
     fun setPinCode(pinCode: String, pinVerify: String, myCallBack: MyCallBack<Boolean>) {
@@ -36,4 +36,6 @@ class AppLockVM : ViewModel() {
     fun deactivateLocker() {
         updatePrefsUseCase.invoke(Constants.PREFS_IS_LOCKED, false)
     }
+
+    fun getLockedLiveData(): LiveData<Boolean> = checkedLiveData
 }

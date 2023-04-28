@@ -3,6 +3,7 @@ package ru.sogya.projects.smartrevolutionapp.screens.settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.sogya.projects.smartrevolutionapp.R
@@ -17,6 +18,7 @@ class SettingsAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val labelTextView: TextView = itemView.findViewById(R.id.settings_label)
         val descTextView: TextView = itemView.findViewById(R.id.settings_desc)
+        val iconImageView: ImageView = itemView.findViewById(R.id.settings_icon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,6 +32,7 @@ class SettingsAdapter(
         val settings: Settings = settings[position]
         holder.labelTextView.text = settings.label
         holder.descTextView.text = settings.desc
+        holder.iconImageView.setImageResource(settings.resourceId)
         holder.itemView.setOnClickListener {
             onSettingsClickListenner.onClick(settings)
         }

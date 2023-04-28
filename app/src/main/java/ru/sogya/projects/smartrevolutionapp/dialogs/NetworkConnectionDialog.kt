@@ -26,10 +26,16 @@ class NetworkConnectionDialog : DialogFragment() {
         return inflater.inflate(R.layout.dialog_network, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        dialog?.setCancelable(false)
+        dialog?.setCanceledOnTouchOutside(false)
+    }
+
     override fun onResume() {
         super.onResume()
-        getNetworkStateUseCase.invoke().observe(this){
-            if(it){
+        getNetworkStateUseCase.invoke().observe(this) {
+            if (it) {
                 dismiss()
             }
         }

@@ -3,7 +3,7 @@
     <item
         android:id="@+id/serversFragment"
         android:icon="@drawable/ic_baseline_server"
-        android:title="Servers" />
+        android:title="Серверы" />
     <item
         android:id="@+id/firebaseAccountFragment"
         android:icon="@drawable/ic_baseline_firebase"

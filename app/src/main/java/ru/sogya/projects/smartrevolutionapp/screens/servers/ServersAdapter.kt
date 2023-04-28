@@ -21,6 +21,7 @@ class ServersAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.textName)
         val uriTextView: TextView = itemView.findViewById(R.id.textUri)
+        val serverCount: TextView = itemView.findViewById(R.id.serverCount)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,10 +35,11 @@ class ServersAdapter(
         val server = serverList[position]
         holder.nameTextView.text = server.serverName
         holder.uriTextView.text = server.serverUri
+        holder.serverCount.text = this.itemCount.toString()
         holder.itemView.setOnClickListener {
             onServerClickListener.onClick(server)
         }
-        holder.itemView.setOnLongClickListener{
+        holder.itemView.setOnLongClickListener {
             onServerClickListener.onLongClick(server)
             return@setOnLongClickListener true
         }

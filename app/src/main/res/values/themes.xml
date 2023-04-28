@@ -4,22 +4,23 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">#F48FB1</item>
         <item name="colorPrimaryVariant">#C2185B</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/main_light_gray</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#4FC3F7</item>
         <item name="colorSecondaryVariant">#1976D2</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">@color/main_light_gray</item>
         <!-- Customize your theme here. -->
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <item name="android:windowBackground">@color/main_light_gray</item>
     </style>
 
 
 
     <style name="DialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/slide_up</item>
-        <item name="android:windowExitAnimation">@anim/slide_down</item>
+        <item name="android:windowEnterAnimation">@anim/fade_out</item>
+        <item name="android:windowExitAnimation">@anim/fade_in</item>
     </style>
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">

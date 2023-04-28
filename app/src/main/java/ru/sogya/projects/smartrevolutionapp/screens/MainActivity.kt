@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View.*
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
+import com.google.firebase.messaging.FirebaseMessaging
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.ActivityMainBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.LogOutDialogFragment
@@ -31,6 +33,18 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         setupNavigation()
+        FirebaseMessaging.getInstance().subscribeToTopic("info")
+            .addOnCompleteListener { task ->
+                Toast.makeText(
+                    this,
+                    "Subscribed! You will get all discount offers notifications",
+                    Toast.LENGTH_SHORT
+                ).show()
+                if (!task.isSuccessful) {
+                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+
         vm = ViewModelProvider(this)[MainVM::class.java]
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -39,11 +53,13 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     binding.bottomNav.visibility = GONE
                 }
+
                 R.id.firebaseAccountFragment, R.id.serversFragment -> {
                     supportActionBar?.hide()
                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     binding.bottomNav.visibility = VISIBLE
                 }
+
                 else -> {
                     supportActionBar?.show()
                     binding.bottomNav.visibility = GONE

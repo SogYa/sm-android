@@ -12,4 +12,9 @@
     <color name="pink_background">#FFF5F8</color>
     <color name="gray">#4d4d4d</color>
     <color name="unavailable_gray">#AAAAAA</color>
+    <color name="main_light_gray">#EFF1F9</color>
+    <color name="font_black">#1B1C1D</color>
+    <color name="font_gray">#45474A</color>
+    <color name="stroke_gray">#75777A</color>
+    <color name="main_blue">#312EE9</color>
 </resources>

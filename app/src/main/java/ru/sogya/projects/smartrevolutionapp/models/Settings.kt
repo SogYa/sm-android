@@ -7,7 +7,8 @@ data class Settings(
     val id: Int,
     val label: String,
     val desc: String,
-    val navigationId: Int?
+    val navigationId: Int?,
+    val resourceId:Int
 ) {
     companion object {
         const val APP_LOCKER = 0
@@ -15,14 +16,16 @@ data class Settings(
         val settingsList = listOf(
             Settings(
                 APP_LOCKER,
-                "Pin-code",
-                "Application lock management using pin-code",
-                R.id.action_settingsFragment_to_appLockFragment
+                "Пин-код",
+                "Добавьте пинкод для доступа к серверу ",
+                R.id.action_settingsFragment_to_appLockFragment,
+                R.drawable.ic_baseline_lock_24
             ), Settings(
                 LOG_OUT,
-                "Log out",
-                "Disconnecting from this server",
-                null
+                "Выйти",
+                "Отключиться от сервера",
+                null,
+                R.drawable.ic_baseline_exit_to_app_24
             )
         )
     }

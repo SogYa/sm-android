@@ -44,7 +44,7 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
         vm.getNavigationLiveData().observe(viewLifecycleOwner) {
             if (it) {
                 findNavController().navigate(
-                    R.id.action_authFragment_to_homeFragment,
+                    R.id.action_authFragment_to_groupFragment,
                     bundleOf(),
                     navOptions {
                         launchSingleTop = true
@@ -60,16 +60,11 @@ class AuthFragment : Fragment(R.layout.fragment_web_view) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonConnect.setOnClickListener {
-            serverUri = binding.editTextUri.text.toString()
+            serverUri = binding.editTextServerUri.text.toString()
             serverName = binding.editTextServerName.text.toString()
             if (serverUri.endsWith("/")) {
                 serverUri = serverUri.substring(0, serverUri.length - 1)
-                binding.editTextUri.setText(serverUri)
-            }
-            //ПЕРЕХОД В ТЕСТВОЫЙ РЕЖИМ
-            if (serverUri == "test") {
-                vm.startTestMode()
-                findNavController().navigate(R.id.action_authFragment_to_homeFragment)
+                binding.editTextServerUri.setText(serverUri)
             }
             val redirectUri =
                 "${serverUri.replace(" https ://", Constants.REDIRECT_URI)}/auth_callback"
