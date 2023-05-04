@@ -19,9 +19,7 @@ class AppLockFragment : Fragment(R.layout.fragment_applock) {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentApplockBinding.inflate(inflater, container, false)
         return binding.root
@@ -29,12 +27,10 @@ class AppLockFragment : Fragment(R.layout.fragment_applock) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.apply {
+            checkLockEnabled(switchTurnBlock.isChecked)
             switchTurnBlock.setOnCheckedChangeListener { _, isChecked ->
-                editTextPincode.isEnabled = isChecked
-                editTextConfirmPincode.isEnabled = isChecked
-                buttonSave.isEnabled = isChecked
+                checkLockEnabled(isChecked)
             }
         }
 
@@ -80,5 +76,18 @@ class AppLockFragment : Fragment(R.layout.fragment_applock) {
         binding.editTextConfirmPincode.text = null
         pinCode = ""
         pinCodeVerify = ""
+    }
+
+    private fun checkLockEnabled(isChecked: Boolean) {
+        when (isChecked) {
+            true -> changeLockEnterElementsVisibility(View.VISIBLE)
+            false -> changeLockEnterElementsVisibility(View.INVISIBLE)
+        }
+
+    }
+
+    private fun changeLockEnterElementsVisibility(visible: Int) {
+        binding.linearLayoutLock.visibility = visible
+        binding.buttonSave.visibility = visible
     }
 }
