@@ -15,7 +15,7 @@ import javax.net.ssl.X509TrustManager
 
 object NetworkService {
 
-    private fun getOkHttpClientInstance(readTimeoutInSec: Int): OkHttpClient? {
+    private fun getOkHttpClientInstance(): OkHttpClient? {
 
         return getOkHttpClientInstance(
             0,
@@ -56,7 +56,7 @@ object NetworkService {
                 .connectTimeout(connectTimeoutInSec.toLong(), TimeUnit.SECONDS)
                 .readTimeout(readTimeoutInSec.toLong(), TimeUnit.SECONDS)
                 .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-                .hostnameVerifier { hostname, session -> true }
+                .hostnameVerifier { _, _ -> true }
 
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -77,7 +77,7 @@ object NetworkService {
             .baseUrl(baseUri)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(getOkHttpClientInstance(30))
+            .client(getOkHttpClientInstance()!!)
             .build()
             .create(HomeAssistantApi::class.java)
     }
