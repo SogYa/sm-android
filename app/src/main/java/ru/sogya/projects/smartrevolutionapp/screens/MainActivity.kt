@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View.*
 import android.widget.TextView
-import android.widget.Toast
 import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -14,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
-import com.google.firebase.messaging.FirebaseMessaging
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.ActivityMainBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.LogOutDialogFragment
@@ -39,17 +37,6 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         supportActionBar?.setDisplayShowHomeEnabled(false)
         setupNavigation()
         setupLatestBackPressed()
-        FirebaseMessaging.getInstance().subscribeToTopic("info")
-            .addOnCompleteListener { task ->
-                Toast.makeText(
-                    this,
-                    "Subscribed! You will get all discount offers notifications",
-                    Toast.LENGTH_SHORT
-                ).show()
-                if (!task.isSuccessful) {
-                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
-                }
-            }
         binding.hambutgerButton.setOnClickListener {
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
