@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sogya.domain.utils.Constants
-import com.sogya.domain.utils.MyCallBack
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.usecases.databaseusecase.servers.DeleteServerUseCase
 import com.sogya.domain.usecases.databaseusecase.servers.GetAllServersUseCase
 import com.sogya.domain.usecases.databaseusecase.servers.GetServerByIdUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
+import com.sogya.domain.utils.Constants
+import com.sogya.domain.utils.MyCallBack
 import kotlinx.coroutines.launch
 import ru.sogya.projects.smartrevolutionapp.app.App
 
@@ -29,7 +29,7 @@ class ServersVM : ViewModel() {
         serverLiveData = getAllServersUseCase.invoke()
     }
 
-    fun getServer(serverId: String,myCallBack: MyCallBack<Boolean>) {
+    fun getServer(serverId: String, myCallBack: MyCallBack<Boolean>) {
         viewModelScope.launch {
             val job = launch {
                 val server = getServerByIdUseCase.invoke(serverId)

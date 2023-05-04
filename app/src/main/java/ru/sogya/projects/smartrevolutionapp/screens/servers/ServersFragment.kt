@@ -13,16 +13,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
-import com.sogya.domain.models.ServerStateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentServersBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteServerDialogFragment
 import ru.sogya.projects.smartrevolutionapp.dialogs.SelectServerDialogFragment
 
 class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnServerClickListener,
-    SelectServerDialogFragment.SelectDialogFragmentListener,DeleteServerDialogFragment.DeleteDialogFragmentListener {
+    SelectServerDialogFragment.SelectDialogFragmentListener,
+    DeleteServerDialogFragment.DeleteDialogFragmentListener {
 
     private lateinit var binding: FragmentServersBinding
     private val vm: ServersVM by viewModels()
@@ -61,7 +62,7 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
 
     override fun onClick(server: ServerStateDomain) {
         val dialog = SelectServerDialogFragment(this)
-        Log.d("ServerId",server.serverUri)
+        Log.d("ServerId", server.serverUri)
         serverId.putString(Constants.SERVER_URI, server.serverUri)
         dialog.arguments = serverId
         dialog.show(childFragmentManager, dialog.tag)
@@ -71,12 +72,12 @@ class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnSe
         serverId.putString(Constants.SERVER_URI, server.serverUri)
         val dialog = DeleteServerDialogFragment(this)
         dialog.arguments = serverId
-        dialog.show(childFragmentManager,dialog.tag)
+        dialog.show(childFragmentManager, dialog.tag)
     }
 
     override fun onClickSelect(serverId: String?) {
-        Log.d("ServerId",serverId.toString())
-        vm.getServer(serverId.toString(),object : MyCallBack<Boolean> {
+        Log.d("ServerId", serverId.toString())
+        vm.getServer(serverId.toString(), object : MyCallBack<Boolean> {
             override fun data(t: Boolean) {
                 findNavController().navigate(
                     R.id.action_serversFragment_to_homeFragment,
