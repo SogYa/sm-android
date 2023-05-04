@@ -2,7 +2,7 @@ package com.sogya.data.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import androidx.room.Room
 import com.sogya.data.database.LocalDataBase
 import com.sogya.data.mappers.group.GroupDomainMapper
@@ -29,7 +29,7 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
         .build()
 
     override fun getAllStates(serverUri: String): LiveData<List<StateDomain>> {
-        return Transformations.map(db.stateDao().getAllByServerId(serverUri)) {
+        return db.stateDao().getAllByServerId(serverUri).map {
             ListOfStatesMapper(it).toDomainList()
         }
     }
@@ -39,7 +39,7 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
     }
 
     override fun getStateByIdLiveData(entityId: String): LiveData<StateDomain> {
-        return Transformations.map(db.stateDao().getStateLiveData(entityId)) {
+        return db.stateDao().getStateLiveData(entityId).map {
             StatesMapper(it).toStateDomain()
         }
     }
@@ -69,7 +69,7 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
     }
 
     override fun getAllGroupsByOwner(ownerId: String): LiveData<List<StateGroupDomain>> {
-        return Transformations.map(db.groupDao().getAllByOwner(ownerId)) {
+        return db.groupDao().getAllByOwner(ownerId).map {
             ListOfGroupDataMapper(it).toDomainList()
         }
     }
@@ -84,7 +84,7 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
     }
 
     override fun getAllServers(): LiveData<List<ServerStateDomain>> {
-        return Transformations.map(db.serverDao().getAll()) {
+        return db.serverDao().getAll().map {
             ListOfServersDataMapper(it).toServerDomainList()
         }
     }
@@ -106,13 +106,13 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
     }
 
     override fun getAllByGroup(groupId: Int): LiveData<List<StateDomain>> {
-        return Transformations.map(db.stateDao().getAllByGroup(groupId)) {
+        return db.stateDao().getAllByGroup(groupId).map {
             ListOfStatesMapper(it).toDomainList()
         }
     }
 
     override fun getAllZones(): LiveData<List<ZoneDomain>> {
-        return Transformations.map(db.zoneDao().getAllZones()) {
+        return db.zoneDao().getAllZones().map {
             ListZoneMapper(it).toDomain()
         }
     }
