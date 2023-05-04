@@ -1,11 +1,12 @@
 package ru.sogya.projects.smartrevolutionapp.screens
 
+import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.View.*
 import android.widget.TextView
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -33,8 +34,11 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayShowHomeEnabled(false)
         setupNavigation()
+        setupLatestBackPressed()
         FirebaseMessaging.getInstance().subscribeToTopic("info")
             .addOnCompleteListener { task ->
                 Toast.makeText(
@@ -47,9 +51,9 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
                 }
             }
         binding.hambutgerButton.setOnClickListener {
-            if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+            if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
-            }else{
+            } else {
                 binding.drawerLayout.openDrawer(GravityCompat.START)
             }
         }
@@ -71,6 +75,18 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
                 else -> {
                     supportActionBar?.show()
                     binding.bottomNav.visibility = GONE
+                }
+            }
+        }
+    }
+
+    private fun setupLatestBackPressed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            onBackInvokedDispatcher.registerOnBackInvokedCallback(
+                OnBackInvokedDispatcher.PRIORITY_DEFAULT
+            ) {
+                for (i in 0 until supportFragmentManager.backStackEntryCount) {
+                    supportFragmentManager.popBackStack()
                 }
             }
         }
@@ -107,6 +123,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
             }
         }
     }
+
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
