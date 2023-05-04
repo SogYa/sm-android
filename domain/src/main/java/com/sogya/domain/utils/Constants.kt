@@ -18,4 +18,5 @@ object Constants {
     const val INTEGRATION_WEB_HOOK = "integrationWebHook"
     const val NOTIFICATION_TITLE = "notification_title"
     const val NOTIFICATION_MESSAGE = "notification_message"
+    const val CLOUD_MESSAGING_INFO_TOPIC = "info"
 }
