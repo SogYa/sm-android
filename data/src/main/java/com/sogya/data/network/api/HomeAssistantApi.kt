@@ -10,7 +10,6 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 interface HomeAssistantApi {
-
     @GET("/api/")
     fun getApiMessage(@Header("Authorization") token: String): Single<MessageData>
 
@@ -27,13 +26,11 @@ interface HomeAssistantApi {
 
     @POST("/api/mobile_app/registrations")
     fun registrationMobileAppIntegration(
-        @Header("Authorization") token: String,
-        @Body device: IntegrationRequestData
+        @Header("Authorization") token: String, @Body device: IntegrationRequestData
     ): Single<IntegrationResponseData>
 
     @GET("/api/states/{entityId}")
     fun getStateById(
-        @Header("Authorization") token: String,
-        @Path("entityId") entityId: String
+        @Header("Authorization") token: String, @Path("entityId") entityId: String
     ): Single<State>
 }
