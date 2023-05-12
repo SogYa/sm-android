@@ -34,7 +34,6 @@ class DashboardAdapter(
     }
 
     class SensorWeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itTextView: TextView = itemView.findViewById(R.id.textViewId)
         val texViewLabel: TextView = itemView.findViewById(R.id.textViewLable)
         val textViewState: TextView = itemView.findViewById(R.id.textViewState)
         val iconView: ImageView = itemView.findViewById(R.id.imageViewIcon)
@@ -124,41 +123,49 @@ class DashboardAdapter(
                     .inflate(R.layout.state_sensor_weather_item, parent, false)
                 return SensorWeatherViewHolder(view)
             }
+
             IS_SUN -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.state_sun_item, parent, false)
                 return SunViewHolder(view)
             }
+
             IS_USER -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.state_user_item, parent, false)
                 return UserViewHolder(view)
             }
+
             IS_SWITCH -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.state_switch_item, parent, false)
                 return SwitchViewHolder(view)
             }
+
             IS_MEDIA_PLAYER -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.state_media_player, parent, false)
                 return MediaPLayerViewHolder(view)
             }
+
             IS_CAMERA -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.states_camera, parent, false)
                 return CameraViewHolder(view)
             }
+
             IS_COVER -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.state_cover, parent, false)
                 return CoverViewHolder(view)
             }
+
             IS_BINARY_SENSOR -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.state_binary_sensor, parent, false)
                 return BinarySensorViewHolder(view)
             }
+
             else -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.state_default_item, parent, false)
@@ -171,22 +178,22 @@ class DashboardAdapter(
         val stateDomain: StateDomain = states[position]
         when (holder) {
             is SensorWeatherViewHolder -> {
+                holder.textViewState.text = buildString {
+                    append(stateDomain.state)
+                    append(stateDomain.attributesDomain?.unitOfMeasurement)
+                }
                 when (stateDomain.attributesDomain?.deviceClass) {
-                    "temperature", "humidity" -> {
-                        holder.textViewState.text = buildString {
-                            append(stateDomain.state)
-                            append(stateDomain.attributesDomain?.unitOfMeasurement)
-                        }
+                    "temperature" -> {
                         holder.iconView.setImageResource(R.drawable.ic_thermometer)
                     }
-                    else -> {
-                        holder.textViewState.text = stateDomain.state
+
+                    "humidity" -> {
+                        holder.iconView.setImageResource(R.drawable.ic_humidity)
                     }
                 }
                 holder.texViewLabel.text = stateDomain.attributesDomain?.friendlyName
-                holder.itTextView.text = stateDomain.entityId
-
             }
+
             is SunViewHolder -> {
                 if (stateDomain.state == "above_horizon") {
                     holder.iconView.setImageResource(R.drawable.ic_sun)
@@ -197,10 +204,12 @@ class DashboardAdapter(
                 }
                 holder.texViewLabel.text = stateDomain.attributesDomain?.friendlyName
             }
+
             is UserViewHolder -> {
                 holder.texViewLabel.text = stateDomain.attributesDomain?.friendlyName
                 holder.iconView.setImageResource(R.drawable.ic_person)
             }
+
             is SwitchViewHolder -> {
                 holder.texViewLabel.text = stateDomain.attributesDomain?.friendlyName
                 holder.textViewId.text = stateDomain.entityId
@@ -214,6 +223,7 @@ class DashboardAdapter(
                     onStateClickListener?.onSwitchStateChanged(stateDomain.entityId, state)
                 }
             }
+
             is MediaPLayerViewHolder -> {
                 holder.textViewId.text = stateDomain.attributesDomain?.friendlyName
                 holder.buttonPowerOn.setOnClickListener {
@@ -226,10 +236,12 @@ class DashboardAdapter(
                 holder.textView.text = stateDomain.state
 
             }
+
             is CameraViewHolder -> {
                 holder.textViewName.text = stateDomain.attributesDomain?.friendlyName
 
             }
+
             is CoverViewHolder -> {
                 holder.apply {
                     nameTextView.text = stateDomain.attributesDomain?.friendlyName
@@ -239,10 +251,12 @@ class DashboardAdapter(
                             buttonDown.isEnabled = true
                             buttonUp.isEnabled = false
                         }
+
                         IS_CLOSED -> {
                             buttonDown.isEnabled = false
                             buttonUp.isEnabled = true
                         }
+
                         IS_UNAVAILABLE -> {
                             buttonDown.isEnabled = false
                             buttonUp.isEnabled = false
@@ -269,11 +283,13 @@ class DashboardAdapter(
                     }
                 }
             }
+
             is BinarySensorViewHolder -> {
                 holder.nameTextView.text = stateDomain.attributesDomain!!.friendlyName
                 holder.stateTV.text = stateDomain.state
                 holder.idTextView.text = stateDomain.lastChanged
             }
+
             is ViewHolder -> {
                 holder.nameTextView.text = stateDomain.attributesDomain!!.friendlyName
                 holder.stateTV.text = stateDomain.state
