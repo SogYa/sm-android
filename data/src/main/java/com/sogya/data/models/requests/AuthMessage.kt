@@ -8,5 +8,4 @@ data class AuthMessage(
     val type: String = "auth",
     @SerializedName("access_token")
     val token: String
-
 )
