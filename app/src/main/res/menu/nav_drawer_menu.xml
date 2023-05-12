@@ -23,6 +23,7 @@
             android:title=""
             app:showAsAction="ifRoom" />
         <item
+            android:id="@+id/aboutFragment"
             app:actionLayout="@layout/action_menu_about"
             android:title=""
             app:showAsAction="ifRoom" />

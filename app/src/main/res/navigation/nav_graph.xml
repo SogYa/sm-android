@@ -147,4 +147,8 @@
         android:id="@+id/contactsFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.contacts.ContactsFragment"
         android:label="ContactsFragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.about.AboutFragment"
+        android:label="AboutFragment" />
 </navigation>
