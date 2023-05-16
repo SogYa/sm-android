@@ -7,6 +7,7 @@ import android.view.View.*
 import android.widget.TextView
 import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.BuildCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +19,7 @@ import ru.sogya.projects.smartrevolutionapp.databinding.ActivityMainBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.LogOutDialogFragment
 import ru.sogya.projects.smartrevolutionapp.dialogs.NetworkConnectionDialog
 
+@BuildCompat.PrereleaseSdkCheck
 class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentListener {
     private lateinit var appBarConfig: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -36,7 +38,8 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayShowHomeEnabled(false)
         setupNavigation()
-        setupLatestBackPressed()
+        //Android 13 predictive back gesture
+        setupTiramisuBackPressed()
         binding.hambutgerButton.setOnClickListener {
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
         }
     }
 
-    private fun setupLatestBackPressed() {
+    private fun setupTiramisuBackPressed() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             onBackInvokedDispatcher.registerOnBackInvokedCallback(
                 OnBackInvokedDispatcher.PRIORITY_DEFAULT
