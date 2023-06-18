@@ -5,5 +5,5 @@ import com.sogya.domain.repository.LocalDataBaseRepository
 class GetAllByGroupIdUseCase(
     private val repository: LocalDataBaseRepository
 ) {
-    fun invoke(groupId: Int) = repository.getAllByGroup(groupId)
+    operator fun invoke(groupId: Int) = repository.getAllByGroup(groupId)
 }

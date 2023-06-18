@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.slider.Slider
 import com.sogya.domain.models.StateDomain
 import ru.sogya.projects.smartrevolutionapp.R
 
@@ -34,14 +35,14 @@ class DashboardAdapter(
     }
 
     class SensorWeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val texViewLabel: TextView = itemView.findViewById(R.id.textViewLable)
-        val textViewState: TextView = itemView.findViewById(R.id.textViewState)
+        val texViewLabel: TextView = itemView.findViewById(R.id.textFriendlyName)
+        val textViewState: TextView = itemView.findViewById(R.id.textId)
         val iconView: ImageView = itemView.findViewById(R.id.imageViewIcon)
     }
 
     class SunViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val texViewLabel: TextView = itemView.findViewById(R.id.textViewLable)
-        val textViewState: TextView = itemView.findViewById(R.id.textViewState)
+        val texViewLabel: TextView = itemView.findViewById(R.id.textFriendlyName)
+        val textViewState: TextView = itemView.findViewById(R.id.textSunState)
         val iconView: ImageView = itemView.findViewById(R.id.imageViewIcon)
     }
 
@@ -52,7 +53,7 @@ class DashboardAdapter(
 
     class SwitchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val texViewLabel: TextView = itemView.findViewById(R.id.textViewSwitchLable)
-        val textViewId: TextView = itemView.findViewById(R.id.textViewSwitchId)
+        val textViewState: TextView = itemView.findViewById(R.id.textViewSwitchState)
         val switchState: SwitchCompat = itemView.findViewById(R.id.switchState)
 
     }
@@ -70,9 +71,8 @@ class DashboardAdapter(
 
     class CoverViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.textCoverName)
-        val stateTV: TextView = itemView.findViewById(R.id.textCoverState)
+        val coverSlider: Slider = itemView.findViewById(R.id.coverSlider)
         val buttonUp: AppCompatButton = itemView.findViewById(R.id.buttonCoverUp)
-        val buttonStop: AppCompatButton = itemView.findViewById(R.id.buttonCoverStop)
         val buttonDown: AppCompatButton = itemView.findViewById(R.id.buttonCoverDown)
     }
 
@@ -84,7 +84,6 @@ class DashboardAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.textFriendlyName)
-        val stateTV: TextView = itemView.findViewById(R.id.textState)
         val idTextView: TextView = itemView.findViewById(R.id.textId)
     }
 
@@ -197,10 +196,10 @@ class DashboardAdapter(
             is SunViewHolder -> {
                 if (stateDomain.state == "above_horizon") {
                     holder.iconView.setImageResource(R.drawable.ic_sun)
-                    holder.textViewState.text = "Above the horizon"
+                    holder.textViewState.text = "Над горизонтом"
                 } else {
                     holder.iconView.setImageResource(R.drawable.ic_moon)
-                    holder.textViewState.text = "Below the horizon"
+                    holder.textViewState.text = "За горизонтом"
                 }
                 holder.texViewLabel.text = stateDomain.attributesDomain?.friendlyName
             }
@@ -212,9 +211,13 @@ class DashboardAdapter(
 
             is SwitchViewHolder -> {
                 holder.texViewLabel.text = stateDomain.attributesDomain?.friendlyName
-                holder.textViewId.text = stateDomain.entityId
-                holder.switchState.text = stateDomain.state
-                holder.switchState.isChecked = stateDomain.state == "on"
+                if (stateDomain.state == "on") {
+                    holder.switchState.isChecked = true
+                    holder.textViewState.text = "Включено"
+                } else {
+                    holder.switchState.isChecked = false
+                    holder.textViewState.text = "Выключено"
+                }
                 holder.switchState.setOnCheckedChangeListener { _, isChecked ->
                     val state = if (isChecked) {
                         "turn_on"
@@ -245,7 +248,19 @@ class DashboardAdapter(
             is CoverViewHolder -> {
                 holder.apply {
                     nameTextView.text = stateDomain.attributesDomain?.friendlyName
-                    stateTV.text = stateDomain.state
+                    coverSlider.value = stateDomain.attributesDomain?.currentPosition?.toFloat()!!
+                    coverSlider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+                        override fun onStartTrackingTouch(slider: Slider) {
+                            // Responds to when slider's touch event is being started
+                        }
+
+                        override fun onStopTrackingTouch(slider: Slider) {
+                            onStateClickListener?.onSliderChangeValue(
+                                stateDomain.entityId,
+                                slider.value.toInt()
+                            )
+                        }
+                    })
                     when (stateDomain.state) {
                         IS_OPEN -> {
                             buttonDown.isEnabled = true
@@ -260,19 +275,12 @@ class DashboardAdapter(
                         IS_UNAVAILABLE -> {
                             buttonDown.isEnabled = false
                             buttonUp.isEnabled = false
-                            buttonStop.isEnabled = false
                         }
                     }
                     buttonUp.setOnClickListener {
                         onStateClickListener?.onClickWithCommand(
                             stateDomain.entityId,
                             "open_cover"
-                        )
-                    }
-                    buttonStop.setOnClickListener {
-                        onStateClickListener?.onClickWithCommand(
-                            stateDomain.entityId,
-                            "stop_cover"
                         )
                     }
                     buttonDown.setOnClickListener {
@@ -292,7 +300,6 @@ class DashboardAdapter(
 
             is ViewHolder -> {
                 holder.nameTextView.text = stateDomain.attributesDomain!!.friendlyName
-                holder.stateTV.text = stateDomain.state
                 holder.idTextView.text = stateDomain.lastChanged
             }
         }
@@ -317,5 +324,6 @@ class DashboardAdapter(
         fun onLongClick(stateDomain: StateDomain)
         fun onSwitchStateChanged(stateId: String, switchState: String) {}
         fun onClickWithCommand(stateId: String, command: String) {}
+        fun onSliderChangeValue(stateId: String, value: Int) {}
     }
 }

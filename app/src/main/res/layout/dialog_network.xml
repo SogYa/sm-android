@@ -13,27 +13,15 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintVertical_bias="0.5"
+        android:backgroundTint="@color/main_light_gray">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/dialogTittle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/roboto"
-                android:gravity="center"
-                android:text="@string/dialog_network_header"
-                android:textColor="@color/pink"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -44,18 +32,32 @@
                 app:srcCompat="@drawable/no_internet_connection_ic" />
 
             <TextView
+                android:id="@+id/dialogTittle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center"
+                android:text="@string/dialog_network_header"
+                android:textColor="@color/font_black"
+                android:textSize="24sp" />
+
+            <TextView
                 android:id="@+id/dialogText"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto"
-                android:gravity="center"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/dialog_network_text"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@color/font_black"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

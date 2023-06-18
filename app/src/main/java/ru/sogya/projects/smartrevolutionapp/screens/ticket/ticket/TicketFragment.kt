@@ -39,25 +39,14 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
             binding.loadingView.visibility = it
         }
         vm.getTicketLiveData().observe(viewLifecycleOwner) {
-            if (it.ticketDesc != " ") {
+            if (it.ticketDesc != "") {
                 binding.descriptionBlock.visibility = VISIBLE
-                binding.textViewTicketDesc.text = it.ticketDesc
+                binding.textViewTicketDesc.text = "Комментарий: ${it.ticketDesc}"
             }
             binding.textViewTicketId.text = it.ticketId
-            binding.textViewTicketDevice.text = it.ticketDevice
-            binding.textViewTicketZone.text = it.ticketZone
-            binding.textViewTicketStatus.text = it.ticketStatus
-            when (it.ticketStatus) {
-                "Created" -> {
-                    binding.textViewTicketStatus.setTextColor(Color.parseColor(COLOR_YELLOW))
-                }
-                "Done" -> {
-                    binding.textViewTicketStatus.setTextColor(Color.parseColor(COLOR_GREEN))
-                }
-                "Canceled" -> {
-                    binding.textViewTicketStatus.setTextColor(Color.parseColor(COLOR_RED))
-                }
-            }
+            binding.textViewTicketDevice.text = "Устройство: ${it.ticketDevice}"
+            binding.textViewTicketZone.text = "Зона: ${it.ticketZone}"
+            binding.textViewTicketStatus.text = "Статус: ${it.ticketStatus}"
         }
     }
 

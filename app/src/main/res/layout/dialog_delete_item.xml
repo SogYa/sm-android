@@ -4,91 +4,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/main_light_gray"
+        app:cardCornerRadius="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="35dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5">
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dialogTittle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center"
+                android:text="Удаление устройства"
+                android:textColor="@color/font_black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/dialogText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Это устрйоство будет удалено из списка."
+                android:textColor="@color/font_black"
+                android:textSize="18sp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/dialog_buttons_top"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/dialogTittle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/alata"
-                    android:gravity="center"
-                    android:text="Remove Item"
-                    android:textColor="@color/pink"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/dialogText"
+                <Button
+                    android:id="@+id/positive"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/alata"
-                    android:gravity="center"
-                    android:text="This item will be removed from dashboard"
-                    android:textSize="20sp" />
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dialog_button_right"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="@string/dialog_positive_remove"
+                    android:textColor="@color/main_blue"
+                    android:textSize="18sp" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_weight="0"
-                    android:background="@drawable/dialog_buttons_top"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/positive"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_weight="2"
-                        android:background="@drawable/dialog_button_right"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/dialog_positive_remove"
-                        android:textColor="@color/pink"
-                        android:textStyle="bold"
-                        app:rippleColor="@color/light_pink" />
-
-                    <Button
-                        android:id="@+id/negative"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="15dp"
-                        android:layout_weight="2"
-                        android:background="@drawable/dialog_button_left_stroke"
-                        android:fontFamily="@font/roboto"
-                        android:text="Cancel"
-                        android:textColor="@color/pink"
-                        android:textStyle="bold"
-                        app:rippleColor="@color/light_pink" />
-                </LinearLayout>
+                <Button
+                    android:id="@+id/negative"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dialog_button_left_stroke"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="@string/dialog_cancel"
+                    android:textColor="@color/main_blue"
+                    android:textSize="18sp" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -158,5 +158,4 @@ class AuthorizationVM : ViewModel(), MessageListener {
     fun closeWebSocket() {
         closeWebSocketUseCase.invoke()
     }
-
 }

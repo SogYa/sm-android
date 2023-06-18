@@ -17,7 +17,6 @@ import com.sogya.domain.utils.Constants.STATE_ID
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
-import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.DashboardBottomSheet
 import ru.sogya.projects.smartrevolutionapp.screens.states.player.MediaPlayerFragment
 import ru.sogya.projects.smartrevolutionapp.screens.states.sensor.SensorFragment
 
@@ -37,15 +36,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bottomSheet = DashboardBottomSheet()
         val bundle = Bundle()
         val groupId = arguments?.getInt(Constants.GROUP_ID)
         bundle.putInt(Constants.GROUP_ID, groupId!!)
-        binding.addButton.setOnClickListener {
-            bottomSheet.arguments = bundle
-            bottomSheet
-                .show(childFragmentManager, DashboardBottomSheet().tag)
-        }
         vm.getGroupStates(groupId)
 
         binding.statesRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -54,8 +47,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard),
         binding.statesRecyclerView.itemAnimator = null
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         vm.getItemsLiveDat().observe(viewLifecycleOwner) {
             adapter.updateStatesList(it)
             binding.loadingView.visibility = GONE
@@ -64,7 +57,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard),
             } else {
                 binding.dashboardHint.visibility = GONE
             }
-            Log.d("LiveDataState", it.toString())
         }
     }
 
@@ -105,5 +97,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard),
 
     override fun onClickWithCommand(stateId: String, command: String) {
         vm.callMediaPLayerService(stateId, command)
+    }
+
+    override fun onSliderChangeValue(stateId: String, value: Int) {
+        vm.changeCoverValue(stateId, value)
     }
 }

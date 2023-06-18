@@ -1,10 +1,10 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.SmartRevolutionApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.SmartRevolutionApp" parent="Theme.Material3.Dark.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#F48FB1</item>
         <item name="colorPrimaryVariant">#C2185B</item>
-        <item name="colorOnPrimary">@color/main_light_gray</item>
+        <item name="colorOnPrimary">@color/font_black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#4FC3F7</item>
         <item name="colorSecondaryVariant">#1976D2</item>

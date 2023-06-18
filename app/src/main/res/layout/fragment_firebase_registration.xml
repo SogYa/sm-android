@@ -42,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:hintTextColor="@color/font_gray">
+                app:boxStrokeColor="@color/font_black"
+                android:textColorHint="@color/font_gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextName"
@@ -63,7 +64,8 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="3dp"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:hintTextColor="@color/font_gray">
+                app:boxStrokeColor="@color/font_black"
+                android:textColorHint="@color/font_gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextEmail"
@@ -84,7 +86,8 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="3dp"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:hintTextColor="@color/font_gray">
+                app:boxStrokeColor="@color/font_black"
+                android:textColorHint="@color/font_gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextPassword"
@@ -104,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:hintTextColor="@color/font_gray">
+                app:boxStrokeColor="@color/font_black"
+                android:textColorHint="@color/font_gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextConfirmPassword"

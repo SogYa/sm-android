@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
                 MAIN_MENU ->{
                     if(bottomNav.menu.size != MAIN_MENU){
                         bottomNav.menu.clear()
-                        bottomNav.inflateMenu(R.menu.nav_drawer_menu)
+                        bottomNav.inflateMenu(R.menu.bottom_main_menu)
                     }
                 }
                 SERVERS_MENU ->{

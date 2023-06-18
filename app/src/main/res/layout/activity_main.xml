@@ -50,9 +50,11 @@
             android:layout_height="wrap_content"
             android:background="@color/main_light_gray"
             app:itemIconTint="@color/font_black"
-            app:itemTextAppearanceActive="@style/Widget.BottomNavigationView.Firebase"
             app:itemTextColor="@color/font_black"
-            app:labelVisibilityMode="selected"
+            app:labelVisibilityMode="labeled"
+            app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
+            app:itemTextAppearanceActive="@style/Widget.BottomNavigationView.Firebase"
+            app:itemTextAppearanceInactive="@style/Widget.BottomNavigationView.Firebase"
             app:menu="@menu/bottom_nav_menu" />
 
     </LinearLayout>
