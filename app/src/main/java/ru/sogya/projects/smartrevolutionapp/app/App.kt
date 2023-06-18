@@ -20,7 +20,9 @@ import com.sogya.domain.repository.SharedPreferencesRepository
 import com.sogya.domain.repository.WebSocketRepository
 import com.sogya.domain.utils.Constants
 import com.yandex.mapkit.MapKitFactory
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class App : Application() {
 
 
