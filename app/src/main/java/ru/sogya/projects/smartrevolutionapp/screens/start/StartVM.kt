@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.models.StateDomain
-import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUSeCase
+import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUseCase
 import com.sogya.domain.usecases.databaseusecase.states.GetStateByIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.UpdateStateUseCase
 import com.sogya.domain.usecases.network.GetStatesUseCase
@@ -26,7 +26,7 @@ class StartVM : ViewModel() {
     private val getBooleanPrefsUseCase = GetBooleanPrefsUseCase(sharedPreferencesRepository)
     private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
     private val getAllStatesUseCase = GetStatesUseCase(networkRepository)
-    private val checkStateExistUseCase = CheckStateExistUSeCase(roomRepository)
+    private val checkStateExistUseCase = CheckStateExistUseCase(roomRepository)
     private val updateStateUseCase = UpdateStateUseCase(roomRepository)
     private val getStateById = GetStateByIdUseCase(roomRepository)
 

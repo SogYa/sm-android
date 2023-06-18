@@ -12,7 +12,7 @@ import com.sogya.data.models.requests.AuthMessage
 import com.sogya.data.models.requests.EventSubscribe
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.repository.MessageListener
-import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUSeCase
+import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUseCase
 import com.sogya.domain.usecases.databaseusecase.states.GetStateByIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.UpdateStateUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
@@ -35,7 +35,7 @@ class EventWorker(context: Context, workerParams: WorkerParameters) :
     private val getStateById = GetStateByIdUseCase(roomRepository)
     private val reconnectUseCase = ReconnectUseCase(repository)
     private val sendMessageUseCase = SendMessageUseCase(repository)
-    private val checkStateExistUSeCase = CheckStateExistUSeCase(roomRepository)
+    private val checkStateExistUSeCase = CheckStateExistUseCase(roomRepository)
     private var count = 0
    // private var notifyCount = 1
 
