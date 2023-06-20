@@ -8,10 +8,12 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sogya.domain.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentStatePlayerBinding
 import ru.sogya.projects.smartrevolutionapp.screens.states.StateSharedVM
 
+@AndroidEntryPoint
 class MediaPlayerFragment : BottomSheetDialogFragment(R.layout.fragment_state_player) {
     private val vm: StateSharedVM by viewModels()
     private lateinit var binding: FragmentStatePlayerBinding

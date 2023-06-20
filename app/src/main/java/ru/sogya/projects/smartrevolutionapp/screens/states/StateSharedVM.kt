@@ -12,18 +12,18 @@ import com.sogya.domain.usecases.network.GetStateHistoryUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.usecases.websockets.SendMessageUseCase
 import com.sogya.domain.utils.Constants
-import ru.sogya.projects.smartrevolutionapp.app.App
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class StateSharedVM : ViewModel() {
-    private val repository = App.getRoom()
-    private val getStateByIdUseCase = GetStateByIdLiveDataUseCase(repository)
+@HiltViewModel
+class StateSharedVM @Inject constructor(
+    private val getStateByIdUseCase: GetStateByIdLiveDataUseCase,
+    private val sendMessageUseCase: SendMessageUseCase,
+    private val getStateHistoryUseCase: GetStateHistoryUseCase,
+    private val getStringPrefsUseCase: GetStringPrefsUseCase,
+) : ViewModel() {
     private var stateLiveData: LiveData<StateDomain> = MutableLiveData()
-    private val webSocketRepository = App.getWebSocketRepository()
-    private val sendMessageUseCase = SendMessageUseCase(webSocketRepository)
     private val stateHistoryLiveData = MutableLiveData<List<Float>>()
-    private val networkRepository = App.getNetworkRepository()
-    private val getStateHistoryUseCase = GetStateHistoryUseCase(networkRepository)
-    private val getStringPrefsUseCase =GetStringPrefsUseCase(App.getSharedPreferncesRepository())
 
     companion object {
         var ID_SERVICE_COUNT = 25
@@ -35,7 +35,6 @@ class StateSharedVM : ViewModel() {
 
     fun getStateHisotry() {
         val baseUri = getStringPrefsUseCase(Constants.SERVER_URI)
-
     }
 
     fun callMediaPLayerService(stateId: String, command: String) {

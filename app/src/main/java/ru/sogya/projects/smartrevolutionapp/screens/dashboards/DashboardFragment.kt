@@ -1,7 +1,6 @@
 package ru.sogya.projects.smartrevolutionapp.screens.dashboards
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -14,12 +13,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sogya.domain.models.StateDomain
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.Constants.STATE_ID
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteItemDialogFragment
 import ru.sogya.projects.smartrevolutionapp.screens.states.player.MediaPlayerFragment
 import ru.sogya.projects.smartrevolutionapp.screens.states.sensor.SensorFragment
 
+@AndroidEntryPoint
 class DashboardFragment : Fragment(R.layout.fragment_dashboard),
     DashboardAdapter.OnStateClickListener,
     DeleteItemDialogFragment.DialogFragmentListener {

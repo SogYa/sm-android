@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 import com.sogya.domain.models.TicketDomain
 import com.sogya.domain.usecases.firebase.ticket.ReadAllTicketUseCase
 import com.sogya.domain.utils.MyCallBack
-import ru.sogya.projects.smartrevolutionapp.app.App
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class TicketListVM : ViewModel() {
-    private val repository = App.getFirebase()
-    private val getAllTicketUseCase = ReadAllTicketUseCase(repository)
+@HiltViewModel
+class TicketListVM @Inject constructor(
+    getAllTicketUseCase: ReadAllTicketUseCase
+) : ViewModel() {
     private val ticketsLiveData = MutableLiveData<Map<String, TicketDomain>>()
     private val errorLiveData = MutableLiveData<String>()
 

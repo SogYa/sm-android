@@ -1,6 +1,5 @@
 package ru.sogya.projects.smartrevolutionapp.screens.ticket.ticket
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentTicketBinding
 
+@AndroidEntryPoint
 class TicketFragment : Fragment(R.layout.fragment_ticket) {
     private lateinit var binding: FragmentTicketBinding
     private val vm: TicketVM by viewModels()

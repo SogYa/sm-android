@@ -12,12 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.ActivityMainBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.LogOutDialogFragment
-import ru.sogya.projects.smartrevolutionapp.dialogs.NetworkConnectionDialog
+import ru.sogya.projects.smartrevolutionapp.dialogs.networkconnection.NetworkConnectionDialog
 
 @BuildCompat.PrereleaseSdkCheck
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentListener {
     private lateinit var appBarConfig: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -99,10 +101,6 @@ class MainActivity : AppCompatActivity(), LogOutDialogFragment.DialogFragmentLis
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
-    }
-
-    fun getServerState() {
-        vm.getServerState()
     }
 
     override fun onResume() {

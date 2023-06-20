@@ -7,14 +7,15 @@ import com.sogya.domain.usecases.firebase.user.LogInUserUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
-import ru.sogya.projects.smartrevolutionapp.app.App
+import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
+import javax.inject.Inject
 
-class FirebaseAuthVM : ViewModel() {
-    private val firebaseRepository = App.getFirebase()
-    private val logInUserUseCase = LogInUserUseCase(firebaseRepository)
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val updatePrefsUseCase = UpdatePrefsUseCase(sharedPreferencesRepository)
+@HiltViewModel
+class FirebaseAuthVM @Inject constructor(
+    private val logInUserUseCase: LogInUserUseCase,
+    private val updatePrefsUseCase: UpdatePrefsUseCase,
+) : ViewModel() {
     private var loadingLiveData = MutableLiveData<Int>()
 
     fun logIn(email: String, password: String, myCallBack: MyCallBack<Boolean>) {

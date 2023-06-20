@@ -6,16 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentApplockBinding
 
-
+@AndroidEntryPoint
 class AppLockFragment : Fragment(R.layout.fragment_applock) {
     private lateinit var binding: FragmentApplockBinding
     private lateinit var pinCode: String
     private lateinit var pinCodeVerify: String
-    private val vm = AppLockVM()
+    private val vm : AppLockVM by viewModels()
 
 
     override fun onCreateView(

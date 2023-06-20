@@ -11,17 +11,19 @@ import com.sogya.domain.usecases.databaseusecase.servers.GetServerByIdUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.sogya.projects.smartrevolutionapp.app.App
+import javax.inject.Inject
 
-class ServersVM : ViewModel() {
+@HiltViewModel
+class ServersVM @Inject constructor(
+    private val updatePrefsUseCase: UpdatePrefsUseCase,
+    getAllServersUseCase: GetAllServersUseCase,
+    private val getServerByIdUseCase: GetServerByIdUseCase,
+    private val deleteServerUseCase: DeleteServerUseCase,
+) : ViewModel() {
     private var serverLiveData: LiveData<List<ServerStateDomain>> = MutableLiveData()
-    private val repository = App.getRoom()
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val updatePrefsUseCase = UpdatePrefsUseCase(sharedPreferencesRepository)
-    private val getAllServersUseCase = GetAllServersUseCase(repository)
-    private val getServerByIdUseCase = GetServerByIdUseCase(repository)
-    private val deleteServerUseCase = DeleteServerUseCase(repository)
+
 
     fun getServerLiveData(): LiveData<List<ServerStateDomain>> = serverLiveData
 

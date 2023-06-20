@@ -10,15 +10,15 @@ import com.sogya.domain.usecases.firebase.user.ReadUserUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.sogya.projects.smartrevolutionapp.app.App
-
-class FirebaseAccountVM : ViewModel() {
-    private val firebaseRepository = App.getFirebase()
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val updatePrefsUseCase = UpdatePrefsUseCase(sharedPreferencesRepository)
-    private val readUserUseCase = ReadUserUseCase(firebaseRepository)
-    private val logOutUseCase = LogOutUseCase(firebaseRepository)
+import javax.inject.Inject
+@HiltViewModel
+class FirebaseAccountVM @Inject constructor(
+    private val updatePrefsUseCase: UpdatePrefsUseCase,
+    readUserUseCase: ReadUserUseCase,
+    private val logOutUseCase: LogOutUseCase,
+) : ViewModel() {
     private val userLiveData: MutableLiveData<UserDomain?> = MutableLiveData()
     private val errorLiveData: MutableLiveData<String> = MutableLiveData()
 

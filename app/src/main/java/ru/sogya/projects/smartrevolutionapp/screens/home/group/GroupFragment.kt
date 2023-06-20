@@ -11,11 +11,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sogya.domain.models.StateGroupDomain
 import com.sogya.domain.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentDashboardBinding
-import ru.sogya.projects.smartrevolutionapp.screens.MainActivity
 import ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.group.GroupBottomSheetFragment
 
+@AndroidEntryPoint
 class GroupFragment : Fragment(R.layout.fragment_dashboard), GroupAdapter.OnGroupClickListener {
     private lateinit var binding: FragmentDashboardBinding
     private val vm: GroupVM by viewModels()
@@ -34,7 +35,6 @@ class GroupFragment : Fragment(R.layout.fragment_dashboard), GroupAdapter.OnGrou
             GroupBottomSheetFragment()
                 .show(childFragmentManager, GroupBottomSheetFragment().tag)
         }
-        (activity as MainActivity).getServerState()
         binding.statesRecyclerView.layoutManager = LinearLayoutManager(context)
         adapter = GroupAdapter(this)
         binding.statesRecyclerView.adapter = adapter

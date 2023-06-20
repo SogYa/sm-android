@@ -7,16 +7,16 @@ import com.sogya.domain.usecases.databaseusecase.groups.InsertGroupUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.sogya.projects.smartrevolutionapp.app.App
+import javax.inject.Inject
 
 
-class GroupDialogVM : ViewModel() {
-    private val repository = App.getRoom()
-    private val insertGroupUseCase = InsertGroupUseCase(repository)
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
-
+@HiltViewModel
+class GroupDialogVM @Inject constructor(
+    private val insertGroupUseCase: InsertGroupUseCase,
+    private val getStringPrefsUseCase: GetStringPrefsUseCase,
+) : ViewModel() {
     fun createNewGroup(groupTag: String, groupDesc: String?, myCallBack: MyCallBack<Boolean>) {
         val ownerId = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
         val groupState = StateGroupDomain(0, ownerId, groupTag, groupDesc.toString())

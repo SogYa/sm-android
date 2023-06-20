@@ -12,23 +12,23 @@ import com.sogya.domain.usecases.network.GetStatesUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetBooleanPrefsUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.utils.Constants
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import ru.sogya.projects.smartrevolutionapp.R
-import ru.sogya.projects.smartrevolutionapp.app.App
+import javax.inject.Inject
 
-class StartVM : ViewModel() {
+@HiltViewModel
+class StartVM @Inject constructor(
+    private val getBooleanPrefsUseCase: GetBooleanPrefsUseCase,
+    private val getStringPrefsUseCase: GetStringPrefsUseCase,
+    getAllStatesUseCase: GetStatesUseCase,
+    private val checkStateExistUseCase: CheckStateExistUseCase,
+    private val updateStateUseCase: UpdateStateUseCase,
+    private val getStateById: GetStateByIdUseCase,
+) : ViewModel() {
     private val navigationLiveData = MutableLiveData<Int>()
-    private val roomRepository = App.getRoom()
-    private val networkRepository = App.getNetworkRepository()
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val getBooleanPrefsUseCase = GetBooleanPrefsUseCase(sharedPreferencesRepository)
-    private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
-    private val getAllStatesUseCase = GetStatesUseCase(networkRepository)
-    private val checkStateExistUseCase = CheckStateExistUseCase(roomRepository)
-    private val updateStateUseCase = UpdateStateUseCase(roomRepository)
-    private val getStateById = GetStateByIdUseCase(roomRepository)
 
     init {
         if (isFirebaseAuth()) {

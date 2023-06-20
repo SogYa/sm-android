@@ -10,9 +10,10 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sogya.domain.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentStateSensorBinding
 import ru.sogya.projects.smartrevolutionapp.screens.states.StateSharedVM
-
+@AndroidEntryPoint
 class SensorFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentStateSensorBinding
     private val vm: StateSharedVM by viewModels()

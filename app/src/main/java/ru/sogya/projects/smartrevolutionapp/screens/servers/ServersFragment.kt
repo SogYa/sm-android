@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sogya.domain.models.ServerStateDomain
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentServersBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.DeleteServerDialogFragment
 import ru.sogya.projects.smartrevolutionapp.dialogs.SelectServerDialogFragment
 
+@AndroidEntryPoint
 class ServersFragment : Fragment(R.layout.fragment_servers), ServersAdapter.OnServerClickListener,
     SelectServerDialogFragment.SelectDialogFragmentListener,
     DeleteServerDialogFragment.DeleteDialogFragmentListener {

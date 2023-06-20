@@ -4,22 +4,23 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sogya.domain.usecases.firebase.user.CreateUserUseCase
 import com.sogya.domain.usecases.firebase.SendEmailVerivicationUseCase
+import com.sogya.domain.usecases.firebase.user.CreateUserUseCase
 import com.sogya.domain.usecases.firebase.user.WriteUserUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
-import ru.sogya.projects.smartrevolutionapp.app.App
+import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
+import javax.inject.Inject
+@HiltViewModel
+class FirebaseRegistrationVM @Inject constructor(
+    private val updatePrefsUseCase: UpdatePrefsUseCase,
+    private val createUserUseCase: CreateUserUseCase,
+    private val sendEmailVerificationUseCase: SendEmailVerivicationUseCase,
+    private val writeUserUseCase: WriteUserUseCase,
+) : ViewModel() {
 
-class FirebaseRegistrationVM : ViewModel() {
-    private val repository = App.getFirebase()
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val updatePrefsUseCase = UpdatePrefsUseCase(sharedPreferencesRepository)
-    private val createUserUseCase = CreateUserUseCase(repository)
-    private val sendEmailVerificationUseCase = SendEmailVerivicationUseCase(App.getFirebase())
-    private val writeUserUseCase = WriteUserUseCase(repository)
     private val errorLiveData = MutableLiveData<String>()
     private var loadingLiveData = MutableLiveData<Int>()
 

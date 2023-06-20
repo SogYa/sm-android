@@ -10,10 +10,10 @@ import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 class SharedPrefsModule {
     @Provides
     fun providesGetBooleanPrefsUseCase(sharedPreferencesRepository: SharedPreferencesRepository) =

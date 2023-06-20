@@ -16,31 +16,31 @@ import com.sogya.domain.usecases.databaseusecase.servers.InsertServerUseCase
 import com.sogya.domain.usecases.network.GetTokenUseCase
 import com.sogya.domain.usecases.network.SendAppIntegrationUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
-import com.sogya.domain.usecases.websocketus.CloseUseCase
-import com.sogya.domain.usecases.websocketus.InitUseCase
-import com.sogya.domain.usecases.websocketus.SendMessageUseCase
+import com.sogya.domain.usecases.websockets.CloseUseCase
+import com.sogya.domain.usecases.websockets.InitUseCase
+import com.sogya.domain.usecases.websockets.SendMessageUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
-import ru.sogya.projects.smartrevolutionapp.app.App
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
+import javax.inject.Inject
 import kotlin.concurrent.thread
 
+@HiltViewModel
+class AuthorizationVM @Inject constructor(
+    private val updatePrefsUseCase: UpdatePrefsUseCase,
+    private val getTokenUseCase: GetTokenUseCase,
+    private val sendAppIntegrationUseCase: SendAppIntegrationUseCase,
+    private val initUseCase: InitUseCase,
+    private val sendMessageUseCase: SendMessageUseCase,
+    private val insertServerUseCase: InsertServerUseCase,
+    private val closeWebSocketUseCase: CloseUseCase,
+) : ViewModel(), MessageListener {
 
-class AuthorizationVM : ViewModel(), MessageListener {
-    private val networkRepository = App.getNetworkRepository()
-    private val webSocketRepository = App.getWebSocketRepository()
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val updatePrefsUseCase = UpdatePrefsUseCase(sharedPreferencesRepository)
-    private val getTokenUseCase = GetTokenUseCase(networkRepository)
-    private val sendAppIntegrationUseCase = SendAppIntegrationUseCase(networkRepository)
-    private val initUseCase = InitUseCase(webSocketRepository)
-    private val sendMessageUseCase = SendMessageUseCase(webSocketRepository)
-    private val insertServerUseCase = InsertServerUseCase(App.getRoom())
-    private val closeWebSocketUseCase = CloseUseCase(webSocketRepository)
     private lateinit var serverToken: String
     private lateinit var serverUri: String
     private lateinit var serverTag: String
@@ -82,10 +82,6 @@ class AuthorizationVM : ViewModel(), MessageListener {
                     myCallBack.error()
                 }
             })
-    }
-
-    fun startTestMode() {
-        updatePrefsUseCase.invoke(Constants.TEST_MODE, true)
     }
 
     private fun getDeviceData() = DeviceDataDomain(
@@ -133,12 +129,12 @@ class AuthorizationVM : ViewModel(), MessageListener {
             closeWebSocketUseCase.invoke()
             loadScreenLiveData.postValue(VisibilityStates.VISIBLE.visibility)
             navigationLiveData.postValue(true)
-            webSocketRepository.close()
         }
     }
 
     private fun invokeIntegration() {
-        sendAppIntegrationUseCase.invoke(serverUri,serverToken, getDeviceData()).subscribeOn(Schedulers.io())
+        sendAppIntegrationUseCase.invoke(serverUri, serverToken, getDeviceData())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<IntegrationResponseDomain>() {
                 override fun onSuccess(t: IntegrationResponseDomain) {

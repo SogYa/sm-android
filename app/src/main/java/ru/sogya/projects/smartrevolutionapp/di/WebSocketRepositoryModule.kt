@@ -2,14 +2,13 @@ package ru.sogya.projects.smartrevolutionapp.di
 
 import com.sogya.domain.repository.WebSocketRepository
 import com.sogya.domain.usecases.websockets.*
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 class WebSocketRepositoryModule {
     @Provides
     fun providesCloseUseCase(webSocketRepository: WebSocketRepository) =

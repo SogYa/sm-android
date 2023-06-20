@@ -10,11 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sogya.domain.models.StateDomain
-import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentAddStateBinding
 
+@AndroidEntryPoint
 class StateAddingFragment : Fragment(R.layout.fragment_add_state) {
     private val vm: StateAddingVM by viewModels()
     private lateinit var adapter: StateAdapter
@@ -33,8 +34,6 @@ class StateAddingFragment : Fragment(R.layout.fragment_add_state) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val groupId = arguments?.getInt(Constants.GROUP_ID)
         val layoutManager = LinearLayoutManager(context)
         binding.statesRecyclerView.layoutManager = layoutManager
         adapter = StateAdapter()

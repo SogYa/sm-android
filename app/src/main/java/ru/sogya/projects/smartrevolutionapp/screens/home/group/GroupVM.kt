@@ -12,20 +12,21 @@ import com.sogya.domain.usecases.databaseusecase.groups.DeleteGroupUseCase
 import com.sogya.domain.usecases.databaseusecase.groups.GetAllGroupByOwnerUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.utils.Constants
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.sogya.projects.smartrevolutionapp.app.App
 import ru.sogya.projects.smartrevolutionapp.workers.EventWorker
 import ru.sogya.projects.smartrevolutionapp.workers.GetZonesWorker
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-
-class GroupVM : ViewModel() {
+@HiltViewModel
+class GroupVM @Inject constructor(
+    getStringPrefsUseCase: GetStringPrefsUseCase,
+    getAllGroupByOwnerUseCase: GetAllGroupByOwnerUseCase,
+    private val deleteGroupUseCase: DeleteGroupUseCase,
+) : ViewModel() {
     private var groupsLiveData: LiveData<List<StateGroupDomain>> = MutableLiveData()
-    private val repository = App.getRoom()
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
-    private val getAllGroupByOwnerUseCase = GetAllGroupByOwnerUseCase(repository)
-    private val deleteGroupUseCase = DeleteGroupUseCase(repository)
 
     init {
         val updateStatesWork = PeriodicWorkRequestBuilder<EventWorker>(

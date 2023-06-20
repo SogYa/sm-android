@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentSettingsBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.LogOutDialogFragment
 import ru.sogya.projects.smartrevolutionapp.models.Settings
 
-
+@AndroidEntryPoint
 class SettingsFragment : Fragment(R.layout.fragment_settings),
     SettingsAdapter.OnSettingsClickListenner {
     private lateinit var binding: FragmentSettingsBinding

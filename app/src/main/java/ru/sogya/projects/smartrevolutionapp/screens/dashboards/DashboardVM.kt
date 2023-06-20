@@ -14,20 +14,20 @@ import com.sogya.domain.usecases.databaseusecase.states.GetAllStatesUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.usecases.websockets.SendMessageUseCase
 import com.sogya.domain.utils.Constants
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.sogya.projects.smartrevolutionapp.app.App
+import javax.inject.Inject
 
-class DashboardVM : ViewModel() {
+@HiltViewModel
+class DashboardVM @Inject constructor(
+    private val getStringPrefsUseCase: GetStringPrefsUseCase,
+    private val sendMessageUseCase: SendMessageUseCase,
+    private val getAllByGroup: GetAllByGroupIdUseCase,
+    private val getAllStates: GetAllStatesUseCase,
+    private val deleteUseCase: DeleteStateUseCase,
+) : ViewModel() {
     private var itemsLiveData: LiveData<List<StateDomain>> = MutableLiveData()
-    private val repository = App.getRoom()
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
-    private val webSocketRepository = App.getWebSocketRepository()
-    private val sendMessageUseCase = SendMessageUseCase(webSocketRepository)
-    private val getAllByGroup = GetAllByGroupIdUseCase(repository)
-    private val getAllStates = GetAllStatesUseCase(repository)
-    private val deleteUseCase = DeleteStateUseCase(repository)
 
     companion object {
         private var ID_SERVICE_COUNT = 24
@@ -35,14 +35,14 @@ class DashboardVM : ViewModel() {
 
     fun getGroupStates(groupId: Int) {
         itemsLiveData =
-            if (groupId == Constants.DEFAULT_GROUP_ID)
-            {
+            if (groupId == Constants.DEFAULT_GROUP_ID) {
                 val ownerId = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
                 getAllStates(ownerId)
             } else {
                 getAllByGroup(groupId)
             }
     }
+
     fun getItemsLiveDat()
             : LiveData<List<StateDomain>> = itemsLiveData
 

@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentFirebaseRegistrationBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.EmailVerificationDialogFragment
 
+@AndroidEntryPoint
 class FirebaseRegistrationFragment : Fragment(R.layout.fragment_firebase_registration) {
     private lateinit var binding: FragmentFirebaseRegistrationBinding
     private val vm: FirebaseRegistrationVM by viewModels()
