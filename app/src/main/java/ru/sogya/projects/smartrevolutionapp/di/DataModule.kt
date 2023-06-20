@@ -48,6 +48,6 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideWebSocketRepository(@ApplicationContext context: Context): WebSocketRepository =
+    fun provideWebSocketRepository(): WebSocketRepository =
         WebSocketRepositoryImpl()
 }

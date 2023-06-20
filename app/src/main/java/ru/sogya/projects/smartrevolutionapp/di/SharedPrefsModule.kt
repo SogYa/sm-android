@@ -9,12 +9,16 @@ import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 @Module
+@InstallIn(SingletonComponent::class)
 class SharedPrefsModule {
     @Provides
     fun providesGetBooleanPrefsUseCase(sharedPreferencesRepository: SharedPreferencesRepository) =
         GetBooleanPrefsUseCase(sharedPreferencesRepository)
+
     @Provides
     fun providesGetDoublePrefsUseCase(sharedPreferencesRepository: SharedPreferencesRepository) =
         GetDoublePrefsUseCase(sharedPreferencesRepository)
