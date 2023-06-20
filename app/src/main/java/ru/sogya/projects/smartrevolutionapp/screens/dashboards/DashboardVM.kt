@@ -12,7 +12,7 @@ import com.sogya.domain.usecases.databaseusecase.states.DeleteStateUseCase
 import com.sogya.domain.usecases.databaseusecase.states.GetAllByGroupIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.GetAllStatesUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
-import com.sogya.domain.usecases.websocketus.SendMessageUseCase
+import com.sogya.domain.usecases.websockets.SendMessageUseCase
 import com.sogya.domain.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

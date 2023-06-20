@@ -16,9 +16,9 @@ import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUseCase
 import com.sogya.domain.usecases.databaseusecase.states.GetStateByIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.UpdateStateUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
-import com.sogya.domain.usecases.websocketus.InitUseCase
-import com.sogya.domain.usecases.websocketus.ReconnectUseCase
-import com.sogya.domain.usecases.websocketus.SendMessageUseCase
+import com.sogya.domain.usecases.websockets.InitUseCase
+import com.sogya.domain.usecases.websockets.ReconnectUseCase
+import com.sogya.domain.usecases.websockets.SendMessageUseCase
 import com.sogya.domain.utils.Constants
 import org.json.JSONObject
 import ru.sogya.projects.smartrevolutionapp.app.App
