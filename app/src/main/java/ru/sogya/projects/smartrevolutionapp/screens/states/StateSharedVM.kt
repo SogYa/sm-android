@@ -10,7 +10,7 @@ import com.sogya.domain.models.StateDomain
 import com.sogya.domain.usecases.databaseusecase.states.GetStateByIdLiveDataUseCase
 import com.sogya.domain.usecases.network.GetStateHistoryUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
-import com.sogya.domain.usecases.websocketus.SendMessageUseCase
+import com.sogya.domain.usecases.websockets.SendMessageUseCase
 import com.sogya.domain.utils.Constants
 import ru.sogya.projects.smartrevolutionapp.app.App
 
