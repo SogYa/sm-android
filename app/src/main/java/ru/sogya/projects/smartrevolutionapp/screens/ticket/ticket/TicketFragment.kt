@@ -1,6 +1,5 @@
 package ru.sogya.projects.smartrevolutionapp.screens.ticket.ticket
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentTicketBinding
 
+@AndroidEntryPoint
 class TicketFragment : Fragment(R.layout.fragment_ticket) {
     private lateinit var binding: FragmentTicketBinding
     private val vm: TicketVM by viewModels()
@@ -39,25 +40,14 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
             binding.loadingView.visibility = it
         }
         vm.getTicketLiveData().observe(viewLifecycleOwner) {
-            if (it.ticketDesc != " ") {
+            if (it.ticketDesc != "") {
                 binding.descriptionBlock.visibility = VISIBLE
-                binding.textViewTicketDesc.text = it.ticketDesc
+                binding.textViewTicketDesc.text = "Комментарий: ${it.ticketDesc}"
             }
             binding.textViewTicketId.text = it.ticketId
-            binding.textViewTicketDevice.text = it.ticketDevice
-            binding.textViewTicketZone.text = it.ticketZone
-            binding.textViewTicketStatus.text = it.ticketStatus
-            when (it.ticketStatus) {
-                "Created" -> {
-                    binding.textViewTicketStatus.setTextColor(Color.parseColor(COLOR_YELLOW))
-                }
-                "Done" -> {
-                    binding.textViewTicketStatus.setTextColor(Color.parseColor(COLOR_GREEN))
-                }
-                "Canceled" -> {
-                    binding.textViewTicketStatus.setTextColor(Color.parseColor(COLOR_RED))
-                }
-            }
+            binding.textViewTicketDevice.text = "Устройство: ${it.ticketDevice}"
+            binding.textViewTicketZone.text = "Зона: ${it.ticketZone}"
+            binding.textViewTicketStatus.text = "Статус: ${it.ticketStatus}"
         }
     }
 

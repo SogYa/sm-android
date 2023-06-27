@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Widget.BottomNavigationView.Firebase"
-        parent="Widget.Design.BottomNavigationView">
+        parent="TextAppearance.AppCompat">
         <item name="fontFamily">@font/montserrat_regular</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
         <item name="itemTextColor">@color/font_black</item>
         <item name="fontFamily">@font/montserrat_regular</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/white</item>
+    </style>
+    <style name="App.Custom.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="colorPrimary">@color/main_blue</item>
+
     </style>
 
 </resources>

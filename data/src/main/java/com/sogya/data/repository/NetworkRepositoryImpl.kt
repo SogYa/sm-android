@@ -5,7 +5,11 @@ import com.sogya.data.mappers.state.ListOfStatesMapper
 import com.sogya.data.mappers.state.StatesMapper
 import com.sogya.data.models.requests.IntegrationRequestData
 import com.sogya.data.network.api.NetworkService
-import com.sogya.domain.models.*
+import com.sogya.domain.models.DeviceDataDomain
+import com.sogya.domain.models.IntegrationResponseDomain
+import com.sogya.domain.models.Message
+import com.sogya.domain.models.StateDomain
+import com.sogya.domain.models.TokenInfo
 import com.sogya.domain.repository.NetworkRepository
 import io.reactivex.Single
 
@@ -56,6 +60,18 @@ class NetworkRepositoryImpl : NetworkRepository {
             )
         ).map {
             return@map it.toDomain()
+        }
+    }
+
+    override fun getStateHistory(
+        baseUri: String,
+        token: String,
+        timestamp: String,
+        entityId: String
+    ): Single<List<StateDomain>> {
+        return NetworkService.getRetrofitService(baseUri)
+            .getStateHistory(token, timestamp, entityId).map {
+            return@map ListOfStatesMapper(it).toDomainList()
         }
     }
 }

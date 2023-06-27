@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentFirebaseAuthBinding
 
+@AndroidEntryPoint
 class FirebaseAuthFragment : Fragment(R.layout.fragment_firebase_auth) {
     private lateinit var binding: FragmentFirebaseAuthBinding
     private val vm: FirebaseAuthVM by viewModels()

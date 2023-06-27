@@ -10,10 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentCreateTicketBinding
 import ru.sogya.projects.smartrevolutionapp.dialogs.TicketCreatedDialogFragment
-
+@AndroidEntryPoint
 class CreateTicketFragment : Fragment(R.layout.fragment_create_ticket) {
     private lateinit var binding: FragmentCreateTicketBinding
     private val vm: CreateTicketVM by viewModels()

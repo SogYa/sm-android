@@ -12,10 +12,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentLockBinding
 
-
+@AndroidEntryPoint
 class LockFragment : Fragment(R.layout.fragment_lock) {
     private lateinit var binding: FragmentLockBinding
     private lateinit var pin: String

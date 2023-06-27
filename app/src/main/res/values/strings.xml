@@ -34,12 +34,13 @@
     <string name="group_empty_desc">There is no description for this group</string>
     <string name="dialog_tittle_remove_server">Server removing</string>
     <string name="dialog_server_remove_text">Are you sure you want to delete the selected server</string>
-    <string name="dialog_positive_remove">Remove</string>
+    <string name="dialog_positive_remove">Удалить</string>
     <string name="menu_item_ticket">Tickets</string>
-    <string name="dialog_ticket_created_text">Your ticket has been created and sent for processing. If its status changes, you will receive a notification and email</string>
-    <string name="dialog_ticket_created_header">Ticket created</string>
+    <string name="dialog_ticket_created_text">Ваша заявка была создана и отправлена администрации. \nВы получите уведомление, когда ее статус изменится.</string>
+    <string name="dialog_ticket_created_header">Заявка создана</string>
     <string name="menu_item_map">Map</string>
     <string name="state_media_player">Media player</string>
-    <string name="dialog_network_header">Network connection closed!</string>
-    <string name="dialog_network_text">A stable internet connection is required for the application to work. Please connect to the Internet and this dialog will close automatically.</string>
+    <string name="dialog_network_header">Связь потеряна!</string>
+    <string name="dialog_network_text">Для работы приложения требуется стабильное подключение к Интернету. Пожалуйста, подключитесь к Интернету, и это диалоговое окно автоматически закроется.</string>
+    <string name="dialog_cancel">Отмена</string>
 </resources>

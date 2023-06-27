@@ -7,15 +7,16 @@ import com.sogya.domain.usecases.sharedpreferences.GetBooleanPrefsUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
-import ru.sogya.projects.smartrevolutionapp.app.App
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-
-class AppLockVM : ViewModel() {
+@HiltViewModel
+class AppLockVM @Inject constructor(
+    private val updatePrefsUseCase: UpdatePrefsUseCase,
+    getBooleanPrefsUseCase: GetBooleanPrefsUseCase,
+) : ViewModel() {
 
     private var isLocked = false
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val updatePrefsUseCase = UpdatePrefsUseCase(sharedPreferencesRepository)
-    private val getBooleanPrefsUseCase = GetBooleanPrefsUseCase(sharedPreferencesRepository)
     private val checkedLiveData = MutableLiveData<Boolean>()
 
     init {

@@ -10,22 +10,22 @@ import com.sogya.domain.usecases.network.GetStatesUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import ru.sogya.projects.smartrevolutionapp.app.App
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
+import javax.inject.Inject
 
-class StateAddingVM : ViewModel() {
-
-    private val repository = App.getNetworkRepository()
-    private val getStatesUseCase = GetStatesUseCase(repository)
-    private val sharedPreferencesRepository = App.getSharedPreferncesRepository()
-    private val getStringPrefsUseCase = GetStringPrefsUseCase(sharedPreferencesRepository)
-    private val insertStateUseCase = InsertStateUseCase(App.getRoom())
+@HiltViewModel
+class StateAddingVM @Inject constructor(
+    getStatesUseCase: GetStatesUseCase,
+    private val getStringPrefsUseCase: GetStringPrefsUseCase,
+    private val insertStateUseCase: InsertStateUseCase,
+) : ViewModel() {
     private val statesLiveData = MutableLiveData<List<StateDomain>>()
     private val loadingViewLiveData = MutableLiveData<Int>()
 

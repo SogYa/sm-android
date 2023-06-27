@@ -16,6 +16,14 @@ interface HomeAssistantApi {
     @GET("/api/states")
     fun getApiStates(@Header("Authorization") token: String): Single<List<State>>
 
+    @GET("/api/history/period/{timestamp}?filter_entity_id={entityId}")
+    fun getStateHistory(
+        @Header("Authorization") token: String,
+        @Path("timestamp") timestamp: String,
+        @Path("entityId") entityId: String
+    ):Single<List<State>>
+
+
     @FormUrlEncoded
     @POST("/auth/token")
     fun getApiToken(

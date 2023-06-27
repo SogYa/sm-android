@@ -20,9 +20,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentWebViewBinding
 
+@AndroidEntryPoint
 class AuthFragment : Fragment(R.layout.fragment_web_view) {
     private lateinit var binding: FragmentWebViewBinding
     private lateinit var serverUri: String

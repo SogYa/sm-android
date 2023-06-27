@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.sogya.domain.models.StateDomain
 import ru.sogya.projects.smartrevolutionapp.R
@@ -16,9 +15,8 @@ class StateAdapter : RecyclerView.Adapter<StateAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.textFriendlyName)
-        val stateTextView: TextView = itemView.findViewById(R.id.textState)
         val idTextView: TextView = itemView.findViewById(R.id.textId)
-        val card: CardView = itemView.findViewById(R.id.cardItem)
+        val stateCountTextView:TextView = itemView.findViewById(R.id.textStateCount)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,36 +31,20 @@ class StateAdapter : RecyclerView.Adapter<StateAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val stateDomain: StateDomain = states[position]
-        holder.nameTextView.text = stateDomain.attributesDomain!!.friendlyName
-        holder.stateTextView.text = stateDomain.state
-        holder.idTextView.text = stateDomain.entityId
-        if (!checkedSet.contains(stateDomain)) {
-            holder.card.setCardBackgroundColor(Color.WHITE)
-        } else {
-            holder.card.setCardBackgroundColor(Color.parseColor(LIGHT_PINK))
+        if (checkedSet.contains(stateDomain)){
+            holder.nameTextView.setTextColor(Color.parseColor("FF312EE9"))
         }
+        holder.nameTextView.text = stateDomain.attributesDomain!!.friendlyName
+        holder.idTextView.text = stateDomain.entityId
+        holder.stateCountTextView.text = (position+1).toString()
         holder.itemView.setOnLongClickListener {
-            when (holder.card.cardBackgroundColor.defaultColor) {
-                Color.parseColor(LIGHT_PINK) -> {
-                    holder.card.setCardBackgroundColor(Color.WHITE)
-                    checkedSet.remove(states[position])
-                }
-                Color.WHITE -> {
-                    holder.card.setCardBackgroundColor(Color.parseColor(LIGHT_PINK))
-                    checkedSet.add(states[position])
-                }
-            }
-            return@setOnLongClickListener true
+            checkedSet.add(stateDomain)
         }
     }
 
     fun sendCheckedSet(): HashSet<StateDomain> = checkedSet
     fun clearCheckedSet() {
         checkedSet.clear()
-    }
-
-    companion object {
-        private const val LIGHT_PINK = "#FFE0EB"
     }
 
     fun updateStatesList(statesArrayList: List<StateDomain>) {

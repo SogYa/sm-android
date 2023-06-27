@@ -12,5 +12,7 @@ data class CallService(
     @SerializedName("service")
     val service: String = "",
     @SerializedName("target")
-    val target: CallServiceTarget
+    val target: CallServiceTarget,
+    @SerializedName("service_data")
+    val serviceData: CallServiceData? = null
 )

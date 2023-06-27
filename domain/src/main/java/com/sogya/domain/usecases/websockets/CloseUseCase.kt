@@ -1,4 +1,4 @@
-package com.sogya.domain.usecases.websocketus
+package com.sogya.domain.usecases.websockets
 
 import com.sogya.domain.repository.WebSocketRepository
 

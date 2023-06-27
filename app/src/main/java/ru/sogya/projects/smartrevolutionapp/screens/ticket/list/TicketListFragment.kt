@@ -12,9 +12,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sogya.domain.models.TicketDomain
 import com.sogya.domain.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentTicketListBinding
 
+@AndroidEntryPoint
 class TicketListFragment : Fragment(R.layout.fragment_ticket_list),
     TicketAdapter.OnTicketClickListener {
     private lateinit var binding: FragmentTicketListBinding

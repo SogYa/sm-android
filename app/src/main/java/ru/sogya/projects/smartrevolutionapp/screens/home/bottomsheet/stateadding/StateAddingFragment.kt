@@ -6,18 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sogya.domain.models.StateDomain
-import com.sogya.domain.utils.Constants
 import com.sogya.domain.utils.MyCallBack
-import ru.sogya.projects.smartrevolutionapp.databinding.StateBottomSheetBinding
+import dagger.hilt.android.AndroidEntryPoint
+import ru.sogya.projects.smartrevolutionapp.R
+import ru.sogya.projects.smartrevolutionapp.databinding.FragmentAddStateBinding
 
-class DashboardBottomSheet : BottomSheetDialogFragment() {
+@AndroidEntryPoint
+class StateAddingFragment : Fragment(R.layout.fragment_add_state) {
     private val vm: StateAddingVM by viewModels()
     private lateinit var adapter: StateAdapter
-    private lateinit var binding: StateBottomSheetBinding
+    private lateinit var binding: FragmentAddStateBinding
     private lateinit var state: StateDomain
 
     override fun onCreateView(
@@ -25,15 +27,13 @@ class DashboardBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = StateBottomSheetBinding.inflate(inflater, container, false)
+        binding = FragmentAddStateBinding.inflate(inflater, container, false)
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val groupId = arguments?.getInt(Constants.GROUP_ID)
         val layoutManager = LinearLayoutManager(context)
         binding.statesRecyclerView.layoutManager = layoutManager
         adapter = StateAdapter()
@@ -47,7 +47,7 @@ class DashboardBottomSheet : BottomSheetDialogFragment() {
             if (checkedSet.isEmpty()) {
                 Toast.makeText(context, "Nothing to add(", Toast.LENGTH_SHORT).show()
             } else {
-                vm.addStatesToDataBase(checkedSet, groupId!!, object : MyCallBack<Boolean> {
+                vm.addStatesToDataBase(checkedSet, 0, object : MyCallBack<Boolean> {
                     override fun data(t: Boolean) {
                         Toast.makeText(context, "State added", Toast.LENGTH_SHORT).show()
                     }

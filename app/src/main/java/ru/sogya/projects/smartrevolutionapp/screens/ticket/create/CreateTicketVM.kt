@@ -5,14 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.usecases.firebase.ticket.CreateTicketUseCase
 import com.sogya.domain.utils.MyCallBack
-import ru.sogya.projects.smartrevolutionapp.app.App
+import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.sogya.projects.smartrevolutionapp.utils.VisibilityStates
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
+import javax.inject.Inject
 
-class CreateTicketVM : ViewModel() {
-    private val repository = App.getFirebase()
-    private val createTicketUseCase = CreateTicketUseCase(repository)
+@HiltViewModel
+class CreateTicketVM @Inject constructor(
+    private val createTicketUseCase: CreateTicketUseCase
+) : ViewModel() {
     private val loadingLiveData = MutableLiveData<Int>()
 
     fun createTicket(

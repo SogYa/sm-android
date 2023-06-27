@@ -8,8 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.databinding.GroupBottomSheetBinding
 
+@AndroidEntryPoint
 class GroupBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: GroupBottomSheetBinding
     private val vm: GroupDialogVM by viewModels()

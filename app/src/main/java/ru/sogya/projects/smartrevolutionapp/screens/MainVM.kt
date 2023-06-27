@@ -1,26 +1,21 @@
 package ru.sogya.projects.smartrevolutionapp.screens
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sogya.domain.usecases.network.GetNetworkStateUseCase
-import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.usecases.sharedpreferences.UpdatePrefsUseCase
-import com.sogya.domain.usecases.websocketus.CloseUseCase
+import com.sogya.domain.usecases.websockets.CloseUseCase
 import com.sogya.domain.utils.Constants
-import ru.sogya.projects.smartrevolutionapp.app.App
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainVM : ViewModel() {
-    private val serverNameLiveData = MutableLiveData<String>()
-    private val serverUriLiveData = MutableLiveData<String>()
-    private val repository = App.getSharedPreferncesRepository()
-    private val webSocketRepository = App.getWebSocketRepository()
-    private val closeWebSocketUseCase = CloseUseCase(webSocketRepository)
-    private val getStringPrefsUseCase = GetStringPrefsUseCase(repository)
-    private val updatePrefsUseCase = UpdatePrefsUseCase(repository)
-    private val networkStatesRepository = App.getNetworkStatesRepository()
-    private val getNetworkStatesUseCase = GetNetworkStateUseCase(networkStatesRepository)
-    private val networkStateLiveData: LiveData<Boolean> = getNetworkStatesUseCase.invoke()
+@HiltViewModel
+class MainVM @Inject constructor(
+    private val closeWebSocketUseCase: CloseUseCase,
+    private val updatePrefsUseCase: UpdatePrefsUseCase,
+    getNetworkStatesUseCase: GetNetworkStateUseCase
+) : ViewModel() {
+    private val networkStateLiveData: LiveData<Boolean> = getNetworkStatesUseCase()
 
     fun getNetworkStateLiveData() = networkStateLiveData
 
@@ -32,15 +27,4 @@ class MainVM : ViewModel() {
         updatePrefsUseCase.invoke(Constants.PREFS_APPLOCK_PINCODE, "")
         closeWebSocketUseCase.invoke()
     }
-
-    fun getServerState() {
-        serverUriLiveData.value =
-            getStringPrefsUseCase.invoke(Constants.SERVER_URI)
-        serverNameLiveData.value =
-            getStringPrefsUseCase.invoke(Constants.SERVER_NAME)
-    }
-
-    fun getServerNameLiveData(): LiveData<String> = serverNameLiveData
-
-    fun getServerUriLiveData(): LiveData<String> = serverUriLiveData
 }

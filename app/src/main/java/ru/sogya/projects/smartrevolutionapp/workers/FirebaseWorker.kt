@@ -2,11 +2,18 @@ package ru.sogya.projects.smartrevolutionapp.workers
 
 import android.content.Context
 import android.util.Log
+import androidx.hilt.work.HiltWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import ru.sogya.projects.smartrevolutionapp.notification.FirebaseNotifiUtils
 
-class FirebaseWorker (appContext: Context, workerParams: WorkerParameters) :
+@HiltWorker
+class FirebaseWorker @AssistedInject constructor(
+    @Assisted appContext: Context,
+    @Assisted workerParams: WorkerParameters
+) :
     Worker(appContext, workerParams) {
 
     override fun doWork(): Result {

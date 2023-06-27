@@ -28,10 +28,13 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
     ).allowMainThreadQueries()
         .build()
 
-    override fun getAllStates(serverUri: String): LiveData<List<StateDomain>> {
-        return db.stateDao().getAllByServerId(serverUri).map {
-            ListOfStatesMapper(it).toDomainList()
-        }
+    override fun getAllStates(serverUri: String)
+            : LiveData<List<StateDomain>> {
+        return db.stateDao()
+            .getAllByServerId(serverUri)
+            .map {
+                ListOfStatesMapper(it).toDomainList()
+            }
     }
 
     override fun getStateById(entityId: String): StateDomain {

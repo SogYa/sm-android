@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sogya.domain.utils.MyCallBack
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentFirebaseAccountBinding
 
+@AndroidEntryPoint
 class FirebaseAccountFragment : Fragment(R.layout.fragment_firebase_account) {
     private lateinit var binding: FragmentFirebaseAccountBinding
     private val vm: FirebaseAccountVM by viewModels()

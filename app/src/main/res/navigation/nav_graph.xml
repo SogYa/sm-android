@@ -53,6 +53,12 @@
         <action
             android:id="@+id/action_settingsFragment_to_serversFragment"
             app:destination="@id/serversFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_contactsFragment"
+            app:destination="@id/contactsFragment" />
     </fragment>
     <fragment
         android:id="@+id/appLockFragment"
@@ -151,4 +157,8 @@
         android:id="@+id/aboutFragment"
         android:name="ru.sogya.projects.smartrevolutionapp.screens.about.AboutFragment"
         android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/stateAddingFragment"
+        android:name="ru.sogya.projects.smartrevolutionapp.screens.home.bottomsheet.stateadding.StateAddingFragment"
+        android:label="StateAddingFragment" />
 </navigation>

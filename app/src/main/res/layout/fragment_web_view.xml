@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:elevation="5sp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -98,7 +97,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:hintTextColor="@color/font_gray">
+                app:boxStrokeColor="@color/font_black"
+                android:textColorHint="@color/font_gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextмServerName"
@@ -118,7 +118,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:hintTextColor="@color/font_gray">
+                app:boxStrokeColor="@color/font_black"
+                android:textColorHint="@color/font_gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextServerUri"

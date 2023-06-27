@@ -15,9 +15,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sogya.projects.smartrevolutionapp.R
 import ru.sogya.projects.smartrevolutionapp.databinding.FragmentStartBinding
 
+@AndroidEntryPoint
 class StartFragment : Fragment(R.layout.fragment_start) {
     private lateinit var binding: FragmentStartBinding
     private val vm: StartVM by viewModels()

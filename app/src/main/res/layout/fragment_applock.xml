@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragmentAppLock"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -68,11 +69,14 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switchTurnBlock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            app:trackDecoration ="@null"
+            app:trackTint="@drawable/switch_track"
+            app:thumbTint="@color/white"
             android:checked="false" />
 
     </LinearLayout>
@@ -90,24 +94,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintVertical_bias="0.5"
+        tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor = "@color/font_black"
             android:layout_marginBottom="3dp"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:hintTextColor="@color/font_gray">
+            android:textColor="@color/font_black"
+            android:hint="Пин-код"
+            android:textColorHint="@color/font_black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPincode"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/montserrat_regular"
-                android:hint="Пин-код"
                 android:inputType="textPassword"
-                android:textColor="@color/font_gray"
                 android:textSize="15sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -117,17 +123,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            app:boxStrokeColor = "@color/font_black"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:hintTextColor="@color/font_gray">
+            android:textColor="@color/font_black"
+            android:hint="Повторите пин-код"
+            android:textColorHint="@color/font_black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextConfirmPincode"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/montserrat_regular"
-                android:hint="Повторите пин-код"
                 android:inputType="textPassword"
-                android:textColor="@color/font_gray"
                 android:textSize="15sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
