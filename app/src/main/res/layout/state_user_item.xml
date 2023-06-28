@@ -11,7 +11,7 @@
         android:id="@+id/textViewUserLable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:fontFamily="@font/montserrat_regular"
         android:textColor="@color/font_black"
         android:textSize="24sp"
@@ -23,14 +23,15 @@
 
     <ImageView
         android:id="@+id/imageViewUserIcon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="30dp"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_person" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
