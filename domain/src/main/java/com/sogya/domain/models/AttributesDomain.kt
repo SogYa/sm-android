@@ -1,134 +1,72 @@
 package com.sogya.domain.models
 
 import java.math.BigDecimal
-data class AttributesDomain(
 
-
-//    public String entityId;
-
-var nextDawn: String? = null,
-
-
-var nextDusk: String? = null,
-
-
-var nextMidnight: String? = null,
-
-var nextNoon: String? = null,
-
-var nextRising: String? = null,
-
-var nextSetting: String? = null,
-
-var speedList: ArrayList<String>? = null,
-
-var fanSpeedList: ArrayList<String>? = null,
-
-var assumedState: String? = null,
-
-var friendlyName: String? = null,
-
-var appName: String? = null,
-
-var isVolumeMuted: Boolean? = null,
-
-var volumeLevel: Double? = null,
-
-var entityPicture: String? = null,
-
-var icon: String? = null,
-
-var title: String? = null,
-
-var year: Int? = null,
-
-var month: Int? = null,
-
-var day: Int? = null,
-
-var hour: Int? = null,
-
-var minute: Int? = null,
-
-var timestamp: String? = null,
-
-var hasDate: Boolean? = null,
-
-var hasTime: Boolean? = null,
-
-var deviceClass: String? = null,
-
-var brightness: BigDecimal? = null,
-
-var colorTemp: BigDecimal? = null,
-
-var rgbColors: ArrayList<BigDecimal>? = null,
-
-var options: ArrayList<String>? = null,
-
-var order: Int? = null,
-
-var auto: Boolean? = null,
-
-var hidden: Boolean? = null,
-
-var view: Boolean? = null,
-
-var name: String? = null,
-
-var initial: Int? = null,
-
-var codeFormat: String? = null,
-
-var pattern: String? = null,
-
-var max: BigDecimal? = null,
-
-var min: BigDecimal? = null,
-
-var step: BigDecimal? = null,
-
-var currentTemperature: BigDecimal? = null,
-
-var maxTemp: BigDecimal? = null,
-
-var minTemp: BigDecimal? = null,
-
-var temperature: String? = null,
-
-var operationMode: String? = null,
-
-var activity: String? = null,
-
-var provider: String? = null,
-
-var sourceType: String? = null,
-
-//Can be "High"(String) or Number
-var battery: String? = null,
-
-var gpsAccuracy: BigDecimal? = null,
-
-var altitude: BigDecimal? = null,
-
-var latitude: BigDecimal? = null,
-
-var longitude: BigDecimal? = null,
-
-var radius: BigDecimal? = null,
-
-//https://home-assistant.io/blog/2017/08/12/release-51/#release-0512---august-14
-var releaseNotes: Boolean? = null,
-
-var unitOfMeasurement: String? = null,
-
-var mediaPlayerSongName: String? = null,
-
-var mediaPlayerArtistName: String? = null,
-
-var mediaDuration: Double? = null,
-
-var mediaPosition: Double? = null,
-
-var currentPosition: Int? = null
-)
+interface AttributesDomain {
+    //    public String entityId;
+    var nextDawn: String?
+    var nextDusk: String?
+    var nextMidnight: String?
+    var nextNoon: String?
+    var nextRising: String?
+    var nextSetting: String?
+    var speedList: ArrayList<String>?
+    var fanSpeedList: ArrayList<String>?
+    var assumedState: String?
+    var friendlyName: String?
+    var appName: String?
+    var isVolumeMuted: Boolean?
+    var volumeLevel: Double?
+    var entityPicture: String?
+    var icon: String?
+    var title: String?
+    var year: Int?
+    var month: Int?
+    var day: Int?
+    var hour: Int?
+    var minute: Int?
+    var timestamp: String?
+    var hasDate: Boolean?
+    var hasTime: Boolean?
+    var deviceClass: String?
+    var brightness: BigDecimal?
+    var colorTemp: BigDecimal?
+    var rgbColors: ArrayList<BigDecimal>?
+    var options: ArrayList<String>?
+    var order: Int?
+    var auto: Boolean?
+    var hidden: Boolean?
+    var view: Boolean?
+    var name: String?
+    var initial: Int?
+    var codeFormat: String?
+    var pattern: String?
+    var max: BigDecimal?
+    var min: BigDecimal?
+    var step: BigDecimal?
+    var currentTemperature: BigDecimal?
+    var maxTemp: BigDecimal?
+    var minTemp: BigDecimal?
+    var temperature: String?
+    var operationMode: String?
+    var activity: String?
+    var provider: String?
+    var sourceType: String?
+
+    //Can be "High"(String) or Number
+    var battery: String?
+    var gpsAccuracy: BigDecimal?
+    var altitude: BigDecimal?
+    var latitude: BigDecimal?
+    var longitude: BigDecimal?
+    var radius: BigDecimal?
+
+    //https://home-assistant.io/blog/2017/08/12/release-51/#release-0512---august-14
+    var releaseNotes: Boolean?
+    var unitOfMeasurement: String?
+    var mediaPlayerSongName: String?
+    var mediaPlayerArtistName: String?
+    var mediaDuration: Double?
+    var mediaPosition: Double?
+    var currentPosition: Int?
+}
