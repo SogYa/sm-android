@@ -34,12 +34,12 @@ class SensorFragment : BottomSheetDialogFragment() {
     override fun onStart() {
         super.onStart()
         vm.getStateLiveData().observe(viewLifecycleOwner) {
-            binding.stateType.text = it.attributesDomain?.friendlyName
+            binding.stateType.text = it.attributes?.friendlyName
             binding.sensorResult.text = buildString {
                 append(it.state)
-                append(it.attributesDomain?.unitOfMeasurement)
+                append(it.attributes?.unitOfMeasurement)
             }
-            val libeDataSet = LineDataSet(list, it.attributesDomain?.friendlyName.toString())
+            val libeDataSet = LineDataSet(list, it.attributes?.friendlyName.toString())
             val listData = LineData(libeDataSet)
             binding.sensorChart.data = listData
         }

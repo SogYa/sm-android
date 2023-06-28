@@ -3,7 +3,7 @@ package com.sogya.data.database
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.sogya.data.models.ServerState
-import com.sogya.data.models.State
+import com.sogya.data.models.StateData
 
 data class StateAndServer(
     @Embedded val serverState: ServerState,
@@ -11,5 +11,5 @@ data class StateAndServer(
         parentColumn = "serverUri",
         entityColumn = "stateId"
     )
-    val states: List<State>
+    val stateData: List<StateData>
 )

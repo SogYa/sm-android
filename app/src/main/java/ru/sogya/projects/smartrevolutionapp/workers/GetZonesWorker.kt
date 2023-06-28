@@ -45,9 +45,9 @@ class GetZonesWorker @AssistedInject constructor(
                             val zoneDomain = ZoneDomain(
                                 it.entityId,
                                 baseUrl,
-                                it.attributesDomain?.friendlyName,
-                                it.attributesDomain?.latitude?.toDouble(),
-                                it.attributesDomain?.longitude?.toDouble()
+                                it.attributes?.friendlyName,
+                                it.attributes?.latitude?.toDouble(),
+                                it.attributes?.longitude?.toDouble()
                             )
 
                             insertZoneUseCase.invoke(zoneDomain)

@@ -51,7 +51,7 @@ class StartVM @Inject constructor(
                                             it.state,
                                             it.lastUpdated,
                                             it.lastChanged,
-                                            it.attributesDomain,
+                                            it.attributes,
                                             oldState.ownerId,
                                             oldState.groupId
                                         )

@@ -1,10 +1,10 @@
 package com.sogya.data.mappers.state.attributes
 
-import com.sogya.data.models.Attributes
+import com.sogya.data.models.AttributesData
 import com.sogya.domain.models.AttributesDomain
 
 class AttributeMapper(
-    private val attribute: Attributes?
+    private val attribute: AttributesData?
 ) {
     fun toAttributeDomain() = AttributesDomain(
         attribute?.nextDawn,
@@ -39,7 +39,7 @@ class AttributeMapper(
         attribute?.order,
         attribute?.auto,
         attribute?.hidden,
-        attribute?.viewOne,
+        attribute?.view,
         attribute?.name,
         attribute?.initial,
         attribute?.codeFormat,

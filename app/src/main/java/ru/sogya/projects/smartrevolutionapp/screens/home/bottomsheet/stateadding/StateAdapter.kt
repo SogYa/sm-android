@@ -34,7 +34,7 @@ class StateAdapter : RecyclerView.Adapter<StateAdapter.ViewHolder>() {
         if (checkedSet.contains(stateDomain)){
             holder.nameTextView.setTextColor(Color.parseColor("FF312EE9"))
         }
-        holder.nameTextView.text = stateDomain.attributesDomain!!.friendlyName
+        holder.nameTextView.text = stateDomain.attributes!!.friendlyName
         holder.idTextView.text = stateDomain.entityId
         holder.stateCountTextView.text = (position+1).toString()
         holder.itemView.setOnLongClickListener {

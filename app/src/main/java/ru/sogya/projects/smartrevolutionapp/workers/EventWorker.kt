@@ -8,7 +8,7 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.sogya.data.mappers.state.attributes.AttributeMapper
-import com.sogya.data.models.State
+import com.sogya.data.models.StateData
 import com.sogya.data.models.requests.AuthMessage
 import com.sogya.data.models.requests.EventSubscribe
 import com.sogya.domain.models.StateDomain
@@ -93,20 +93,20 @@ class EventWorker @AssistedInject constructor(
                         .toString()
                 val mJson = JsonParser.parseString(newStateJson)
 
-                val newStateData = Gson().fromJson(mJson, State::class.java)
+                val newStateDataData = Gson().fromJson(mJson, StateData::class.java)
                 Log.d(
                     "NewState",
-                    "${newStateData.entityId} changed with state${newStateData.state}"
+                    "${newStateDataData.entityId} changed with state${newStateDataData.state}"
                 )
-                if (checkStateExistUSeCase.invoke(newStateData.entityId)) {
-                    val oldState = getStateById.invoke(newStateData.entityId)
+                if (checkStateExistUSeCase.invoke(newStateDataData.entityId)) {
+                    val oldState = getStateById.invoke(newStateDataData.entityId)
 
                     val newState = StateDomain(
-                        newStateData.entityId,
-                        newStateData.state,
-                        newStateData.lastUpdated,
-                        newStateData.lastChanged,
-                        AttributeMapper(newStateData.attributes).toAttributeDomain(),
+                        newStateDataData.entityId,
+                        newStateDataData.state,
+                        newStateDataData.lastUpdated,
+                        newStateDataData.lastChanged,
+                        AttributeMapper(newStateDataData.attributes).toAttributeDomain(),
                         oldState.ownerId,
                         oldState.groupId
                     )
