@@ -38,12 +38,12 @@ class LocalDataBaseRepositoryImpl(context: Context) : LocalDataBaseRepository {
     }
 
     override fun getStateById(entityId: String): StateDomain {
-        return StatesMapper(db.stateDao().getState(entityId)).toStateDomain()
+        return db.stateDao().getState(entityId)
     }
 
     override fun getStateByIdLiveData(entityId: String): LiveData<StateDomain> {
         return db.stateDao().getStateLiveData(entityId).map {
-            StatesMapper(it).toStateDomain()
+           it
         }
     }
 

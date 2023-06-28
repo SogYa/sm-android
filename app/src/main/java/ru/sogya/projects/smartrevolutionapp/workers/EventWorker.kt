@@ -7,11 +7,9 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.google.gson.JsonParser
-import com.sogya.data.mappers.state.attributes.AttributeMapper
 import com.sogya.data.models.StateData
 import com.sogya.data.models.requests.AuthMessage
 import com.sogya.data.models.requests.EventSubscribe
-import com.sogya.domain.models.StateDomain
 import com.sogya.domain.repository.LocalDataBaseRepository
 import com.sogya.domain.repository.MessageListener
 import com.sogya.domain.repository.SharedPreferencesRepository
@@ -101,12 +99,12 @@ class EventWorker @AssistedInject constructor(
                 if (checkStateExistUSeCase.invoke(newStateDataData.entityId)) {
                     val oldState = getStateById.invoke(newStateDataData.entityId)
 
-                    val newState = StateDomain(
+                    val newState = StateData(
                         newStateDataData.entityId,
                         newStateDataData.state,
                         newStateDataData.lastUpdated,
                         newStateDataData.lastChanged,
-                        AttributeMapper(newStateDataData.attributes).toAttributeDomain(),
+                        newStateDataData.attributes,
                         oldState.ownerId,
                         oldState.groupId
                     )
