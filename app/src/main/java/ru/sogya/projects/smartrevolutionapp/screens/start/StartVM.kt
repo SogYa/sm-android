@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sogya.domain.models.StateDomain
+import androidx.lifecycle.viewModelScope
+import com.sogya.data.models.AttributesData
+import com.sogya.data.models.StateData
 import com.sogya.domain.usecases.databaseusecase.states.CheckStateExistUseCase
 import com.sogya.domain.usecases.databaseusecase.states.GetStateByIdUseCase
 import com.sogya.domain.usecases.databaseusecase.states.UpdateStateUseCase
@@ -13,9 +15,10 @@ import com.sogya.domain.usecases.sharedpreferences.GetBooleanPrefsUseCase
 import com.sogya.domain.usecases.sharedpreferences.GetStringPrefsUseCase
 import com.sogya.domain.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import ru.sogya.projects.smartrevolutionapp.R
 import javax.inject.Inject
 
@@ -23,7 +26,7 @@ import javax.inject.Inject
 class StartVM @Inject constructor(
     private val getBooleanPrefsUseCase: GetBooleanPrefsUseCase,
     private val getStringPrefsUseCase: GetStringPrefsUseCase,
-    getAllStatesUseCase: GetStatesUseCase,
+    private val getAllStatesUseCase: GetStatesUseCase,
     private val checkStateExistUseCase: CheckStateExistUseCase,
     private val updateStateUseCase: UpdateStateUseCase,
     private val getStateById: GetStateByIdUseCase,
@@ -38,33 +41,7 @@ class StartVM @Inject constructor(
                 } else {
                     val ownerId = getStringPrefsUseCase.invoke(Constants.SERVER_URI)
                     val token = getStringPrefsUseCase.invoke(Constants.AUTH_TOKEN)
-                    getAllStatesUseCase.invoke(ownerId, token)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(object : DisposableSingleObserver<List<StateDomain>>() {
-                            override fun onSuccess(t: List<StateDomain>) {
-                                t.forEach {
-                                    if (checkStateExistUseCase.invoke(it.entityId)) {
-                                        val oldState = getStateById.invoke(it.entityId)
-                                        val newState = StateDomain(
-                                            it.entityId,
-                                            it.state,
-                                            it.lastUpdated,
-                                            it.lastChanged,
-                                            it.attributesDomain,
-                                            oldState.ownerId,
-                                            oldState.groupId
-                                        )
-                                        updateStateUseCase.invoke(newState)
-                                    }
-                                }
-                            }
-
-                            override fun onError(e: Throwable) {
-                                Log.d("StatesError", e.message.toString())
-                            }
-                        })
-                    navigationLiveData.value = R.id.action_startFragment_to_homeFragment
+                    updateStatesAfterRestart(token, ownerId)
                 }
             } else {
                 navigationLiveData.value = R.id.action_startFragment_to_serversFragment
@@ -73,6 +50,33 @@ class StartVM @Inject constructor(
             navigationLiveData.value = R.id.action_startFragment_to_firebaseAuthFragment
         }
 
+    }
+
+    private fun updateStatesAfterRestart(token: String, ownerId: String) {
+        viewModelScope.launch {
+            getAllStatesUseCase.invoke(ownerId, token)
+                .flowOn(Dispatchers.IO)
+                .catch {
+                    Log.d("StatesError", it.message.toString())
+                }.collect {
+                    it.forEach {
+                        if (checkStateExistUseCase.invoke(it.entityId)) {
+                            val oldState = getStateById.invoke(it.entityId)
+                            val newState = StateData(
+                                it.entityId,
+                                it.state,
+                                it.lastUpdated,
+                                it.lastChanged,
+                                it.attributes as AttributesData?,
+                                oldState.ownerId,
+                                oldState.groupId
+                            )
+                            updateStateUseCase.invoke(newState)
+                        }
+                    }
+                    navigationLiveData.value = R.id.action_startFragment_to_homeFragment
+                }
+        }
     }
 
     fun getNavLiveData(): LiveData<Int> = navigationLiveData

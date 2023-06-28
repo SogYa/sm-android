@@ -1,15 +1,15 @@
 package com.sogya.data.mappers.state
 
-import com.sogya.data.models.State
+import com.sogya.data.models.StateData
 import com.sogya.domain.models.StateDomain
 
 class ListOfStatesMapper(
-    private val listState: List<State>
+    private val listStateData: List<StateData>
 ) {
     fun toDomainList(): List<StateDomain> {
         val list = arrayListOf<StateDomain>()
-        listState.forEach {
-            list.add(StatesMapper(it).toStateDomain())
+        listStateData.forEach {
+            list.add(it)
         }
         return list
     }

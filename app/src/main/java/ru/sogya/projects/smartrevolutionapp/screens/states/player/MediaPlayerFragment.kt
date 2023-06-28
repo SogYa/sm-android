@@ -46,14 +46,14 @@ class MediaPlayerFragment : BottomSheetDialogFragment(R.layout.fragment_state_pl
     override fun onResume() {
         super.onResume()
         vm.getStateLiveData().observe(viewLifecycleOwner) {
-            val volume = it.attributesDomain?.volumeLevel
-            isMuted = it.attributesDomain?.isVolumeMuted
+            val volume = it.attributes?.volumeLevel
+            isMuted = it.attributes?.isVolumeMuted
             mediaPlayerState = it.state
             binding.apply {
-                playerId.text = it.attributesDomain?.friendlyName
-                textViewTitle.text = it.attributesDomain?.mediaPlayerSongName
-                textViewArtist.text = it.attributesDomain?.mediaPlayerArtistName
-                Glide.with(requireContext()).load(it.attributesDomain?.entityPicture)
+                playerId.text = it.attributes?.friendlyName
+                textViewTitle.text = it.attributes?.mediaPlayerSongName
+                textViewArtist.text = it.attributes?.mediaPlayerArtistName
+                Glide.with(requireContext()).load(it.attributes?.entityPicture)
                     .into(imageViewMediPicture)
                 when (mediaPlayerState) {
                     MEDIA_PAUSED -> imageButtonPlay.setImageResource(R.drawable.baseline_play_arrow_24)
@@ -64,8 +64,8 @@ class MediaPlayerFragment : BottomSheetDialogFragment(R.layout.fragment_state_pl
                     true -> buttonMute.setImageResource(R.drawable.baseline_volume_off_24)
                     else -> buttonMute.setImageResource(R.drawable.baseline_volume_mute_24)
                 }
-                durationProgressBar.max = it.attributesDomain?.mediaDuration!!.toInt()
-                durationProgressBar.progress = it.attributesDomain?.mediaPosition!!.toInt()
+                durationProgressBar.max = it.attributes?.mediaDuration!!.toInt()
+                durationProgressBar.progress = it.attributes?.mediaPosition!!.toInt()
                 progressBarVolume.progress = (volume!! * 100).toInt()
                 progressBarVolume.max = 100
             }

@@ -1,24 +1,27 @@
 package com.sogya.domain.repository
 
-import com.sogya.domain.models.*
-import io.reactivex.Single
-import java.sql.Timestamp
+import com.sogya.domain.models.DeviceDataDomain
+import com.sogya.domain.models.IntegrationResponseDomain
+import com.sogya.domain.models.MessageDomain
+import com.sogya.domain.models.StateDomain
+import com.sogya.domain.models.TokenInfo
+import kotlinx.coroutines.flow.Flow
 
 interface NetworkRepository {
-    fun getMessage(baseUri: String, token: String): Single<Message>
-    fun getToken(baseUri: String, authCode: String): Single<TokenInfo>
-    fun getStates(baseUri: String, token: String): Single<List<StateDomain>>
-    fun getStateById(baseUri: String, token: String, entityId: String): Single<StateDomain>
-    fun sendAppIntegration(
+    suspend fun getMessage(baseUri: String, token: String): Flow<MessageDomain>
+    suspend fun getToken(baseUri: String, authCode: String): Flow<TokenInfo>
+    suspend fun getStates(baseUri: String, token: String): Flow<List<StateDomain>>
+    suspend fun getStateById(baseUri: String, token: String, entityId: String): Flow<StateDomain>
+    suspend fun sendAppIntegration(
         baseUri: String,
         token: String,
         deviceData: DeviceDataDomain
-    ): Single<IntegrationResponseDomain>
+    ): Flow<IntegrationResponseDomain>
 
-    fun getStateHistory(
+    suspend fun getStateHistory(
         baseUri: String,
         token: String,
         timestamp: String,
         entityId: String
-    ): Single<List<StateDomain>>
+    ): Flow<List<StateDomain>>
 }

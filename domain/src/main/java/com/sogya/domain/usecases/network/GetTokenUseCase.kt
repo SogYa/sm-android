@@ -6,5 +6,5 @@ class GetTokenUseCase(
     private val repository: NetworkRepository
 ) {
 
-    operator fun invoke(baseUri: String, authCode: String) = repository.getToken(baseUri, authCode)
+    suspend operator fun invoke(baseUri: String, authCode: String) = repository.getToken(baseUri, authCode)
 }

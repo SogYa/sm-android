@@ -179,9 +179,9 @@ class DashboardAdapter(
             is SensorWeatherViewHolder -> {
                 holder.textViewState.text = buildString {
                     append(stateDomain.state)
-                    append(stateDomain.attributesDomain?.unitOfMeasurement)
+                    append(stateDomain.attributes?.unitOfMeasurement)
                 }
-                when (stateDomain.attributesDomain?.deviceClass) {
+                when (stateDomain.attributes?.deviceClass) {
                     "temperature" -> {
                         holder.iconView.setImageResource(R.drawable.ic_thermometer)
                     }
@@ -189,8 +189,11 @@ class DashboardAdapter(
                     "humidity" -> {
                         holder.iconView.setImageResource(R.drawable.ic_humidity)
                     }
+                    else ->{
+                        holder.iconView.setImageResource(R.drawable.ic_thermometer)
+                    }
                 }
-                holder.texViewLabel.text = stateDomain.attributesDomain?.friendlyName
+                holder.texViewLabel.text = stateDomain.attributes?.friendlyName
             }
 
             is SunViewHolder -> {
@@ -201,16 +204,16 @@ class DashboardAdapter(
                     holder.iconView.setImageResource(R.drawable.ic_moon)
                     holder.textViewState.text = "За горизонтом"
                 }
-                holder.texViewLabel.text = stateDomain.attributesDomain?.friendlyName
+                holder.texViewLabel.text = stateDomain.attributes?.friendlyName
             }
 
             is UserViewHolder -> {
-                holder.texViewLabel.text = stateDomain.attributesDomain?.friendlyName
+                holder.texViewLabel.text = stateDomain.attributes?.friendlyName
                 holder.iconView.setImageResource(R.drawable.ic_person)
             }
 
             is SwitchViewHolder -> {
-                holder.texViewLabel.text = stateDomain.attributesDomain?.friendlyName
+                holder.texViewLabel.text = stateDomain.attributes?.friendlyName
                 if (stateDomain.state == "on") {
                     holder.switchState.isChecked = true
                     holder.textViewState.text = "Включено"
@@ -228,7 +231,7 @@ class DashboardAdapter(
             }
 
             is MediaPLayerViewHolder -> {
-                holder.textViewId.text = stateDomain.attributesDomain?.friendlyName
+                holder.textViewId.text = stateDomain.attributes?.friendlyName
                 holder.buttonPowerOn.setOnClickListener {
                     if (stateDomain.state == "off") {
                         onStateClickListener?.onClickWithCommand(stateDomain.entityId, "turn_on")
@@ -241,14 +244,14 @@ class DashboardAdapter(
             }
 
             is CameraViewHolder -> {
-                holder.textViewName.text = stateDomain.attributesDomain?.friendlyName
+                holder.textViewName.text = stateDomain.attributes?.friendlyName
 
             }
 
             is CoverViewHolder -> {
                 holder.apply {
-                    nameTextView.text = stateDomain.attributesDomain?.friendlyName
-                    coverSlider.value = stateDomain.attributesDomain?.currentPosition?.toFloat()!!
+                    nameTextView.text = stateDomain.attributes?.friendlyName
+                    coverSlider.value = stateDomain.attributes?.currentPosition?.toFloat()!!
                     coverSlider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
                         override fun onStartTrackingTouch(slider: Slider) {
                             // Responds to when slider's touch event is being started
@@ -293,13 +296,13 @@ class DashboardAdapter(
             }
 
             is BinarySensorViewHolder -> {
-                holder.nameTextView.text = stateDomain.attributesDomain!!.friendlyName
+                holder.nameTextView.text = stateDomain.attributes!!.friendlyName
                 holder.stateTV.text = stateDomain.state
                 holder.idTextView.text = stateDomain.lastChanged
             }
 
             is ViewHolder -> {
-                holder.nameTextView.text = stateDomain.attributesDomain!!.friendlyName
+                holder.nameTextView.text = stateDomain.attributes!!.friendlyName
                 holder.idTextView.text = stateDomain.lastChanged
             }
         }

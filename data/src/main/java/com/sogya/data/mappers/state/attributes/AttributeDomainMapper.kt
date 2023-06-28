@@ -1,12 +1,12 @@
 package com.sogya.data.mappers.state.attributes
 
-import com.sogya.data.models.Attributes
+import com.sogya.data.models.AttributesData
 import com.sogya.domain.models.AttributesDomain
 
 class AttributeDomainMapper(
     private val attribute: AttributesDomain?
 ) {
-    fun toAttributeData() = Attributes(
+    fun toAttributeData() = AttributesData(
         attribute?.nextDawn,
         attribute?.nextDusk,
         attribute?.nextMidnight,
