@@ -2,200 +2,140 @@ package com.sogya.data.models
 
 import android.net.Uri
 import com.google.gson.annotations.SerializedName
+import com.sogya.domain.models.AttributesDomain
 import java.math.BigDecimal
 
-data class Attributes(
-
+data class AttributesData(
     //    public String entityId;
     @SerializedName("next_dawn")
-    var nextDawn: String? = null,
-
+    override var nextDawn: String? = null,
     @SerializedName("next_dusk")
-    var nextDusk: String? = null,
-
+    override var nextDusk: String? = null,
     @SerializedName("next_midnight")
-    var nextMidnight: String? = null,
-
+    override var nextMidnight: String? = null,
     @SerializedName("next_noon")
-    var nextNoon: String? = null,
-
+    override var nextNoon: String? = null,
     @SerializedName("next_rising")
-    var nextRising: String? = null,
-
+    override var nextRising: String? = null,
     @SerializedName("next_setting")
-    var nextSetting: String? = null,
-
+    override var nextSetting: String? = null,
     @SerializedName("speed_list")
-    var speedList: ArrayList<String>? = null,
-
+    override var speedList: ArrayList<String>? = null,
     @SerializedName("fan_speed_list")
-    var fanSpeedList: ArrayList<String>? = null,
-
+    override var fanSpeedList: ArrayList<String>? = null,
     @SerializedName("assumed_state")
-    var assumedState: String? = null,
-
+    override var assumedState: String? = null,
     @SerializedName("friendly_name")
-    var friendlyName: String? = null,
-
+    override var friendlyName: String? = null,
     @SerializedName("app_name")
-    var appName: String? = null,
-
+    override var appName: String? = null,
     @SerializedName("is_volume_muted")
-    var isVolumeMuted: Boolean? = null,
-
+    override var isVolumeMuted: Boolean? = null,
     @SerializedName("volume_level")
-    var volumeLevel: Double? = null,
-
+    override var volumeLevel: Double? = null,
     @SerializedName("entity_picture")
-    var entityPicture: String? = null,
-
+    override var entityPicture: String? = null,
     @SerializedName("icon")
-    var icon: String? = null,
-
+    override var icon: String? = null,
     @SerializedName("title")
-    var title: String? = null,
-
+    override var title: String? = null,
     @SerializedName("year")
-    var year: Int? = null,
-
+    override var year: Int? = null,
     @SerializedName("month")
-    var month: Int? = null,
-
+    override var month: Int? = null,
     @SerializedName("day")
-    var day: Int? = null,
-
+    override var day: Int? = null,
     @SerializedName("hour")
-    var hour: Int? = null,
-
+    override var hour: Int? = null,
     @SerializedName("minute")
-    var minute: Int? = null,
-
+    override var minute: Int? = null,
     @SerializedName("timestamp")
-    var timestamp: String? = null,
-
+    override var timestamp: String? = null,
     @SerializedName("has_date")
-    var hasDate: Boolean? = null,
-
+    override var hasDate: Boolean? = null,
     @SerializedName("has_time")
-    var hasTime: Boolean? = null,
-
+    override var hasTime: Boolean? = null,
     @SerializedName("device_class")
-    var deviceClass: String? = null,
-
+    override var deviceClass: String? = null,
     @SerializedName("brightness")
-    var brightness: BigDecimal? = null,
-
+    override var brightness: BigDecimal? = null,
     @SerializedName("color_temp")
-    var colorTemp: BigDecimal? = null,
-
+    override var colorTemp: BigDecimal? = null,
     @SerializedName("rgb_color")
-    var rgbColors: ArrayList<BigDecimal>? = null,
-
+    override var rgbColors: ArrayList<BigDecimal>? = null,
     @SerializedName("options")
-    var options: ArrayList<String>? = null,
-
+    override var options: ArrayList<String>? = null,
     @SerializedName("order")
-    var order: Int? = null,
-
+    override var order: Int? = null,
     @SerializedName("auto")
-    var auto: Boolean? = null,
-
+    override var auto: Boolean? = null,
     @SerializedName("hidden")
-    var hidden: Boolean? = null,
-
+    override var hidden: Boolean? = null,
     @SerializedName("view")
-    var viewOne: Boolean? = null,
-
+    override var view: Boolean? = null,
     @SerializedName("name")
-    var name: String? = null,
-
+    override var name: String? = null,
     @SerializedName("initial")
-    var initial: Int? = null,
-
+    override var initial: Int? = null,
     @SerializedName("code_format")
-    var codeFormat: String? = null,
-
+    override var codeFormat: String? = null,
     @SerializedName("pattern")
-    var pattern: String? = null,
-
+    override var pattern: String? = null,
     @SerializedName("max")
-    var max: BigDecimal? = null,
-
+    override var max: BigDecimal? = null,
     @SerializedName("min")
-    var min: BigDecimal? = null,
-
+    override var min: BigDecimal? = null,
     @SerializedName("step")
-    var step: BigDecimal? = null,
-
+    override var step: BigDecimal? = null,
     @SerializedName("current_temperature")
-    var currentTemperature: BigDecimal? = null,
-
+    override var currentTemperature: BigDecimal? = null,
     @SerializedName("max_temp")
-    var maxTemp: BigDecimal? = null,
-
+    override var maxTemp: BigDecimal? = null,
     @SerializedName("min_temp")
-    var minTemp: BigDecimal? = null,
-
+    override var minTemp: BigDecimal? = null,
     @SerializedName("temperature")
-    var temperature: String? = null,
-
+    override var temperature: String? = null,
     @SerializedName("operation_mode")
-    var operationMode: String? = null,
-
+    override var operationMode: String? = null,
     @SerializedName("activity")
-    var activity: String? = null,
-
+    override var activity: String? = null,
     @SerializedName("provider")
-    var provider: String? = null,
-
+    override var provider: String? = null,
     @SerializedName(
         "source_type"
     )
-    var sourceType: String? = null,
-
+    override var sourceType: String? = null,
     //Can be "High"(String) or Number
     @SerializedName("battery")
-    var battery: String? = null,
-
+    override var battery: String? = null,
     @SerializedName("gps_accuracy")
-    var gpsAccuracy: BigDecimal? = null,
-
+    override var gpsAccuracy: BigDecimal? = null,
     @SerializedName("altitude")
-    var altitude: BigDecimal? = null,
-
+    override var altitude: BigDecimal? = null,
     @SerializedName("latitude")
-    var latitude: BigDecimal? = null,
-
+    override var latitude: BigDecimal? = null,
     @SerializedName("longitude")
-    var longitude: BigDecimal? = null,
-
+    override var longitude: BigDecimal? = null,
     @SerializedName("radius")
-    var radius: BigDecimal? = null,
-
+    override var radius: BigDecimal? = null,
     //https://home-assistant.io/blog/2017/08/12/release-51/#release-0512---august-14
     @SerializedName("release_notes")
-    var releaseNotes: Boolean? = null,
-
+    override var releaseNotes: Boolean? = null,
     @SerializedName("unit_of_measurement")
-    var unitOfMeasurement: String? = null,
-
+    override var unitOfMeasurement: String? = null,
     //Media player
     @SerializedName("media_title")
-    var mediaPlayerSongName: String? = null,
-
+    override var mediaPlayerSongName: String? = null,
     @SerializedName("media_artist")
-    var mediaPlayerArtistName: String? = null,
-
+    override var mediaPlayerArtistName: String? = null,
     @SerializedName("media_duration")
-    var mediaDuration: Double? = 0.0,
-
+    override var mediaDuration: Double? = 0.0,
     @SerializedName("media_position")
-    var mediaPosition: Double? = 0.0,
-
+    override var mediaPosition: Double? = 0.0,
     //Cover
     @SerializedName("current_position")
-    var currentPosition: Int? = 0
-) {
+    override var currentPosition: Int? = 0
+) : AttributesDomain {
     val numberOfDecimalPlaces: Int
         get() {
             val string = step!!.stripTrailingZeros().toPlainString()
@@ -215,6 +155,6 @@ data class Attributes(
     }
 
     fun isView(): Boolean {
-        return viewOne != null && viewOne as Boolean
+        return view != null && view as Boolean
     }
 }
