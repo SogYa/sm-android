@@ -9,7 +9,7 @@ class ListOfStatesMapper(
     fun toDomainList(): List<StateDomain> {
         val list = arrayListOf<StateDomain>()
         listStateData.forEach {
-            list.add(StatesMapper(it).toStateDomain())
+            list.add(it)
         }
         return list
     }

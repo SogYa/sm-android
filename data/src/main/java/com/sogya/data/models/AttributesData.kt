@@ -153,8 +153,4 @@ data class AttributesData(
             null
         } else BigDecimal(temperature)
     }
-
-    fun isView(): Boolean {
-        return view != null && view as Boolean
-    }
 }

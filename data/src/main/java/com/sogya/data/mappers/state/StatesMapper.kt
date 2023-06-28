@@ -6,14 +6,4 @@ import com.sogya.domain.models.StateDomain
 
 class StatesMapper(
     private val stateData: StateData
-) {
-    fun toStateDomain(): StateDomain = StateDomain(
-        stateData.entityId,
-        stateData.state,
-        stateData.lastUpdated,
-        stateData.lastChanged,
-        AttributeMapper(stateData.attributes).toAttributeDomain(),
-        stateData.ownerId,
-        stateData.groupId
-    )
-}
+)
