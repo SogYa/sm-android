@@ -5,6 +5,6 @@ import com.sogya.domain.repository.NetworkRepository
 class GetStateByIdUseCase(
     private val repository: NetworkRepository
 ) {
-    fun invoke(baseUri: String, token: String, entityId: String) =
+    suspend fun invoke(baseUri: String, token: String, entityId: String) =
         repository.getStateById(baseUri, token, entityId)
 }
