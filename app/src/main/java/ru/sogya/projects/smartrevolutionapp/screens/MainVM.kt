@@ -13,18 +13,18 @@ import javax.inject.Inject
 class MainVM @Inject constructor(
     private val closeWebSocketUseCase: CloseUseCase,
     private val updatePrefsUseCase: UpdatePrefsUseCase,
-    getNetworkStatesUseCase: GetNetworkStateUseCase
+    private val getNetworkStatesUseCase: GetNetworkStateUseCase
 ) : ViewModel() {
-    private val networkStateLiveData: LiveData<Boolean> = getNetworkStatesUseCase()
-
-    fun getNetworkStateLiveData() = networkStateLiveData
+    fun getNetworkStateLiveData(): LiveData<Boolean> {
+        return getNetworkStatesUseCase()
+    }
 
     fun logOut() {
-        updatePrefsUseCase.invoke(Constants.AUTH_TOKEN, "")
-        updatePrefsUseCase.invoke(Constants.SERVER_URI, "")
-        updatePrefsUseCase.invoke(Constants.TEST_MODE, false)
-        updatePrefsUseCase.invoke(Constants.SERVER_NAME, "")
-        updatePrefsUseCase.invoke(Constants.PREFS_APPLOCK_PINCODE, "")
-        closeWebSocketUseCase.invoke()
+        updatePrefsUseCase(Constants.AUTH_TOKEN, "")
+        updatePrefsUseCase(Constants.SERVER_URI, "")
+        updatePrefsUseCase(Constants.TEST_MODE, false)
+        updatePrefsUseCase(Constants.SERVER_NAME, "")
+        updatePrefsUseCase(Constants.PREFS_APPLOCK_PINCODE, "")
+        closeWebSocketUseCase()
     }
 }
