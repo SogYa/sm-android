@@ -4,5 +4,5 @@ import com.sogya.domain.repository.SharedPreferencesRepository
 
 class UpdatePrefsUseCase(private val repository: SharedPreferencesRepository) {
 
-    fun invoke(key: String, value: Any) = repository.updatePrefs(key, value)
+    operator fun invoke(key: String, value: Any) = repository.updatePrefs(key, value)
 }
